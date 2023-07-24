@@ -1,0 +1,48 @@
+# do not import all endpoints into this module because that uses a lot of memory and stack frames
+# if you need the ability to import all endpoints from this module, import them with
+# from hyperline_client.apis.path_to_api import path_to_api
+
+import enum
+
+
+class PathValues(str, enum.Enum):
+    API_KEYS = "/api_keys"
+    DATABASE_SCHEMA = "/database/schema"
+    DATASETS = "/datasets"
+    DATASETS_METADATA = "/datasets/metadata"
+    DATASETS_PREVIEW = "/datasets/preview"
+    DATASETS_EXPLORER = "/datasets/explorer"
+    DATASETS_EXPLORER_DETAILS = "/datasets/explorer/details"
+    FILES = "/files"
+    FILES_METADATA = "/files/metadata"
+    FILES_PREVIEW = "/files/preview"
+    FILES_CONTENT = "/files/content"
+    FILES_SAMPLES = "/files/samples"
+    JOBS = "/jobs"
+    PIPELINE_BACKFILL = "/pipeline/backfill"
+    PIPELINE_EDIT = "/pipeline/edit"
+    PIPELINES = "/pipelines"
+    PIPELINES_PIPELINE_NAME = "/pipelines/{pipeline_name}"
+    PIPELINES_PIPELINE_NAME_DELETE = "/pipelines/{pipeline_name}/delete"
+    PIPELINES_PIPELINE_NAME_DEPLOY = "/pipelines/{pipeline_name}/deploy"
+    PIPELINES_PIPELINE_NAME_PAUSE = "/pipelines/{pipeline_name}/pause"
+    PIPELINES_PIPELINE_NAME_TRIGGER = "/pipelines/{pipeline_name}/trigger"
+    PIPELINES_PIPELINE_NAME_RUNS = "/pipelines/{pipeline_name}/runs"
+    PIPELINES_PIPELINE_NAME_RUNS_RUN_ID = "/pipelines/{pipeline_name}/runs/{run_id}"
+    PIPELINES_PIPELINE_NAME_RUNS_RUN_ID_STAGES = "/pipelines/{pipeline_name}/runs/{run_id}/stages"
+    PIPELINES_PIPELINE_NAME_RUNS_RUN_ID_STAGES_STAGE_NAME_LOGS_TRY_NUMBER = "/pipelines/{pipeline_name}/runs/{run_id}/stages/{stage_name}/logs/{try_number}"
+    SPARK = "/spark"
+    SPARK_JOB_ID = "/spark/{job_id}"
+    SPARK_JOB_ID_CANCEL = "/spark/{job_id}/cancel"
+    SPARK_JOB_ID_OUTPUT = "/spark/{job_id}/output"
+    SPARK_JOB_ID_SAVE = "/spark/{job_id}/save"
+    SPARK_JOBS_SAVED = "/spark/jobs/saved"
+    SPARKSQL = "/sparksql"
+    SPARKSQL_EDIT = "/sparksql/edit"
+    SQL = "/sql"
+    SQL_EDIT = "/sql/edit"
+    SQL_JOBS = "/sql/jobs"
+    SQL_JOBS_JOB_ID_STATUS = "/sql/jobs/{job_id}/status"
+    SQL_JOBS_JOB_ID_OUTPUT = "/sql/jobs/{job_id}/output"
+    SQL_QUERIES = "/sql/queries"
+    USER = "/user"
