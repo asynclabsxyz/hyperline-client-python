@@ -81,7 +81,6 @@ request_path_try_number = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = File

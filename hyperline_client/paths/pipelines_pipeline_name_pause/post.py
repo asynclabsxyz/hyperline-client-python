@@ -56,7 +56,6 @@ request_path_pipeline_name = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 

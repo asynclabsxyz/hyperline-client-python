@@ -42,7 +42,6 @@ request_body_file = api_client.RequestBody(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 

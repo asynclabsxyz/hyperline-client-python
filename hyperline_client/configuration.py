@@ -359,14 +359,6 @@ class Configuration(object):
             auth['bearerAuth'] = {
                 'type': 'bearer',
                 'in': 'header',
-                'format': 'JWT',
-                'key': 'Authorization',
-                'value': 'Bearer ' + self.access_token
-            }
-        if self.access_token is not None:
-            auth['oAuthNoScopes'] = {
-                'type': 'oauth2',
-                'in': 'header',
                 'key': 'Authorization',
                 'value': 'Bearer ' + self.access_token
             }

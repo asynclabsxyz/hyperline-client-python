@@ -31,7 +31,6 @@ from hyperline_client.model.pipeline_metadata_collection import PipelineMetadata
 from . import path
 
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = PipelineMetadataCollection

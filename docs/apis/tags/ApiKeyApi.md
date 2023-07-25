@@ -18,8 +18,7 @@ Create an API key.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import api_key_api
@@ -37,13 +36,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -99,7 +92,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -113,8 +106,7 @@ Get an API key info.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import api_key_api
@@ -132,13 +124,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -194,7 +180,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

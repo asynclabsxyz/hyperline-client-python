@@ -43,7 +43,6 @@ request_body_file_create_request = api_client.RequestBody(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = File

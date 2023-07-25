@@ -66,7 +66,6 @@ request_query_service = api_client.QueryParameter(
     explode=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = schemas.DictSchema

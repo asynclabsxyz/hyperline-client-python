@@ -26,8 +26,7 @@ Cancel a Spark job.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -45,13 +44,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -147,7 +140,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -161,8 +154,7 @@ Check the status of a Spark job.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -180,13 +172,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -282,7 +268,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -296,8 +282,7 @@ Get output data from a Spark job.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -315,13 +300,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -417,7 +396,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -431,8 +410,7 @@ Get user Spark SQL query cache.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -450,13 +428,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -512,7 +484,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -526,8 +498,7 @@ List Spark jobs.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -545,13 +516,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -607,7 +572,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -621,8 +586,7 @@ List saved spark jobs.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -640,13 +604,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -702,7 +660,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -716,8 +674,7 @@ Save a spark job to pipeline jobs directory.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -734,13 +691,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -815,7 +766,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -829,8 +780,7 @@ Submit a Spark job.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -849,13 +799,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -949,7 +893,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -963,8 +907,7 @@ Submit a Spark job to run a sql query inside a python spark template.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -983,13 +926,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -1071,7 +1008,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -1085,8 +1022,7 @@ Update user Spark SQL query cache.
 
 ### Example
 
-* OAuth Authentication (oAuthNoScopes):
-* Bearer (JWT) Authentication (bearerAuth):
+* Bearer Authentication (bearerAuth):
 ```python
 import hyperline_client
 from hyperline_client.apis.tags import spark_api
@@ -1104,13 +1040,7 @@ configuration = hyperline_client.Configuration(
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
 
-# Configure OAuth2 access token for authorization: oAuthNoScopes
-configuration = hyperline_client.Configuration(
-    host = "/api/v1beta",
-    access_token = 'YOUR_ACCESS_TOKEN'
-)
-
-# Configure Bearer authorization (JWT): bearerAuth
+# Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
     access_token = 'YOUR_BEARER_TOKEN'
 )
@@ -1182,7 +1112,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
+[bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

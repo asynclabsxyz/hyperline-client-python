@@ -56,7 +56,6 @@ request_path_job_id = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 

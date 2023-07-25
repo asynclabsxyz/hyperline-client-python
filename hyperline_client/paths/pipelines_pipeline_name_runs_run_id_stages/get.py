@@ -65,7 +65,6 @@ request_path_run_id = api_client.PathParameter(
     required=True,
 )
 _auth = [
-    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = StageInstanceCollection
