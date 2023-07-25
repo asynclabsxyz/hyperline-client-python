@@ -12,9 +12,9 @@
 
 import unittest
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.model.pipeline_metadata_collection import PipelineMetadataCollection
-from hyperline_hyperline_client.client import configuration
+import hyperline_client
+from hyperline_client.model.pipeline_metadata_collection import PipelineMetadataCollection
+from hyperline_client import configuration
 
 
 class TestPipelineMetadataCollection(unittest.TestCase):

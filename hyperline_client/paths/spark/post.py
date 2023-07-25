@@ -43,6 +43,7 @@ request_body_spark_job_submit_request = api_client.RequestBody(
     required=True,
 )
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SparkJobStatus

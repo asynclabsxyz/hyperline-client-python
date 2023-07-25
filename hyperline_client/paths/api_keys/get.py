@@ -31,6 +31,7 @@ from hyperline_client.model.api_key import ApiKey
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = ApiKey

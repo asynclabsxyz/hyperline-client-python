@@ -31,6 +31,7 @@ from hyperline_client.model.error import Error
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = DatasetCollection

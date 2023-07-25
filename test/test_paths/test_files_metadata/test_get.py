@@ -11,9 +11,9 @@ from unittest.mock import patch
 
 import urllib3
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.paths.files_metadata import get  # noqa: E501
-from hyperline_hyperline_client.client import configuration, schemas, api_hyperline_client.client
+import hyperline_client
+from hyperline_client.paths.files_metadata import get  # noqa: E501
+from hyperline_client import configuration, schemas, api_client
 
 from .. import ApiTestMixin
 
@@ -26,8 +26,8 @@ class TestFilesMetadata(ApiTestMixin, unittest.TestCase):
     _configuration = configuration.Configuration()
 
     def setUp(self):
-        used_api_hyperline_client.client = api_hyperline_client.client.ApiClient(configuration=self._configuration)
-        self.api = get.ApiForget(api_hyperline_client.client=used_api_hyperline_client.client)  # noqa: E501
+        used_api_client = api_client.ApiClient(configuration=self._configuration)
+        self.api = get.ApiForget(api_client=used_api_client)  # noqa: E501
 
     def tearDown(self):
         pass

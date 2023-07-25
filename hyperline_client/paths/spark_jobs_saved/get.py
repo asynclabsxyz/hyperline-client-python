@@ -31,6 +31,7 @@ from hyperline_client.model.saved_job_collection import SavedJobCollection
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SavedJobCollection

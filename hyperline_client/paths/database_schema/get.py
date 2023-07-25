@@ -31,6 +31,7 @@ from hyperline_client.model.sql_schema import SqlSchema
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SqlSchema

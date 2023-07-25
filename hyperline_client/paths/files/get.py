@@ -57,6 +57,7 @@ request_query_folder = api_client.QueryParameter(
     explode=True,
 )
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = FileCollection

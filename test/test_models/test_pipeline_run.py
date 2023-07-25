@@ -12,9 +12,9 @@
 
 import unittest
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.model.pipeline_run import PipelineRun
-from hyperline_hyperline_client.client import configuration
+import hyperline_client
+from hyperline_client.model.pipeline_run import PipelineRun
+from hyperline_client import configuration
 
 
 class TestPipelineRun(unittest.TestCase):

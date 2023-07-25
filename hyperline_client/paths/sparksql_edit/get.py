@@ -31,6 +31,7 @@ from hyperline_client.model.file import File
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = File

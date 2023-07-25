@@ -31,6 +31,7 @@ from hyperline_client.model.spark_job_collection import SparkJobCollection
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SparkJobCollection

@@ -110,9 +110,9 @@ Note: response header deserialization has not yet been added
 If the python package is hosted on a repository, you can install directly using:
 
 ```sh
-pip install git+https://github.com/asynclabsxyz/hyperline-developers/hyperline-client-python.git
+pip install git+https://github.com/asynclabsxyz/hyperline-client-python.git
 ```
-(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/asynclabsxyz/hyperline-developers/hyperline-client-python.git`)
+(you may need to run `pip` with root permission: `sudo pip install git+https://github.com/asynclabsxyz/hyperline-client-python.git`)
 
 Then import the package:
 ```python
@@ -156,6 +156,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -279,6 +285,14 @@ Authentication schemes defined for the API:
 ### bearerAuth
 
 - **Type**: Bearer authentication (JWT)
+
+<a id="oAuthNoScopes"></a>
+### oAuthNoScopes
+
+- **Type**: OAuth
+- **Flow**: implicit
+- **Authorization URL**: https://dev-try1syxi3bkh76hu.us.auth0.com/oauth/authorize
+- **Scopes**: N/A
 
 
 ## Author

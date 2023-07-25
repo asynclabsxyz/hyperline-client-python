@@ -31,6 +31,7 @@ from hyperline_client.model.sql_query_collection import SqlQueryCollection
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SqlQueryCollection

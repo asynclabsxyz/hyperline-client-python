@@ -12,9 +12,9 @@
 
 import unittest
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.model.explorer_view_dataset_collection import ExplorerViewDatasetCollection
-from hyperline_hyperline_client.client import configuration
+import hyperline_client
+from hyperline_client.model.explorer_view_dataset_collection import ExplorerViewDatasetCollection
+from hyperline_client import configuration
 
 
 class TestExplorerViewDatasetCollection(unittest.TestCase):

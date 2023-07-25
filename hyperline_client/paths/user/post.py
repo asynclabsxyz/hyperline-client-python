@@ -42,6 +42,7 @@ request_body_user = api_client.RequestBody(
     required=True,
 )
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = User

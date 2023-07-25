@@ -31,6 +31,7 @@ from hyperline_client.model.explorer_view_dataset_collection import ExplorerView
 from . import path
 
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = ExplorerViewDatasetCollection

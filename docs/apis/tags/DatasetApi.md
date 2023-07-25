@@ -21,6 +21,7 @@ Get dataset metadata.
 
 ### Example
 
+* OAuth Authentication (oAuthNoScopes):
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 import hyperline_client
@@ -37,6 +38,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -131,7 +138,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../../../README.md#bearerAuth)
+[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -145,6 +152,7 @@ Get dataset preview.
 
 ### Example
 
+* OAuth Authentication (oAuthNoScopes):
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 import hyperline_client
@@ -162,6 +170,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -255,7 +269,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../../../README.md#bearerAuth)
+[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -269,6 +283,7 @@ List datasets
 
 ### Example
 
+* OAuth Authentication (oAuthNoScopes):
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 import hyperline_client
@@ -286,6 +301,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -343,7 +364,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../../../README.md#bearerAuth)
+[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -357,6 +378,7 @@ List datasets for web explorer.
 
 ### Example
 
+* OAuth Authentication (oAuthNoScopes):
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 import hyperline_client
@@ -374,6 +396,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -431,7 +459,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../../../README.md#bearerAuth)
+[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 
@@ -445,6 +473,7 @@ List datasets details for web explorer.
 
 ### Example
 
+* OAuth Authentication (oAuthNoScopes):
 * Bearer (JWT) Authentication (bearerAuth):
 ```python
 import hyperline_client
@@ -462,6 +491,12 @@ configuration = hyperline_client.Configuration(
 # in accordance with the API server security policy.
 # Examples for each auth method are provided below, use the example that
 # satisfies your auth use case.
+
+# Configure OAuth2 access token for authorization: oAuthNoScopes
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta",
+    access_token = 'YOUR_ACCESS_TOKEN'
+)
 
 # Configure Bearer authorization (JWT): bearerAuth
 configuration = hyperline_client.Configuration(
@@ -546,7 +581,7 @@ Type | Description  | Notes
 
 ### Authorization
 
-[bearerAuth](../../../README.md#bearerAuth)
+[oAuthNoScopes](../../../README.md#oAuthNoScopes), [bearerAuth](../../../README.md#bearerAuth)
 
 [[Back to top]](#__pageTop) [[Back to API list]](../../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../../README.md#documentation-for-models) [[Back to README]](../../../README.md)
 

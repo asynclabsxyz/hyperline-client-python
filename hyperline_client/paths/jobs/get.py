@@ -106,6 +106,7 @@ request_query_limit = api_client.QueryParameter(
     explode=True,
 )
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = JobCollection

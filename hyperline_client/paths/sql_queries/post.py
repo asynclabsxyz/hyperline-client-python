@@ -42,6 +42,7 @@ request_body_sql_query = api_client.RequestBody(
     required=True,
 )
 _auth = [
+    'oAuthNoScopes',
     'bearerAuth',
 ]
 SchemaFor200ResponseBodyApplicationJson = SqlQuery

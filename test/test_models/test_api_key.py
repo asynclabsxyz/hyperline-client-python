@@ -12,9 +12,9 @@
 
 import unittest
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.model.api_key import ApiKey
-from hyperline_hyperline_client.client import configuration
+import hyperline_client
+from hyperline_client.model.api_key import ApiKey
+from hyperline_client import configuration
 
 
 class TestApiKey(unittest.TestCase):

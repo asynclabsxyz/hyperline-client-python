@@ -12,9 +12,9 @@
 
 import unittest
 
-import hyperline_hyperline_client.client
-from hyperline_hyperline_client.client.model.sql_query_collection import SqlQueryCollection
-from hyperline_hyperline_client.client import configuration
+import hyperline_client
+from hyperline_client.model.sql_query_collection import SqlQueryCollection
+from hyperline_client import configuration
 
 
 class TestSqlQueryCollection(unittest.TestCase):
