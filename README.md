@@ -144,6 +144,7 @@ import hyperline_client
 from pprint import pprint
 from hyperline_client.apis.tags import api_key_api
 from hyperline_client.model.api_key import ApiKey
+from hyperline_client.model.bad_user_request import BadUserRequest
 from hyperline_client.model.error import Error
 from hyperline_client.model.user import User
 # Defining the host is optional and defaults to /api/v1beta
@@ -183,6 +184,8 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ApiKeyApi* | [**create_api_key**](docs/apis/tags/ApiKeyApi.md#create_api_key) | **post** /api_keys | Create an API key
 *ApiKeyApi* | [**get_api_key**](docs/apis/tags/ApiKeyApi.md#get_api_key) | **get** /api_keys | Get an API key info
+*CodeApi* | [**create_code_file**](docs/apis/tags/CodeApi.md#create_code_file) | **post** /code | Create a file
+*CodeApi* | [**list_code_files**](docs/apis/tags/CodeApi.md#list_code_files) | **get** /code | List code files
 *DatabaseApi* | [**get_database_schema**](docs/apis/tags/DatabaseApi.md#get_database_schema) | **get** /database/schema | Get database schema
 *DatasetApi* | [**get_dataset_metadata**](docs/apis/tags/DatasetApi.md#get_dataset_metadata) | **get** /datasets/metadata | Get dataset metadata
 *DatasetApi* | [**get_dataset_preview**](docs/apis/tags/DatasetApi.md#get_dataset_preview) | **get** /datasets/preview | Get dataset preview
@@ -233,6 +236,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ApiKey](docs/models/ApiKey.md)
+ - [BadUserRequest](docs/models/BadUserRequest.md)
  - [Dataset](docs/models/Dataset.md)
  - [DatasetCollection](docs/models/DatasetCollection.md)
  - [DatasetTable](docs/models/DatasetTable.md)
@@ -283,6 +287,7 @@ Authentication schemes defined for the API:
 
 ## Author
 
+dev@asynclabs.xyz
 dev@asynclabs.xyz
 dev@asynclabs.xyz
 dev@asynclabs.xyz

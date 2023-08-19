@@ -12,6 +12,7 @@
 # sys.setrecursionlimit(n)
 
 from hyperline_client.model.api_key import ApiKey
+from hyperline_client.model.bad_user_request import BadUserRequest
 from hyperline_client.model.dataset import Dataset
 from hyperline_client.model.dataset_collection import DatasetCollection
 from hyperline_client.model.dataset_table import DatasetTable

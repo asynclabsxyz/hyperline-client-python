@@ -8,6 +8,7 @@ from hyperline_client.apis.paths.datasets_metadata import DatasetsMetadata
 from hyperline_client.apis.paths.datasets_preview import DatasetsPreview
 from hyperline_client.apis.paths.datasets_explorer import DatasetsExplorer
 from hyperline_client.apis.paths.datasets_explorer_details import DatasetsExplorerDetails
+from hyperline_client.apis.paths.code import Code
 from hyperline_client.apis.paths.files import Files
 from hyperline_client.apis.paths.files_metadata import FilesMetadata
 from hyperline_client.apis.paths.files_preview import FilesPreview
@@ -52,6 +53,7 @@ PathToApi = typing_extensions.TypedDict(
         PathValues.DATASETS_PREVIEW: DatasetsPreview,
         PathValues.DATASETS_EXPLORER: DatasetsExplorer,
         PathValues.DATASETS_EXPLORER_DETAILS: DatasetsExplorerDetails,
+        PathValues.CODE: Code,
         PathValues.FILES: Files,
         PathValues.FILES_METADATA: FilesMetadata,
         PathValues.FILES_PREVIEW: FilesPreview,
@@ -97,6 +99,7 @@ path_to_api = PathToApi(
         PathValues.DATASETS_PREVIEW: DatasetsPreview,
         PathValues.DATASETS_EXPLORER: DatasetsExplorer,
         PathValues.DATASETS_EXPLORER_DETAILS: DatasetsExplorerDetails,
+        PathValues.CODE: Code,
         PathValues.FILES: Files,
         PathValues.FILES_METADATA: FilesMetadata,
         PathValues.FILES_PREVIEW: FilesPreview,

@@ -10,6 +10,7 @@ class TagValues(str, enum.Enum):
     USER = "User"
     PIPELINE = "Pipeline"
     FILE = "File"
+    CODE = "Code"
     DATASET = "Dataset"
     SQL = "Sql"
     API_KEY = "ApiKey"

@@ -35,6 +35,7 @@ import hyperline_client
 from hyperline_client.apis.tags import pipeline_api
 from hyperline_client.model.pipeline_backfill_request import PipelineBackfillRequest
 from hyperline_client.model.error import Error
+from hyperline_client.model.bad_user_request import BadUserRequest
 from pprint import pprint
 # Defining the host is optional and defaults to /api/v1beta
 # See configuration.py for a list of all supported configuration parameters.
@@ -117,7 +118,7 @@ headers | Unset | headers were not defined |
 # SchemaFor400ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**Error**](../../models/Error.md) |  | 
+[**BadUserRequest**](../../models/BadUserRequest.md) |  | 
 
 
 #### backfill_pipeline.ApiResponseFor500
@@ -189,6 +190,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
                 package="package_example",
             )
         ],
+        max_active_runs=1,
         retries=1,
 null,
         catchup=True,
@@ -518,6 +520,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
                 package="package_example",
             )
         ],
+        max_active_runs=1,
         retries=1,
 null,
         catchup=True,

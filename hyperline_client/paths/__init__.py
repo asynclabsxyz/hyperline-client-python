@@ -13,6 +13,7 @@ class PathValues(str, enum.Enum):
     DATASETS_PREVIEW = "/datasets/preview"
     DATASETS_EXPLORER = "/datasets/explorer"
     DATASETS_EXPLORER_DETAILS = "/datasets/explorer/details"
+    CODE = "/code"
     FILES = "/files"
     FILES_METADATA = "/files/metadata"
     FILES_PREVIEW = "/files/preview"

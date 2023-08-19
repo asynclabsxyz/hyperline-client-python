@@ -25,16 +25,36 @@ import frozendict  # noqa: F401
 
 from hyperline_client import schemas  # noqa: F401
 
+from hyperline_client.model.file_collection import FileCollection
 from hyperline_client.model.error import Error
-from hyperline_client.model.api_key import ApiKey
-from hyperline_client.model.bad_user_request import BadUserRequest
 
-from . import path
+# Query params
+FolderSchema = schemas.StrSchema
+RequestRequiredQueryParams = typing_extensions.TypedDict(
+    'RequestRequiredQueryParams',
+    {
+    }
+)
+RequestOptionalQueryParams = typing_extensions.TypedDict(
+    'RequestOptionalQueryParams',
+    {
+        'folder': typing.Union[FolderSchema, str, ],
+    },
+    total=False
+)
 
-_auth = [
-    'bearerAuth',
-]
-SchemaFor200ResponseBodyApplicationJson = ApiKey
+
+class RequestQueryParams(RequestRequiredQueryParams, RequestOptionalQueryParams):
+    pass
+
+
+request_query_folder = api_client.QueryParameter(
+    name="folder",
+    style=api_client.ParameterStyle.FORM,
+    schema=FolderSchema,
+    explode=True,
+)
+SchemaFor200ResponseBodyApplicationJson = FileCollection
 
 
 @dataclass
@@ -72,30 +92,6 @@ _response_for_500 = api_client.OpenApiResponse(
             schema=SchemaFor500ResponseBodyApplicationJson),
     },
 )
-SchemaFor400ResponseBodyApplicationJson = BadUserRequest
-
-
-@dataclass
-class ApiResponseFor400(api_client.ApiResponse):
-    response: urllib3.HTTPResponse
-    body: typing.Union[
-        SchemaFor400ResponseBodyApplicationJson,
-    ]
-    headers: schemas.Unset = schemas.unset
-
-
-_response_for_400 = api_client.OpenApiResponse(
-    response_cls=ApiResponseFor400,
-    content={
-        'application/json': api_client.MediaType(
-            schema=SchemaFor400ResponseBodyApplicationJson),
-    },
-)
-_status_code_to_response = {
-    '200': _response_for_200,
-    '500': _response_for_500,
-    '400': _response_for_400,
-}
 _all_accept_content_types = (
     'application/json',
 )
@@ -103,8 +99,9 @@ _all_accept_content_types = (
 
 class BaseApi(api_client.Api):
     @typing.overload
-    def _get_api_key_oapg(
+    def _list_code_files_oapg(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -114,17 +111,19 @@ class BaseApi(api_client.Api):
     ]: ...
 
     @typing.overload
-    def _get_api_key_oapg(
+    def _list_code_files_oapg(
         self,
         skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
     ) -> api_client.ApiResponseWithoutDeserialization: ...
 
     @typing.overload
-    def _get_api_key_oapg(
+    def _list_code_files_oapg(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -134,20 +133,35 @@ class BaseApi(api_client.Api):
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
-    def _get_api_key_oapg(
+    def _list_code_files_oapg(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
     ):
         """
-        Get an API key info
+        List code files
         :param skip_deserialization: If true then api_response.response will be set but
             api_response.body and api_response.headers will not be deserialized into schema
             class instances
         """
+        self._verify_typed_dict_inputs_oapg(RequestQueryParams, query_params)
         used_path = path.value
+
+        prefix_separator_iterator = None
+        for parameter in (
+            request_query_folder,
+        ):
+            parameter_data = query_params.get(parameter.name, schemas.unset)
+            if parameter_data is schemas.unset:
+                continue
+            if prefix_separator_iterator is None:
+                prefix_separator_iterator = parameter.get_prefix_separator_iterator()
+            serialized_data = parameter.serialize(parameter_data, prefix_separator_iterator)
+            for serialized_value in serialized_data.values():
+                used_path += serialized_value
 
         _headers = HTTPHeaderDict()
         # TODO add cookie handling
@@ -183,12 +197,13 @@ class BaseApi(api_client.Api):
         return api_response
 
 
-class GetApiKey(BaseApi):
+class ListCodeFiles(BaseApi):
     # this class is used by api classes that refer to endpoints with operationId fn names
 
     @typing.overload
-    def get_api_key(
+    def list_code_files(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -198,17 +213,19 @@ class GetApiKey(BaseApi):
     ]: ...
 
     @typing.overload
-    def get_api_key(
+    def list_code_files(
         self,
         skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
     ) -> api_client.ApiResponseWithoutDeserialization: ...
 
     @typing.overload
-    def get_api_key(
+    def list_code_files(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -218,14 +235,16 @@ class GetApiKey(BaseApi):
         api_client.ApiResponseWithoutDeserialization,
     ]: ...
 
-    def get_api_key(
+    def list_code_files(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
     ):
-        return self._get_api_key_oapg(
+        return self._list_code_files_oapg(
+            query_params=query_params,
             accept_content_types=accept_content_types,
             stream=stream,
             timeout=timeout,
@@ -239,6 +258,7 @@ class ApiForget(BaseApi):
     @typing.overload
     def get(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -251,6 +271,7 @@ class ApiForget(BaseApi):
     def get(
         self,
         skip_deserialization: typing_extensions.Literal[True],
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -259,6 +280,7 @@ class ApiForget(BaseApi):
     @typing.overload
     def get(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
@@ -270,12 +292,14 @@ class ApiForget(BaseApi):
 
     def get(
         self,
+        query_params: RequestQueryParams = frozendict.frozendict(),
         accept_content_types: typing.Tuple[str] = _all_accept_content_types,
         stream: bool = False,
         timeout: typing.Optional[typing.Union[int, typing.Tuple]] = None,
         skip_deserialization: bool = False,
     ):
-        return self._get_api_key_oapg(
+        return self._list_code_files_oapg(
+            query_params=query_params,
             accept_content_types=accept_content_types,
             stream=stream,
             timeout=timeout,

@@ -27,6 +27,7 @@ from hyperline_client import schemas  # noqa: F401
 
 from hyperline_client.model.error import Error
 from hyperline_client.model.user import User
+from hyperline_client.model.bad_user_request import BadUserRequest
 
 SchemaFor200ResponseBodyApplicationJson = User
 
@@ -64,6 +65,25 @@ _response_for_500 = api_client.OpenApiResponse(
     content={
         'application/json': api_client.MediaType(
             schema=SchemaFor500ResponseBodyApplicationJson),
+    },
+)
+SchemaFor400ResponseBodyApplicationJson = BadUserRequest
+
+
+@dataclass
+class ApiResponseFor400(api_client.ApiResponse):
+    response: urllib3.HTTPResponse
+    body: typing.Union[
+        SchemaFor400ResponseBodyApplicationJson,
+    ]
+    headers: schemas.Unset = schemas.unset
+
+
+_response_for_400 = api_client.OpenApiResponse(
+    response_cls=ApiResponseFor400,
+    content={
+        'application/json': api_client.MediaType(
+            schema=SchemaFor400ResponseBodyApplicationJson),
     },
 )
 _all_accept_content_types = (

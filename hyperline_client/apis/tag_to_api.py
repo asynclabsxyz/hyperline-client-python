@@ -5,6 +5,7 @@ from hyperline_client.apis.tags.spark_api import SparkApi
 from hyperline_client.apis.tags.user_api import UserApi
 from hyperline_client.apis.tags.pipeline_api import PipelineApi
 from hyperline_client.apis.tags.file_api import FileApi
+from hyperline_client.apis.tags.code_api import CodeApi
 from hyperline_client.apis.tags.dataset_api import DatasetApi
 from hyperline_client.apis.tags.sql_api import SqlApi
 from hyperline_client.apis.tags.api_key_api import ApiKeyApi
@@ -18,6 +19,7 @@ TagToApi = typing_extensions.TypedDict(
         TagValues.USER: UserApi,
         TagValues.PIPELINE: PipelineApi,
         TagValues.FILE: FileApi,
+        TagValues.CODE: CodeApi,
         TagValues.DATASET: DatasetApi,
         TagValues.SQL: SqlApi,
         TagValues.API_KEY: ApiKeyApi,
@@ -32,6 +34,7 @@ tag_to_api = TagToApi(
         TagValues.USER: UserApi,
         TagValues.PIPELINE: PipelineApi,
         TagValues.FILE: FileApi,
+        TagValues.CODE: CodeApi,
         TagValues.DATASET: DatasetApi,
         TagValues.SQL: SqlApi,
         TagValues.API_KEY: ApiKeyApi,
