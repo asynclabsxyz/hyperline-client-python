@@ -69,6 +69,7 @@ class Pipeline(
                 def __getitem__(self, i: int) -> 'Stage':
                     return super().__getitem__(i)
             schedule = schemas.StrSchema
+            max_active_runs = schemas.IntSchema
             retries = schemas.IntSchema
             start_date = schemas.Schema
             catchup = schemas.BoolSchema
@@ -78,6 +79,7 @@ class Pipeline(
                 "pipeline_name": pipeline_name,
                 "stages": stages,
                 "schedule": schedule,
+                "max_active_runs": max_active_runs,
                 "retries": retries,
                 "start_date": start_date,
                 "catchup": catchup,
@@ -98,6 +100,9 @@ class Pipeline(
     def __getitem__(self, name: typing_extensions.Literal["schedule"]) -> MetaOapg.properties.schedule: ...
     
     @typing.overload
+    def __getitem__(self, name: typing_extensions.Literal["max_active_runs"]) -> MetaOapg.properties.max_active_runs: ...
+    
+    @typing.overload
     def __getitem__(self, name: typing_extensions.Literal["retries"]) -> MetaOapg.properties.retries: ...
     
     @typing.overload
@@ -115,7 +120,7 @@ class Pipeline(
     @typing.overload
     def __getitem__(self, name: str) -> schemas.UnsetAnyTypeSchema: ...
     
-    def __getitem__(self, name: typing.Union[typing_extensions.Literal["pipeline_name", "stages", "schedule", "retries", "start_date", "catchup", "write_test_mode", "sample_reads", ], str]):
+    def __getitem__(self, name: typing.Union[typing_extensions.Literal["pipeline_name", "stages", "schedule", "max_active_runs", "retries", "start_date", "catchup", "write_test_mode", "sample_reads", ], str]):
         # dict_instance[name] accessor
         return super().__getitem__(name)
     
@@ -128,6 +133,9 @@ class Pipeline(
     
     @typing.overload
     def get_item_oapg(self, name: typing_extensions.Literal["schedule"]) -> typing.Union[MetaOapg.properties.schedule, schemas.Unset]: ...
+    
+    @typing.overload
+    def get_item_oapg(self, name: typing_extensions.Literal["max_active_runs"]) -> typing.Union[MetaOapg.properties.max_active_runs, schemas.Unset]: ...
     
     @typing.overload
     def get_item_oapg(self, name: typing_extensions.Literal["retries"]) -> typing.Union[MetaOapg.properties.retries, schemas.Unset]: ...
@@ -147,7 +155,7 @@ class Pipeline(
     @typing.overload
     def get_item_oapg(self, name: str) -> typing.Union[schemas.UnsetAnyTypeSchema, schemas.Unset]: ...
     
-    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["pipeline_name", "stages", "schedule", "retries", "start_date", "catchup", "write_test_mode", "sample_reads", ], str]):
+    def get_item_oapg(self, name: typing.Union[typing_extensions.Literal["pipeline_name", "stages", "schedule", "max_active_runs", "retries", "start_date", "catchup", "write_test_mode", "sample_reads", ], str]):
         return super().get_item_oapg(name)
     
 
@@ -157,6 +165,7 @@ class Pipeline(
         stages: typing.Union[MetaOapg.properties.stages, list, tuple, ],
         pipeline_name: typing.Union[MetaOapg.properties.pipeline_name, str, ],
         schedule: typing.Union[MetaOapg.properties.schedule, str, schemas.Unset] = schemas.unset,
+        max_active_runs: typing.Union[MetaOapg.properties.max_active_runs, decimal.Decimal, int, schemas.Unset] = schemas.unset,
         retries: typing.Union[MetaOapg.properties.retries, decimal.Decimal, int, schemas.Unset] = schemas.unset,
         start_date: typing.Union[MetaOapg.properties.start_date, schemas.Unset] = schemas.unset,
         catchup: typing.Union[MetaOapg.properties.catchup, bool, schemas.Unset] = schemas.unset,
@@ -171,6 +180,7 @@ class Pipeline(
             stages=stages,
             pipeline_name=pipeline_name,
             schedule=schedule,
+            max_active_runs=max_active_runs,
             retries=retries,
             start_date=start_date,
             catchup=catchup,

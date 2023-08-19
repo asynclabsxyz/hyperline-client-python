@@ -11,6 +11,7 @@ Key | Input Type | Accessed Type | Description | Notes
 **[stages](#stages)** | list, tuple,  | tuple,  | The list of the stages of the pipeline. | 
 **pipeline_name** | str,  | str,  | The name of the pipeline. | 
 **schedule** | str,  | str,  | The schedule of the pipeline. | [optional] 
+**max_active_runs** | decimal.Decimal, int,  | decimal.Decimal,  | The maximum number of active runs for a DAG. | [optional] 
 **retries** | decimal.Decimal, int,  | decimal.Decimal,  | The number of retries that should be performed before failing a task. | [optional] 
 **start_date** |  |  | The date at which the pipeline&#x27;s schedule starts. | [optional] 
 **catchup** | bool,  | BoolClass,  | Kickoff DAG runs for data intervals that have not been run since the last data interval. | [optional] 

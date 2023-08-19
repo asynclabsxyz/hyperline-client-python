@@ -27,6 +27,7 @@ from hyperline_client import schemas  # noqa: F401
 
 from hyperline_client.model.pipeline_backfill_request import PipelineBackfillRequest
 from hyperline_client.model.error import Error
+from hyperline_client.model.bad_user_request import BadUserRequest
 
 from . import path
 
@@ -56,7 +57,7 @@ class ApiResponseFor204(api_client.ApiResponse):
 _response_for_204 = api_client.OpenApiResponse(
     response_cls=ApiResponseFor204,
 )
-SchemaFor400ResponseBodyApplicationJson = Error
+SchemaFor400ResponseBodyApplicationJson = BadUserRequest
 
 
 @dataclass

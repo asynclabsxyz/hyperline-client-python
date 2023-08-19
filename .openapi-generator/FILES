@@ -3,6 +3,7 @@
 .travis.yml
 README.md
 docs/apis/tags/ApiKeyApi.md
+docs/apis/tags/CodeApi.md
 docs/apis/tags/DatabaseApi.md
 docs/apis/tags/DatasetApi.md
 docs/apis/tags/FileApi.md
@@ -12,6 +13,7 @@ docs/apis/tags/SparkApi.md
 docs/apis/tags/SqlApi.md
 docs/apis/tags/UserApi.md
 docs/models/ApiKey.md
+docs/models/BadUserRequest.md
 docs/models/Dataset.md
 docs/models/DatasetCollection.md
 docs/models/DatasetTable.md
@@ -55,6 +57,7 @@ hyperline_client/__init__.py
 hyperline_client/api_client.py
 hyperline_client/apis/__init__.py
 hyperline_client/apis/tags/api_key_api.py
+hyperline_client/apis/tags/code_api.py
 hyperline_client/apis/tags/database_api.py
 hyperline_client/apis/tags/dataset_api.py
 hyperline_client/apis/tags/file_api.py
@@ -68,6 +71,8 @@ hyperline_client/exceptions.py
 hyperline_client/model/__init__.py
 hyperline_client/model/api_key.py
 hyperline_client/model/api_key.pyi
+hyperline_client/model/bad_user_request.py
+hyperline_client/model/bad_user_request.pyi
 hyperline_client/model/dataset.py
 hyperline_client/model/dataset.pyi
 hyperline_client/model/dataset_collection.py
@@ -154,6 +159,7 @@ test-requirements.txt
 test/__init__.py
 test/test_models/__init__.py
 test/test_models/test_api_key.py
+test/test_models/test_bad_user_request.py
 test/test_models/test_dataset.py
 test/test_models/test_dataset_collection.py
 test/test_models/test_dataset_table.py
