@@ -146,7 +146,6 @@ from hyperline_client.apis.tags import api_key_api
 from hyperline_client.model.api_key import ApiKey
 from hyperline_client.model.bad_user_request import BadUserRequest
 from hyperline_client.model.error import Error
-from hyperline_client.model.user import User
 # Defining the host is optional and defaults to /api/v1beta
 # See configuration.py for a list of all supported configuration parameters.
 configuration = hyperline_client.Configuration(
