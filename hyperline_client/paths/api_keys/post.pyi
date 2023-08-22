@@ -26,10 +26,10 @@ import frozendict  # noqa: F401
 from hyperline_client import schemas  # noqa: F401
 
 from hyperline_client.model.error import Error
-from hyperline_client.model.user import User
+from hyperline_client.model.api_key import ApiKey
 from hyperline_client.model.bad_user_request import BadUserRequest
 
-SchemaFor200ResponseBodyApplicationJson = User
+SchemaFor200ResponseBodyApplicationJson = ApiKey
 
 
 @dataclass

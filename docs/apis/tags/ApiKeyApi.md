@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 # **create_api_key**
 <a id="create_api_key"></a>
-> User create_api_key()
+> ApiKey create_api_key()
 
 Create an API key
 
@@ -23,7 +23,7 @@ Create an API key.
 import hyperline_client
 from hyperline_client.apis.tags import api_key_api
 from hyperline_client.model.error import Error
-from hyperline_client.model.user import User
+from hyperline_client.model.api_key import ApiKey
 from hyperline_client.model.bad_user_request import BadUserRequest
 from pprint import pprint
 # Defining the host is optional and defaults to /api/v1beta
@@ -76,7 +76,7 @@ headers | Unset | headers were not defined |
 # SchemaFor200ResponseBodyApplicationJson
 Type | Description  | Notes
 ------------- | ------------- | -------------
-[**User**](../../models/User.md) |  | 
+[**ApiKey**](../../models/ApiKey.md) |  | 
 
 
 #### create_api_key.ApiResponseFor500
