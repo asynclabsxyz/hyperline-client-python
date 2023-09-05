@@ -11,98 +11,7 @@ For more information, please visit [http://asynclabs.xyz](http://asynclabs.xyz)
 
 ## Requirements.
 
-Python &gt;&#x3D;3.7
-
-## Migration from other generators like python and python-legacy
-
-### Changes
-1. This generator uses spec case for all (object) property names and parameter names.
-    - So if the spec has a property name like camelCase, it will use camelCase rather than camel_case
-    - So you will need to update how you input and read properties to use spec case
-2. Endpoint parameters are stored in dictionaries to prevent collisions (explanation below)
-    - So you will need to update how you pass data in to endpoints
-3. Endpoint responses now include the original response, the deserialized response body, and (todo)the deserialized headers
-    - So you will need to update your code to use response.body to access deserialized data
-4. All validated data is instantiated in an instance that subclasses all validated Schema classes and Decimal/str/list/tuple/frozendict/NoneClass/BoolClass/bytes/io.FileIO
-    - This means that you can use isinstance to check if a payload validated against a schema class
-    - This means that no data will be of type None/True/False
-        - ingested None will subclass NoneClass
-        - ingested True will subclass BoolClass
-        - ingested False will subclass BoolClass
-        - So if you need to check is True/False/None, instead use instance.is_true_oapg()/.is_false_oapg()/.is_none_oapg()
-5. All validated class instances are immutable except for ones based on io.File
-    - This is because if properties were changed after validation, that validation would no longer apply
-    - So no changing values or property values after a class has been instantiated
-6. String + Number types with formats
-    - String type data is stored as a string and if you need to access types based on its format like date,
-    date-time, uuid, number etc then you will need to use accessor functions on the instance
-    - type string + format: See .as_date_oapg, .as_datetime_oapg, .as_decimal_oapg, .as_uuid_oapg
-    - type number + format: See .as_float_oapg, .as_int_oapg
-    - this was done because openapi/json-schema defines constraints. string data may be type string with no format
-    keyword in one schema, and include a format constraint in another schema
-    - So if you need to access a string format based type, use as_date_oapg/as_datetime_oapg/as_decimal_oapg/as_uuid_oapg
-    - So if you need to access a number format based type, use as_int_oapg/as_float_oapg
-7. Property access on AnyType(type unset) or object(dict) schemas
-    - Only required keys with valid python names are properties like .someProp and have type hints
-    - All optional keys may not exist, so properties are not defined for them
-    - One can access optional values with dict_instance['optionalProp'] and KeyError will be raised if it does not exist
-    - Use get_item_oapg if you need a way to always get a value whether or not the key exists
-        - If the key does not exist, schemas.unset is returned from calling dict_instance.get_item_oapg('optionalProp')
-        - All required and optional keys have type hints for this method, and @typing.overload is used
-        - A type hint is also generated for additionalProperties accessed using this method
-    - So you will need to update you code to use some_instance['optionalProp'] to access optional property
-    and additionalProperty values
-8. The location of the api classes has changed
-    - Api classes are located in your_package.apis.tags.some_api
-    - This change was made to eliminate redundant code generation
-    - Legacy generators generated the same endpoint twice if it had > 1 tag on it
-    - This generator defines an endpoint in one class, then inherits that class to generate
-      apis by tags and by paths
-    - This change reduces code and allows quicker run time if you use the path apis
-        - path apis are at your_package.apis.paths.some_path
-    - Those apis will only load their needed models, which is less to load than all of the resources needed in a tag api
-    - So you will need to update your import paths to the api classes
-
-### Why are Oapg and _oapg used in class and method names?
-Classes can have arbitrarily named properties set on them
-Endpoints can have arbitrary operationId method names set
-For those reasons, I use the prefix Oapg and _oapg to greatly reduce the likelihood of collisions
-on protected + public classes/methods.
-oapg stands for OpenApi Python Generator.
-
-### Object property spec case
-This was done because when payloads are ingested, they can be validated against N number of schemas.
-If the input signature used a different property name then that has mutated the payload.
-So SchemaA and SchemaB must both see the camelCase spec named variable.
-Also it is possible to send in two properties, named camelCase and camel_case in the same payload.
-That use case should be support so spec case is used.
-
-### Parameter spec case
-Parameters can be included in different locations including:
-- query
-- path
-- header
-- cookie
-
-Any of those parameters could use the same parameter names, so if every parameter
-was included as an endpoint parameter in a function signature, they would collide.
-For that reason, each of those inputs have been separated out into separate typed dictionaries:
-- query_params
-- path_params
-- header_params
-- cookie_params
-
-So when updating your code, you will need to pass endpoint parameters in using those
-dictionaries.
-
-### Endpoint responses
-Endpoint responses have been enriched to now include more information.
-Any response reom an endpoint will now include the following properties:
-response: urllib3.HTTPResponse
-body: typing.Union[Unset, Schema]
-headers: typing.Union[Unset, TODO]
-Note: response header deserialization has not yet been added
-
+Python 3.7+
 
 ## Installation & Usage
 ### pip install
@@ -133,6 +42,10 @@ Then import the package:
 import hyperline_client
 ```
 
+### Tests
+
+Execute `pytest` to run the tests.
+
 ## Getting Started
 
 Please follow the [installation procedure](#installation--usage) and then run the following:
@@ -141,11 +54,9 @@ Please follow the [installation procedure](#installation--usage) and then run th
 
 import time
 import hyperline_client
+from hyperline_client.rest import ApiException
 from pprint import pprint
-from hyperline_client.apis.tags import api_key_api
-from hyperline_client.model.api_key import ApiKey
-from hyperline_client.model.bad_user_request import BadUserRequest
-from hyperline_client.model.error import Error
+
 # Defining the host is optional and defaults to /api/v1beta
 # See configuration.py for a list of all supported configuration parameters.
 configuration = hyperline_client.Configuration(
@@ -159,20 +70,23 @@ configuration = hyperline_client.Configuration(
 
 # Configure Bearer authorization: bearerAuth
 configuration = hyperline_client.Configuration(
-    access_token = 'YOUR_BEARER_TOKEN'
+    access_token = os.environ["BEARER_TOKEN"]
 )
+
 
 # Enter a context with an instance of the API client
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = api_key_api.ApiKeyApi(api_client)
-    
+    api_instance = hyperline_client.ApiKeyApi(api_client)
+
     try:
         # Create an API key
         api_response = api_instance.create_api_key()
+        print("The response of ApiKeyApi->create_api_key:\n")
         pprint(api_response)
-    except hyperline_client.ApiException as e:
+    except ApiException as e:
         print("Exception when calling ApiKeyApi->create_api_key: %s\n" % e)
+
 ```
 
 ## Documentation for API Endpoints
@@ -181,101 +95,105 @@ All URIs are relative to */api/v1beta*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ApiKeyApi* | [**create_api_key**](docs/apis/tags/ApiKeyApi.md#create_api_key) | **post** /api_keys | Create an API key
-*ApiKeyApi* | [**get_api_key**](docs/apis/tags/ApiKeyApi.md#get_api_key) | **get** /api_keys | Get an API key info
-*CodeApi* | [**create_code_file**](docs/apis/tags/CodeApi.md#create_code_file) | **post** /code | Create a file
-*CodeApi* | [**list_code_files**](docs/apis/tags/CodeApi.md#list_code_files) | **get** /code | List code files
-*DatabaseApi* | [**get_database_schema**](docs/apis/tags/DatabaseApi.md#get_database_schema) | **get** /database/schema | Get database schema
-*DatasetApi* | [**get_dataset_metadata**](docs/apis/tags/DatasetApi.md#get_dataset_metadata) | **get** /datasets/metadata | Get dataset metadata
-*DatasetApi* | [**get_dataset_preview**](docs/apis/tags/DatasetApi.md#get_dataset_preview) | **get** /datasets/preview | Get dataset preview
-*DatasetApi* | [**list_datasets**](docs/apis/tags/DatasetApi.md#list_datasets) | **get** /datasets | List datasets
-*DatasetApi* | [**list_explorer_datasets**](docs/apis/tags/DatasetApi.md#list_explorer_datasets) | **get** /datasets/explorer | List datasets for web explorer
-*DatasetApi* | [**list_explorer_datasets_details**](docs/apis/tags/DatasetApi.md#list_explorer_datasets_details) | **get** /datasets/explorer/details | List datasets details for web explorer
-*FileApi* | [**create_file**](docs/apis/tags/FileApi.md#create_file) | **post** /files | Create a file
-*FileApi* | [**get_file_content**](docs/apis/tags/FileApi.md#get_file_content) | **get** /files/content | Get file content
-*FileApi* | [**get_file_metadata**](docs/apis/tags/FileApi.md#get_file_metadata) | **get** /files/metadata | Get file metadata
-*FileApi* | [**get_file_preview**](docs/apis/tags/FileApi.md#get_file_preview) | **get** /files/preview | Get file preview
-*FileApi* | [**get_samples**](docs/apis/tags/FileApi.md#get_samples) | **get** /files/samples | Get sample files
-*FileApi* | [**list_files**](docs/apis/tags/FileApi.md#list_files) | **get** /files | List files
-*JobApi* | [**list_jobs**](docs/apis/tags/JobApi.md#list_jobs) | **get** /jobs | List user jobs
-*PipelineApi* | [**backfill_pipeline**](docs/apis/tags/PipelineApi.md#backfill_pipeline) | **post** /pipeline/backfill | Backfill a pipeline
-*PipelineApi* | [**create_pipeline**](docs/apis/tags/PipelineApi.md#create_pipeline) | **post** /pipelines | Create a pipeline
-*PipelineApi* | [**delete_pipeline**](docs/apis/tags/PipelineApi.md#delete_pipeline) | **post** /pipelines/{pipeline_name}/delete | Delete a pipeline
-*PipelineApi* | [**deploy_pipeline**](docs/apis/tags/PipelineApi.md#deploy_pipeline) | **post** /pipelines/{pipeline_name}/deploy | Deploy a pipeline
-*PipelineApi* | [**edit_pipeline**](docs/apis/tags/PipelineApi.md#edit_pipeline) | **post** /pipeline/edit | Edit a pipeline
-*PipelineApi* | [**get_pipeline**](docs/apis/tags/PipelineApi.md#get_pipeline) | **get** /pipelines/{pipeline_name} | Get a pipeline
-*PipelineApi* | [**get_pipeline_run**](docs/apis/tags/PipelineApi.md#get_pipeline_run) | **get** /pipelines/{pipeline_name}/runs/{run_id} | Get information of a pipeline run
-*PipelineApi* | [**get_stage_instances**](docs/apis/tags/PipelineApi.md#get_stage_instances) | **get** /pipelines/{pipeline_name}/runs/{run_id}/stages | Get stage instances of a pipeline
-*PipelineApi* | [**get_stage_log**](docs/apis/tags/PipelineApi.md#get_stage_log) | **get** /pipelines/{pipeline_name}/runs/{run_id}/stages/{stage_name}/logs/{try_number} | Get the logs of a pipeline stage instance
-*PipelineApi* | [**list_pipeline_runs**](docs/apis/tags/PipelineApi.md#list_pipeline_runs) | **get** /pipelines/{pipeline_name}/runs | List runs of a pipeline
-*PipelineApi* | [**list_pipelines**](docs/apis/tags/PipelineApi.md#list_pipelines) | **get** /pipelines | List pipelines
-*PipelineApi* | [**pause_pipeline**](docs/apis/tags/PipelineApi.md#pause_pipeline) | **post** /pipelines/{pipeline_name}/pause | Pause a pipeline
-*PipelineApi* | [**trigger_pipeline**](docs/apis/tags/PipelineApi.md#trigger_pipeline) | **post** /pipelines/{pipeline_name}/trigger | Delete a pipeline
-*SparkApi* | [**spark_cancel_job**](docs/apis/tags/SparkApi.md#spark_cancel_job) | **post** /spark/{job_id}/cancel | Cancel a Spark job
-*SparkApi* | [**spark_check_job**](docs/apis/tags/SparkApi.md#spark_check_job) | **get** /spark/{job_id} | Check a Spark job status
-*SparkApi* | [**spark_get_job_output**](docs/apis/tags/SparkApi.md#spark_get_job_output) | **get** /spark/{job_id}/output | Get Spark job output
-*SparkApi* | [**spark_get_sql**](docs/apis/tags/SparkApi.md#spark_get_sql) | **get** /sparksql/edit | Get user Spark SQL query cache
-*SparkApi* | [**spark_list_jobs**](docs/apis/tags/SparkApi.md#spark_list_jobs) | **get** /spark | List Spark jobs
-*SparkApi* | [**spark_list_saved_jobs**](docs/apis/tags/SparkApi.md#spark_list_saved_jobs) | **get** /spark/jobs/saved | List saved spark jobs
-*SparkApi* | [**spark_save_job**](docs/apis/tags/SparkApi.md#spark_save_job) | **post** /spark/{job_id}/save | Save a spark job for pipeline
-*SparkApi* | [**spark_submit_job**](docs/apis/tags/SparkApi.md#spark_submit_job) | **post** /spark | Submit a Spark job
-*SparkApi* | [**spark_submit_sql**](docs/apis/tags/SparkApi.md#spark_submit_sql) | **post** /sparksql | Submit a Spark SQL job
-*SparkApi* | [**spark_update_sql**](docs/apis/tags/SparkApi.md#spark_update_sql) | **post** /sparksql/edit | Update user Spark SQL query cache
-*SqlApi* | [**check_sql_job**](docs/apis/tags/SqlApi.md#check_sql_job) | **get** /sql/jobs/{job_id}/status | Check the status of a SQL job
-*SqlApi* | [**execute_sql_query**](docs/apis/tags/SqlApi.md#execute_sql_query) | **post** /sql | Execute a SQL query
-*SqlApi* | [**get_sql_cache**](docs/apis/tags/SqlApi.md#get_sql_cache) | **get** /sql/edit | Get user SQL query cache
-*SqlApi* | [**get_sql_job_output**](docs/apis/tags/SqlApi.md#get_sql_job_output) | **get** /sql/jobs/{job_id}/output | Get the output of a SQL job
-*SqlApi* | [**get_sql_queries**](docs/apis/tags/SqlApi.md#get_sql_queries) | **get** /sql/queries | Get user SQL queries
-*SqlApi* | [**submit_sql_job**](docs/apis/tags/SqlApi.md#submit_sql_job) | **post** /sql/jobs | Submit a SQL job
-*SqlApi* | [**update_sql_cache**](docs/apis/tags/SqlApi.md#update_sql_cache) | **post** /sql/edit | Update user SQL query cache
-*SqlApi* | [**update_sql_query**](docs/apis/tags/SqlApi.md#update_sql_query) | **post** /sql/queries | Update user SQL query cache
-*UserApi* | [**create_user**](docs/apis/tags/UserApi.md#create_user) | **post** /user | Create a user
-*UserApi* | [**get_user**](docs/apis/tags/UserApi.md#get_user) | **get** /user | Get user info
+*ApiKeyApi* | [**create_api_key**](docs/ApiKeyApi.md#create_api_key) | **POST** /api_keys | Create an API key
+*ApiKeyApi* | [**get_api_key**](docs/ApiKeyApi.md#get_api_key) | **GET** /api_keys | Get an API key info
+*CodeApi* | [**create_code_file**](docs/CodeApi.md#create_code_file) | **POST** /code | Create a file
+*CodeApi* | [**list_code_files**](docs/CodeApi.md#list_code_files) | **GET** /code | List code files
+*DatabaseApi* | [**get_database_schema**](docs/DatabaseApi.md#get_database_schema) | **GET** /database/schema | Get database schema
+*DatasetApi* | [**get_dataset_metadata**](docs/DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
+*DatasetApi* | [**get_dataset_preview**](docs/DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
+*DatasetApi* | [**list_datasets**](docs/DatasetApi.md#list_datasets) | **GET** /datasets | List datasets
+*DatasetApi* | [**list_explorer_datasets**](docs/DatasetApi.md#list_explorer_datasets) | **GET** /datasets/explorer | List datasets for web explorer
+*DatasetApi* | [**list_explorer_datasets_details**](docs/DatasetApi.md#list_explorer_datasets_details) | **GET** /datasets/explorer/details | List datasets details for web explorer
+*FileApi* | [**create_file**](docs/FileApi.md#create_file) | **POST** /files | Create a file
+*FileApi* | [**get_file_content**](docs/FileApi.md#get_file_content) | **GET** /files/content | Get file content
+*FileApi* | [**get_file_metadata**](docs/FileApi.md#get_file_metadata) | **GET** /files/metadata | Get file metadata
+*FileApi* | [**get_file_preview**](docs/FileApi.md#get_file_preview) | **GET** /files/preview | Get file preview
+*FileApi* | [**get_samples**](docs/FileApi.md#get_samples) | **GET** /files/samples | Get sample files
+*FileApi* | [**list_files**](docs/FileApi.md#list_files) | **GET** /files | List files
+*JobApi* | [**list_jobs**](docs/JobApi.md#list_jobs) | **GET** /jobs | List user jobs
+*PipelineApi* | [**backfill_pipeline**](docs/PipelineApi.md#backfill_pipeline) | **POST** /pipeline/backfill | Backfill a pipeline
+*PipelineApi* | [**create_pipeline**](docs/PipelineApi.md#create_pipeline) | **POST** /pipelines | Create a pipeline
+*PipelineApi* | [**delete_pipeline**](docs/PipelineApi.md#delete_pipeline) | **POST** /pipelines/{pipeline_name}/delete | Delete a pipeline
+*PipelineApi* | [**deploy_pipeline**](docs/PipelineApi.md#deploy_pipeline) | **POST** /pipelines/{pipeline_name}/deploy | Deploy a pipeline
+*PipelineApi* | [**edit_pipeline**](docs/PipelineApi.md#edit_pipeline) | **POST** /pipeline/edit | Edit a pipeline
+*PipelineApi* | [**get_pipeline**](docs/PipelineApi.md#get_pipeline) | **GET** /pipelines/{pipeline_name} | Get a pipeline
+*PipelineApi* | [**get_pipeline_run**](docs/PipelineApi.md#get_pipeline_run) | **GET** /pipelines/{pipeline_name}/runs/{run_id} | Get information of a pipeline run
+*PipelineApi* | [**get_stage_instances**](docs/PipelineApi.md#get_stage_instances) | **GET** /pipelines/{pipeline_name}/runs/{run_id}/stages | Get stage instances of a pipeline
+*PipelineApi* | [**get_stage_log**](docs/PipelineApi.md#get_stage_log) | **GET** /pipelines/{pipeline_name}/runs/{run_id}/stages/{stage_name}/logs/{try_number} | Get the logs of a pipeline stage instance
+*PipelineApi* | [**list_pipeline_runs**](docs/PipelineApi.md#list_pipeline_runs) | **GET** /pipelines/{pipeline_name}/runs | List runs of a pipeline
+*PipelineApi* | [**list_pipelines**](docs/PipelineApi.md#list_pipelines) | **GET** /pipelines | List pipelines
+*PipelineApi* | [**pause_pipeline**](docs/PipelineApi.md#pause_pipeline) | **POST** /pipelines/{pipeline_name}/pause | Pause a pipeline
+*PipelineApi* | [**trigger_pipeline**](docs/PipelineApi.md#trigger_pipeline) | **POST** /pipelines/{pipeline_name}/trigger | Delete a pipeline
+*SparkApi* | [**spark_cancel_job**](docs/SparkApi.md#spark_cancel_job) | **POST** /spark/{job_id}/cancel | Cancel a Spark job
+*SparkApi* | [**spark_check_job**](docs/SparkApi.md#spark_check_job) | **GET** /spark/{job_id} | Check a Spark job status
+*SparkApi* | [**spark_get_job_output**](docs/SparkApi.md#spark_get_job_output) | **GET** /spark/{job_id}/output | Get Spark job output
+*SparkApi* | [**spark_get_sql**](docs/SparkApi.md#spark_get_sql) | **GET** /sparksql/edit | Get user Spark SQL query cache
+*SparkApi* | [**spark_list_jobs**](docs/SparkApi.md#spark_list_jobs) | **GET** /spark | List Spark jobs
+*SparkApi* | [**spark_list_saved_jobs**](docs/SparkApi.md#spark_list_saved_jobs) | **GET** /spark/jobs/saved | List saved spark jobs
+*SparkApi* | [**spark_save_job**](docs/SparkApi.md#spark_save_job) | **POST** /spark/{job_id}/save | Save a spark job for pipeline
+*SparkApi* | [**spark_submit_job**](docs/SparkApi.md#spark_submit_job) | **POST** /spark | Submit a Spark job
+*SparkApi* | [**spark_submit_sql**](docs/SparkApi.md#spark_submit_sql) | **POST** /sparksql | Submit a Spark SQL job
+*SparkApi* | [**spark_update_sql**](docs/SparkApi.md#spark_update_sql) | **POST** /sparksql/edit | Update user Spark SQL query cache
+*SqlApi* | [**check_sql_job**](docs/SqlApi.md#check_sql_job) | **GET** /sql/jobs/{job_id}/status | Check the status of a SQL job
+*SqlApi* | [**execute_sql_query**](docs/SqlApi.md#execute_sql_query) | **POST** /sql | Execute a SQL query
+*SqlApi* | [**get_sql_cache**](docs/SqlApi.md#get_sql_cache) | **GET** /sql/edit | Get user SQL query cache
+*SqlApi* | [**get_sql_job_output**](docs/SqlApi.md#get_sql_job_output) | **GET** /sql/jobs/{job_id}/output | Get the output of a SQL job
+*SqlApi* | [**get_sql_queries**](docs/SqlApi.md#get_sql_queries) | **GET** /sql/queries | Get user SQL queries
+*SqlApi* | [**submit_sql_job**](docs/SqlApi.md#submit_sql_job) | **POST** /sql/jobs | Submit a SQL job
+*SqlApi* | [**update_sql_cache**](docs/SqlApi.md#update_sql_cache) | **POST** /sql/edit | Update user SQL query cache
+*SqlApi* | [**update_sql_query**](docs/SqlApi.md#update_sql_query) | **POST** /sql/queries | Update user SQL query cache
+*UserApi* | [**create_user**](docs/UserApi.md#create_user) | **POST** /user | Create a user
+*UserApi* | [**get_user**](docs/UserApi.md#get_user) | **GET** /user | Get user info
+
 
 ## Documentation For Models
 
- - [ApiKey](docs/models/ApiKey.md)
- - [BadUserRequest](docs/models/BadUserRequest.md)
- - [Dataset](docs/models/Dataset.md)
- - [DatasetCollection](docs/models/DatasetCollection.md)
- - [DatasetTable](docs/models/DatasetTable.md)
- - [DatasetTableColumn](docs/models/DatasetTableColumn.md)
- - [Error](docs/models/Error.md)
- - [ExplorerViewDataset](docs/models/ExplorerViewDataset.md)
- - [ExplorerViewDatasetCollection](docs/models/ExplorerViewDatasetCollection.md)
- - [File](docs/models/File.md)
- - [FileCollection](docs/models/FileCollection.md)
- - [FileCreateRequest](docs/models/FileCreateRequest.md)
- - [Job](docs/models/Job.md)
- - [JobCollection](docs/models/JobCollection.md)
- - [Pipeline](docs/models/Pipeline.md)
- - [PipelineBackfillRequest](docs/models/PipelineBackfillRequest.md)
- - [PipelineMetadata](docs/models/PipelineMetadata.md)
- - [PipelineMetadataCollection](docs/models/PipelineMetadataCollection.md)
- - [PipelineRun](docs/models/PipelineRun.md)
- - [PipelineRunCollection](docs/models/PipelineRunCollection.md)
- - [SavedJob](docs/models/SavedJob.md)
- - [SavedJobCollection](docs/models/SavedJobCollection.md)
- - [SparkJob](docs/models/SparkJob.md)
- - [SparkJobCollection](docs/models/SparkJobCollection.md)
- - [SparkJobOutput](docs/models/SparkJobOutput.md)
- - [SparkJobStatus](docs/models/SparkJobStatus.md)
- - [SparkJobSubmitRequest](docs/models/SparkJobSubmitRequest.md)
- - [SqlColumn](docs/models/SqlColumn.md)
- - [SqlExecuteResponse](docs/models/SqlExecuteResponse.md)
- - [SqlFieldSchema](docs/models/SqlFieldSchema.md)
- - [SqlJobStatistics](docs/models/SqlJobStatistics.md)
- - [SqlJobStatus](docs/models/SqlJobStatus.md)
- - [SqlQuery](docs/models/SqlQuery.md)
- - [SqlQueryCollection](docs/models/SqlQueryCollection.md)
- - [SqlSchema](docs/models/SqlSchema.md)
- - [SqlTable](docs/models/SqlTable.md)
- - [Stage](docs/models/Stage.md)
- - [StageInstance](docs/models/StageInstance.md)
- - [StageInstanceCollection](docs/models/StageInstanceCollection.md)
- - [User](docs/models/User.md)
+ - [ApiKey](docs/ApiKey.md)
+ - [BadUserRequest](docs/BadUserRequest.md)
+ - [Dataset](docs/Dataset.md)
+ - [DatasetCollection](docs/DatasetCollection.md)
+ - [DatasetTable](docs/DatasetTable.md)
+ - [DatasetTableColumn](docs/DatasetTableColumn.md)
+ - [Error](docs/Error.md)
+ - [ExplorerViewDataset](docs/ExplorerViewDataset.md)
+ - [ExplorerViewDatasetCollection](docs/ExplorerViewDatasetCollection.md)
+ - [File](docs/File.md)
+ - [FileCollection](docs/FileCollection.md)
+ - [FileCreateRequest](docs/FileCreateRequest.md)
+ - [Job](docs/Job.md)
+ - [JobCollection](docs/JobCollection.md)
+ - [Pipeline](docs/Pipeline.md)
+ - [PipelineBackfillRequest](docs/PipelineBackfillRequest.md)
+ - [PipelineMetadata](docs/PipelineMetadata.md)
+ - [PipelineMetadataCollection](docs/PipelineMetadataCollection.md)
+ - [PipelineRun](docs/PipelineRun.md)
+ - [PipelineRunCollection](docs/PipelineRunCollection.md)
+ - [SavedJob](docs/SavedJob.md)
+ - [SavedJobCollection](docs/SavedJobCollection.md)
+ - [SparkJob](docs/SparkJob.md)
+ - [SparkJobCollection](docs/SparkJobCollection.md)
+ - [SparkJobOutput](docs/SparkJobOutput.md)
+ - [SparkJobStatus](docs/SparkJobStatus.md)
+ - [SparkJobSubmitRequest](docs/SparkJobSubmitRequest.md)
+ - [SqlColumn](docs/SqlColumn.md)
+ - [SqlExecuteResponse](docs/SqlExecuteResponse.md)
+ - [SqlFieldSchema](docs/SqlFieldSchema.md)
+ - [SqlJobStatistics](docs/SqlJobStatistics.md)
+ - [SqlJobStatus](docs/SqlJobStatus.md)
+ - [SqlQuery](docs/SqlQuery.md)
+ - [SqlQueryCollection](docs/SqlQueryCollection.md)
+ - [SqlSchema](docs/SqlSchema.md)
+ - [SqlTable](docs/SqlTable.md)
+ - [Stage](docs/Stage.md)
+ - [StageInstance](docs/StageInstance.md)
+ - [StageInstanceCollection](docs/StageInstanceCollection.md)
+ - [User](docs/User.md)
 
+
+<a id="documentation-for-authorization"></a>
 ## Documentation For Authorization
+
 
 Authentication schemes defined for the API:
 <a id="bearerAuth"></a>
@@ -287,31 +205,5 @@ Authentication schemes defined for the API:
 ## Author
 
 dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
-dev@asynclabs.xyz
 
-## Notes for Large OpenAPI documents
-If the OpenAPI document is large, imports in hyperline_client.apis and hyperline_client.models may fail with a
-RecursionError indicating the maximum recursion limit has been exceeded. In that case, there are a couple of solutions:
 
-Solution 1:
-Use specific imports for apis and models like:
-- `from hyperline_client.apis.default_api import DefaultApi`
-- `from hyperline_client.model.pet import Pet`
-
-Solution 1:
-Before importing the package, adjust the maximum recursion limit as shown below:
-```
-import sys
-sys.setrecursionlimit(1500)
-import hyperline_client
-from hyperline_client.apis import *
-from hyperline_client.models import *
-```
