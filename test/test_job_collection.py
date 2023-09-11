@@ -50,6 +50,11 @@ class TestJobCollection(unittest.TestCase):
                         submitted_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         finished_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                         duration = 56, )
+                    ], 
+                stats = [
+                    hyperline_client.models.jobs_stat.JobsStat(
+                        value = 56, 
+                        description = '', )
                     ]
             )
         else :

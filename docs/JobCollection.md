@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **jobs** | [**List[Job]**](Job.md) |  | [optional] 
+**stats** | [**List[JobsStat]**](JobsStat.md) |  | [optional] 
 
 ## Example
 

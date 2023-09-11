@@ -99,6 +99,7 @@ Class | Method | HTTP request | Description
 *ApiKeyApi* | [**get_api_key**](docs/ApiKeyApi.md#get_api_key) | **GET** /api_keys | Get an API key info
 *CodeApi* | [**create_code_file**](docs/CodeApi.md#create_code_file) | **POST** /code | Create a file
 *CodeApi* | [**list_code_files**](docs/CodeApi.md#list_code_files) | **GET** /code | List code files
+*CodeApi* | [**list_code_samples**](docs/CodeApi.md#list_code_samples) | **GET** /code/samples | List code files
 *DatabaseApi* | [**get_database_schema**](docs/DatabaseApi.md#get_database_schema) | **GET** /database/schema | Get database schema
 *DatasetApi* | [**get_dataset_metadata**](docs/DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
 *DatasetApi* | [**get_dataset_preview**](docs/DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
@@ -163,12 +164,15 @@ Class | Method | HTTP request | Description
  - [FileCreateRequest](docs/FileCreateRequest.md)
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
+ - [JobsStat](docs/JobsStat.md)
  - [Pipeline](docs/Pipeline.md)
  - [PipelineBackfillRequest](docs/PipelineBackfillRequest.md)
  - [PipelineMetadata](docs/PipelineMetadata.md)
  - [PipelineMetadataCollection](docs/PipelineMetadataCollection.md)
  - [PipelineRun](docs/PipelineRun.md)
  - [PipelineRunCollection](docs/PipelineRunCollection.md)
+ - [Sample](docs/Sample.md)
+ - [SamplesCollection](docs/SamplesCollection.md)
  - [SavedJob](docs/SavedJob.md)
  - [SavedJobCollection](docs/SavedJobCollection.md)
  - [SparkJob](docs/SparkJob.md)

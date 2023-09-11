@@ -22,13 +22,15 @@ import json
 from typing import List, Optional
 from pydantic import BaseModel, conlist
 from hyperline_client.models.job import Job
+from hyperline_client.models.jobs_stat import JobsStat
 
 class JobCollection(BaseModel):
     """
     JobCollection
     """
     jobs: Optional[conlist(Job)] = None
-    __properties = ["jobs"]
+    stats: Optional[conlist(JobsStat)] = None
+    __properties = ["jobs", "stats"]
 
     class Config:
         """Pydantic configuration"""
@@ -61,6 +63,13 @@ class JobCollection(BaseModel):
                 if _item:
                     _items.append(_item.to_dict())
             _dict['jobs'] = _items
+        # override the default output from pydantic by calling `to_dict()` of each item in stats (list)
+        _items = []
+        if self.stats:
+            for _item in self.stats:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['stats'] = _items
         return _dict
 
     @classmethod
@@ -73,7 +82,8 @@ class JobCollection(BaseModel):
             return JobCollection.parse_obj(obj)
 
         _obj = JobCollection.parse_obj({
-            "jobs": [Job.from_dict(_item) for _item in obj.get("jobs")] if obj.get("jobs") is not None else None
+            "jobs": [Job.from_dict(_item) for _item in obj.get("jobs")] if obj.get("jobs") is not None else None,
+            "stats": [JobsStat.from_dict(_item) for _item in obj.get("stats")] if obj.get("stats") is not None else None
         })
         return _obj
 

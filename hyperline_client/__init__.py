@@ -55,12 +55,15 @@ from hyperline_client.models.file_collection import FileCollection
 from hyperline_client.models.file_create_request import FileCreateRequest
 from hyperline_client.models.job import Job
 from hyperline_client.models.job_collection import JobCollection
+from hyperline_client.models.jobs_stat import JobsStat
 from hyperline_client.models.pipeline import Pipeline
 from hyperline_client.models.pipeline_backfill_request import PipelineBackfillRequest
 from hyperline_client.models.pipeline_metadata import PipelineMetadata
 from hyperline_client.models.pipeline_metadata_collection import PipelineMetadataCollection
 from hyperline_client.models.pipeline_run import PipelineRun
 from hyperline_client.models.pipeline_run_collection import PipelineRunCollection
+from hyperline_client.models.sample import Sample
+from hyperline_client.models.samples_collection import SamplesCollection
 from hyperline_client.models.saved_job import SavedJob
 from hyperline_client.models.saved_job_collection import SavedJobCollection
 from hyperline_client.models.spark_job import SparkJob

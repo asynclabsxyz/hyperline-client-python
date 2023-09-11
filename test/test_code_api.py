@@ -43,6 +43,13 @@ class TestCodeApi(unittest.TestCase):
         """
         pass
 
+    def test_list_code_samples(self):
+        """Test case for list_code_samples
+
+        List code files  # noqa: E501
+        """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
