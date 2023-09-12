@@ -197,18 +197,18 @@ class CodeApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_code_files(self, folder : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> FileCollection:  # noqa: E501
+    def list_code_files(self, path : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> FileCollection:  # noqa: E501
         """List code files  # noqa: E501
 
         List code files.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_code_files(folder, async_req=True)
+        >>> thread = api.list_code_files(path, async_req=True)
         >>> result = thread.get()
 
-        :param folder: If set, only return files within this folder.
-        :type folder: str
+        :param path: If set, only return files within this folder.
+        :type path: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -223,21 +223,21 @@ class CodeApi(object):
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
             raise ValueError("Error! Please call the list_code_files_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.list_code_files_with_http_info(folder, **kwargs)  # noqa: E501
+        return self.list_code_files_with_http_info(path, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_code_files_with_http_info(self, folder : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_code_files_with_http_info(self, path : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List code files  # noqa: E501
 
         List code files.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_code_files_with_http_info(folder, async_req=True)
+        >>> thread = api.list_code_files_with_http_info(path, async_req=True)
         >>> result = thread.get()
 
-        :param folder: If set, only return files within this folder.
-        :type folder: str
+        :param path: If set, only return files within this folder.
+        :type path: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -266,7 +266,7 @@ class CodeApi(object):
         _params = locals()
 
         _all_params = [
-            'folder'
+            'path'
         ]
         _all_params.extend(
             [
@@ -297,8 +297,8 @@ class CodeApi(object):
 
         # process the query parameters
         _query_params = []
-        if _params.get('folder') is not None:  # noqa: E501
-            _query_params.append(('folder', _params['folder']))
+        if _params.get('path') is not None:  # noqa: E501
+            _query_params.append(('path', _params['path']))
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))

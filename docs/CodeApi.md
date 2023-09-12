@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_code_files**
-> FileCollection list_code_files(folder=folder)
+> FileCollection list_code_files(path=path)
 
 List code files
 
@@ -126,11 +126,11 @@ configuration = hyperline_client.Configuration(
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.CodeApi(api_client)
-    folder = 'folder_example' # str | If set, only return files within this folder. (optional)
+    path = 'path_example' # str | If set, only return files within this folder. (optional)
 
     try:
         # List code files
-        api_response = api_instance.list_code_files(folder=folder)
+        api_response = api_instance.list_code_files(path=path)
         print("The response of CodeApi->list_code_files:\n")
         pprint(api_response)
     except Exception as e:
@@ -143,7 +143,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder** | **str**| If set, only return files within this folder. | [optional] 
+ **path** | **str**| If set, only return files within this folder. | [optional] 
 
 ### Return type
 

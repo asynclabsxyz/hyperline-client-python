@@ -43,6 +43,7 @@ class TestFileCollection(unittest.TestCase):
                     hyperline_client.models.file.File(
                         name = '', 
                         content = '', 
+                        folder = '', 
                         path = '', )
                     ]
             )
@@ -52,6 +53,7 @@ class TestFileCollection(unittest.TestCase):
                     hyperline_client.models.file.File(
                         name = '', 
                         content = '', 
+                        folder = '', 
                         path = '', )
                     ],
         )

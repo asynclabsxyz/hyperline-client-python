@@ -20,6 +20,7 @@ docs/File.md
 docs/FileApi.md
 docs/FileCollection.md
 docs/FileCreateRequest.md
+docs/FileMetadata.md
 docs/Job.md
 docs/JobApi.md
 docs/JobCollection.md
@@ -86,6 +87,7 @@ hyperline_client/models/explorer_view_dataset_collection.py
 hyperline_client/models/file.py
 hyperline_client/models/file_collection.py
 hyperline_client/models/file_create_request.py
+hyperline_client/models/file_metadata.py
 hyperline_client/models/job.py
 hyperline_client/models/job_collection.py
 hyperline_client/models/jobs_stat.py
@@ -142,6 +144,7 @@ test/test_file.py
 test/test_file_api.py
 test/test_file_collection.py
 test/test_file_create_request.py
+test/test_file_metadata.py
 test/test_job.py
 test/test_job_api.py
 test/test_job_collection.py

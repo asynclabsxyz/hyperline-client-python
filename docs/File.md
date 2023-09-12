@@ -7,7 +7,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of the file. | [optional] 
 **content** | **str** | The content of the file. | [optional] 
-**path** | **str** | The path of the file. | [optional] 
+**folder** | **str** | relataive path (folder) of the file | [optional] 
+**path** | **str** | The absolute path of the file. | [optional] 
 
 ## Example
 

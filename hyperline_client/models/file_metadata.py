@@ -18,19 +18,23 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, StrictInt, StrictStr
 
-class File(BaseModel):
+class FileMetadata(BaseModel):
     """
-    A generic file object.
+    FileMetadata
     """
-    name: Optional[StrictStr] = Field(None, description="The name of the file.")
-    content: Optional[StrictStr] = Field(None, description="The content of the file.")
-    folder: Optional[StrictStr] = Field(None, description="relataive path (folder) of the file")
-    path: Optional[StrictStr] = Field(None, description="The absolute path of the file.")
-    __properties = ["name", "content", "folder", "path"]
+    name: Optional[StrictStr] = None
+    path: Optional[StrictStr] = None
+    content_type: Optional[StrictStr] = None
+    owner: Optional[StrictStr] = None
+    size: Optional[StrictInt] = None
+    content_encoding: Optional[StrictStr] = None
+    created: Optional[datetime] = None
+    updated: Optional[datetime] = None
+    __properties = ["name", "path", "content_type", "owner", "size", "content_encoding", "created", "updated"]
 
     class Config:
         """Pydantic configuration"""
@@ -46,8 +50,8 @@ class File(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> File:
-        """Create an instance of File from a JSON string"""
+    def from_json(cls, json_str: str) -> FileMetadata:
+        """Create an instance of FileMetadata from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -59,19 +63,23 @@ class File(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> File:
-        """Create an instance of File from a dict"""
+    def from_dict(cls, obj: dict) -> FileMetadata:
+        """Create an instance of FileMetadata from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return File.parse_obj(obj)
+            return FileMetadata.parse_obj(obj)
 
-        _obj = File.parse_obj({
+        _obj = FileMetadata.parse_obj({
             "name": obj.get("name"),
-            "content": obj.get("content"),
-            "folder": obj.get("folder"),
-            "path": obj.get("path")
+            "path": obj.get("path"),
+            "content_type": obj.get("content_type"),
+            "owner": obj.get("owner"),
+            "size": obj.get("size"),
+            "content_encoding": obj.get("content_encoding"),
+            "created": obj.get("created"),
+            "updated": obj.get("updated")
         })
         return _obj
 

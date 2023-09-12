@@ -44,6 +44,7 @@ class TestSamplesCollection(unittest.TestCase):
                         file = hyperline_client.models.file.File(
                             name = '', 
                             content = '', 
+                            folder = '', 
                             path = '', ), 
                         name = '', 
                         type = 'pyspark', 
@@ -61,6 +62,7 @@ class TestSamplesCollection(unittest.TestCase):
                         file = hyperline_client.models.file.File(
                             name = '', 
                             content = '', 
+                            folder = '', 
                             path = '', ), 
                         name = '', 
                         type = 'pyspark', 

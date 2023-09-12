@@ -162,6 +162,7 @@ Class | Method | HTTP request | Description
  - [File](docs/File.md)
  - [FileCollection](docs/FileCollection.md)
  - [FileCreateRequest](docs/FileCreateRequest.md)
+ - [FileMetadata](docs/FileMetadata.md)
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
  - [JobsStat](docs/JobsStat.md)

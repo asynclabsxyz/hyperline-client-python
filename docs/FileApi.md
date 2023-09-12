@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_file_metadata**
-> object get_file_metadata(path)
+> FileMetadata get_file_metadata(path)
 
 Get file metadata
 
@@ -183,6 +183,7 @@ Get file metadata.
 import time
 import os
 import hyperline_client
+from hyperline_client.models.file_metadata import FileMetadata
 from hyperline_client.rest import ApiException
 from pprint import pprint
 
@@ -227,7 +228,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**object**
+[**FileMetadata**](FileMetadata.md)
 
 ### Authorization
 
@@ -403,7 +404,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_files**
-> FileCollection list_files(folder=folder)
+> FileCollection list_files(path=path)
 
 List files
 
@@ -440,11 +441,11 @@ configuration = hyperline_client.Configuration(
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.FileApi(api_client)
-    folder = 'folder_example' # str | If set, only return files within this folder. (optional)
+    path = 'path_example' # str | The path of the file/dataset. (optional)
 
     try:
         # List files
-        api_response = api_instance.list_files(folder=folder)
+        api_response = api_instance.list_files(path=path)
         print("The response of FileApi->list_files:\n")
         pprint(api_response)
     except Exception as e:
@@ -457,7 +458,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **folder** | **str**| If set, only return files within this folder. | [optional] 
+ **path** | **str**| The path of the file/dataset. | [optional] 
 
 ### Return type
 

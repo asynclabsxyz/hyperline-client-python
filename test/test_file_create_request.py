@@ -40,7 +40,7 @@ class TestFileCreateRequest(unittest.TestCase):
         if include_optional :
             return FileCreateRequest(
                 file_name = '', 
-                folder = '', 
+                path = '', 
                 contents = '', 
                 base64_contents = ''
             )

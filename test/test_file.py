@@ -41,6 +41,7 @@ class TestFile(unittest.TestCase):
             return File(
                 name = '', 
                 content = '', 
+                folder = '', 
                 path = ''
             )
         else :

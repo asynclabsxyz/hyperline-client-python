@@ -27,10 +27,10 @@ class FileCreateRequest(BaseModel):
     FileCreateRequest
     """
     file_name: StrictStr = Field(...)
-    folder: Optional[StrictStr] = None
+    path: Optional[StrictStr] = None
     contents: Optional[StrictStr] = None
     base64_contents: Optional[StrictStr] = None
-    __properties = ["file_name", "folder", "contents", "base64_contents"]
+    __properties = ["file_name", "path", "contents", "base64_contents"]
 
     class Config:
         """Pydantic configuration"""
@@ -69,7 +69,7 @@ class FileCreateRequest(BaseModel):
 
         _obj = FileCreateRequest.parse_obj({
             "file_name": obj.get("file_name"),
-            "folder": obj.get("folder"),
+            "path": obj.get("path"),
             "contents": obj.get("contents"),
             "base64_contents": obj.get("base64_contents")
         })

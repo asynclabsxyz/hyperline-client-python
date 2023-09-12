@@ -22,11 +22,12 @@ from typing_extensions import Annotated
 
 from pydantic import Field, StrictStr
 
-from typing import Any, Dict, Optional
+from typing import Optional
 
 from hyperline_client.models.file import File
 from hyperline_client.models.file_collection import FileCollection
 from hyperline_client.models.file_create_request import FileCreateRequest
+from hyperline_client.models.file_metadata import FileMetadata
 
 from hyperline_client.api_client import ApiClient
 from hyperline_client.api_response import ApiResponse
@@ -336,7 +337,7 @@ class FileApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_file_metadata(self, path : Annotated[StrictStr, Field(..., description="The path of the file/dataset.")], **kwargs) -> object:  # noqa: E501
+    def get_file_metadata(self, path : Annotated[StrictStr, Field(..., description="The path of the file/dataset.")], **kwargs) -> FileMetadata:  # noqa: E501
         """Get file metadata  # noqa: E501
 
         Get file metadata.  # noqa: E501
@@ -357,7 +358,7 @@ class FileApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: object
+        :rtype: FileMetadata
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -399,7 +400,7 @@ class FileApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(object, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(FileMetadata, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -454,7 +455,7 @@ class FileApi(object):
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "object",
+            '200': "FileMetadata",
             '500': "Error",
         }
 
@@ -756,18 +757,18 @@ class FileApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_files(self, folder : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> FileCollection:  # noqa: E501
+    def list_files(self, path : Annotated[Optional[StrictStr], Field(description="The path of the file/dataset.")] = None, **kwargs) -> FileCollection:  # noqa: E501
         """List files  # noqa: E501
 
         List files.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_files(folder, async_req=True)
+        >>> thread = api.list_files(path, async_req=True)
         >>> result = thread.get()
 
-        :param folder: If set, only return files within this folder.
-        :type folder: str
+        :param path: The path of the file/dataset.
+        :type path: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -782,21 +783,21 @@ class FileApi(object):
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
             raise ValueError("Error! Please call the list_files_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.list_files_with_http_info(folder, **kwargs)  # noqa: E501
+        return self.list_files_with_http_info(path, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_files_with_http_info(self, folder : Annotated[Optional[StrictStr], Field(description="If set, only return files within this folder.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_files_with_http_info(self, path : Annotated[Optional[StrictStr], Field(description="The path of the file/dataset.")] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List files  # noqa: E501
 
         List files.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_files_with_http_info(folder, async_req=True)
+        >>> thread = api.list_files_with_http_info(path, async_req=True)
         >>> result = thread.get()
 
-        :param folder: If set, only return files within this folder.
-        :type folder: str
+        :param path: The path of the file/dataset.
+        :type path: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -825,7 +826,7 @@ class FileApi(object):
         _params = locals()
 
         _all_params = [
-            'folder'
+            'path'
         ]
         _all_params.extend(
             [
@@ -856,8 +857,8 @@ class FileApi(object):
 
         # process the query parameters
         _query_params = []
-        if _params.get('folder') is not None:  # noqa: E501
-            _query_params.append(('folder', _params['folder']))
+        if _params.get('path') is not None:  # noqa: E501
+            _query_params.append(('path', _params['path']))
 
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))

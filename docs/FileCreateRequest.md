@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **file_name** | **str** |  | 
-**folder** | **str** |  | [optional] 
+**path** | **str** |  | [optional] 
 **contents** | **str** |  | [optional] 
 **base64_contents** | **str** |  | [optional] 
 

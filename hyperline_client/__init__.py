@@ -53,6 +53,7 @@ from hyperline_client.models.explorer_view_dataset_collection import ExplorerVie
 from hyperline_client.models.file import File
 from hyperline_client.models.file_collection import FileCollection
 from hyperline_client.models.file_create_request import FileCreateRequest
+from hyperline_client.models.file_metadata import FileMetadata
 from hyperline_client.models.job import Job
 from hyperline_client.models.job_collection import JobCollection
 from hyperline_client.models.jobs_stat import JobsStat

@@ -17,11 +17,11 @@ import unittest
 import datetime
 
 import hyperline_client
-from hyperline_client.models.sample import Sample  # noqa: E501
+from hyperline_client.models.file_metadata import FileMetadata  # noqa: E501
 from hyperline_client.rest import ApiException
 
-class TestSample(unittest.TestCase):
-    """Sample unit test stubs"""
+class TestFileMetadata(unittest.TestCase):
+    """FileMetadata unit test stubs"""
 
     def setUp(self):
         pass
@@ -30,36 +30,31 @@ class TestSample(unittest.TestCase):
         pass
 
     def make_instance(self, include_optional):
-        """Test Sample
+        """Test FileMetadata
             include_option is a boolean, when False only required
             params are included, when True both required and
             optional params are included """
-        # uncomment below to create an instance of `Sample`
+        # uncomment below to create an instance of `FileMetadata`
         """
-        model = hyperline_client.models.sample.Sample()  # noqa: E501
+        model = hyperline_client.models.file_metadata.FileMetadata()  # noqa: E501
         if include_optional :
-            return Sample(
-                file = hyperline_client.models.file.File(
-                    name = '', 
-                    content = '', 
-                    folder = '', 
-                    path = '', ), 
+            return FileMetadata(
                 name = '', 
-                type = 'pyspark', 
-                level = '', 
-                engine = '', 
-                tags = [
-                    ''
-                    ]
+                path = '', 
+                content_type = '', 
+                owner = '', 
+                size = 56, 
+                content_encoding = '', 
+                created = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                updated = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
             )
         else :
-            return Sample(
-                name = '',
+            return FileMetadata(
         )
         """
 
-    def testSample(self):
-        """Test Sample"""
+    def testFileMetadata(self):
+        """Test FileMetadata"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 
