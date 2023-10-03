@@ -147,14 +147,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_api_key_create_request.py
-test/test_delete_op_response.py
-test/test_integration.py
-test/test_integration_api.py
-test/test_integration_config_gcs.py
-test/test_integration_config_rdbms.py
-test/test_integration_config_s3.py
-test/test_integration_create_request.py
-test/test_integration_create_request_config.py
-test/test_sql_job_details.py
 tox.ini
