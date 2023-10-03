@@ -8,6 +8,14 @@ Name | Type | Description | Notes
 **end_time** | **datetime** |  | [optional] 
 **duration** | **int** |  | [optional] 
 **total_bytes_processed** | **int** |  | [optional] 
+**error_code** | **str** |  | [optional] 
+**error_type** | **str** |  | [optional] 
+**failure_type** | **str** |  | [optional] 
+**failure_message** | **str** |  | [optional] 
+**execution_time_millis** | **int** |  | [optional] 
+**total_rows** | **int** |  | [optional] 
+**output_bytes** | **int** |  | [optional] 
+**output_rows** | **int** |  | [optional] 
 
 ## Example
 

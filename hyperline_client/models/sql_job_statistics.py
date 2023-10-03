@@ -20,7 +20,7 @@ import json
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, StrictInt
+from pydantic import BaseModel, StrictInt, StrictStr
 
 class SqlJobStatistics(BaseModel):
     """
@@ -30,7 +30,15 @@ class SqlJobStatistics(BaseModel):
     end_time: Optional[datetime] = None
     duration: Optional[StrictInt] = None
     total_bytes_processed: Optional[StrictInt] = None
-    __properties = ["start_time", "end_time", "duration", "total_bytes_processed"]
+    error_code: Optional[StrictStr] = None
+    error_type: Optional[StrictStr] = None
+    failure_type: Optional[StrictStr] = None
+    failure_message: Optional[StrictStr] = None
+    execution_time_millis: Optional[StrictInt] = None
+    total_rows: Optional[StrictInt] = None
+    output_bytes: Optional[StrictInt] = None
+    output_rows: Optional[StrictInt] = None
+    __properties = ["start_time", "end_time", "duration", "total_bytes_processed", "error_code", "error_type", "failure_type", "failure_message", "execution_time_millis", "total_rows", "output_bytes", "output_rows"]
 
     class Config:
         """Pydantic configuration"""
@@ -56,6 +64,26 @@ class SqlJobStatistics(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
+        # set to None if error_code (nullable) is None
+        # and __fields_set__ contains the field
+        if self.error_code is None and "error_code" in self.__fields_set__:
+            _dict['error_code'] = None
+
+        # set to None if error_type (nullable) is None
+        # and __fields_set__ contains the field
+        if self.error_type is None and "error_type" in self.__fields_set__:
+            _dict['error_type'] = None
+
+        # set to None if failure_type (nullable) is None
+        # and __fields_set__ contains the field
+        if self.failure_type is None and "failure_type" in self.__fields_set__:
+            _dict['failure_type'] = None
+
+        # set to None if failure_message (nullable) is None
+        # and __fields_set__ contains the field
+        if self.failure_message is None and "failure_message" in self.__fields_set__:
+            _dict['failure_message'] = None
+
         return _dict
 
     @classmethod
@@ -71,7 +99,15 @@ class SqlJobStatistics(BaseModel):
             "start_time": obj.get("start_time"),
             "end_time": obj.get("end_time"),
             "duration": obj.get("duration"),
-            "total_bytes_processed": obj.get("total_bytes_processed")
+            "total_bytes_processed": obj.get("total_bytes_processed"),
+            "error_code": obj.get("error_code"),
+            "error_type": obj.get("error_type"),
+            "failure_type": obj.get("failure_type"),
+            "failure_message": obj.get("failure_message"),
+            "execution_time_millis": obj.get("execution_time_millis"),
+            "total_rows": obj.get("total_rows"),
+            "output_bytes": obj.get("output_bytes"),
+            "output_rows": obj.get("output_rows")
         })
         return _obj
 

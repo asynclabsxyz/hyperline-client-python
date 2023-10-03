@@ -22,18 +22,16 @@ import json
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictStr
 
-class File(BaseModel):
+class Integration(BaseModel):
     """
-    A generic file object.
+    An integration object.
     """
-    name: Optional[StrictStr] = Field(None, description="The name of the file.")
-    content: Optional[StrictStr] = Field(None, description="The content of the file.")
-    relative_path: Optional[StrictStr] = Field(None, description="relataive path (folder) of the file")
-    path: Optional[StrictStr] = Field(None, description="The absolute path of the file.")
-    is_directory: Optional[StrictBool] = False
-    is_readonly: Optional[StrictBool] = False
-    file_type: Optional[StrictStr] = None
-    __properties = ["name", "content", "relative_path", "path", "is_directory", "is_readonly", "file_type"]
+    id: StrictStr = Field(...)
+    name: StrictStr = Field(...)
+    details: Optional[StrictStr] = None
+    type: StrictStr = Field(...)
+    is_valid: Optional[StrictBool] = True
+    __properties = ["id", "name", "details", "type", "is_valid"]
 
     class Config:
         """Pydantic configuration"""
@@ -49,35 +47,34 @@ class File(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> File:
-        """Create an instance of File from a JSON string"""
+    def from_json(cls, json_str: str) -> Integration:
+        """Create an instance of Integration from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
+                            "id",
                           },
                           exclude_none=True)
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> File:
-        """Create an instance of File from a dict"""
+    def from_dict(cls, obj: dict) -> Integration:
+        """Create an instance of Integration from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return File.parse_obj(obj)
+            return Integration.parse_obj(obj)
 
-        _obj = File.parse_obj({
+        _obj = Integration.parse_obj({
+            "id": obj.get("id"),
             "name": obj.get("name"),
-            "content": obj.get("content"),
-            "relative_path": obj.get("relative_path"),
-            "path": obj.get("path"),
-            "is_directory": obj.get("is_directory") if obj.get("is_directory") is not None else False,
-            "is_readonly": obj.get("is_readonly") if obj.get("is_readonly") is not None else False,
-            "file_type": obj.get("file_type")
+            "details": obj.get("details"),
+            "type": obj.get("type"),
+            "is_valid": obj.get("is_valid") if obj.get("is_valid") is not None else True
         })
         return _obj
 

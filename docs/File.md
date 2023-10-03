@@ -7,8 +7,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** | The name of the file. | [optional] 
 **content** | **str** | The content of the file. | [optional] 
-**folder** | **str** | relataive path (folder) of the file | [optional] 
+**relative_path** | **str** | relataive path (folder) of the file | [optional] 
 **path** | **str** | The absolute path of the file. | [optional] 
+**is_directory** | **bool** |  | [optional] [default to False]
+**is_readonly** | **bool** |  | [optional] [default to False]
+**file_type** | **str** |  | [optional] 
 
 ## Example
 

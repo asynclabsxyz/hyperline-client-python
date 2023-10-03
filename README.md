@@ -78,10 +78,11 @@ configuration = hyperline_client.Configuration(
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.ApiKeyApi(api_client)
+    api_key_create_request = hyperline_client.ApiKeyCreateRequest() # ApiKeyCreateRequest | 
 
     try:
         # Create an API key
-        api_response = api_instance.create_api_key()
+        api_response = api_instance.create_api_key(api_key_create_request)
         print("The response of ApiKeyApi->create_api_key:\n")
         pprint(api_response)
     except ApiException as e:
@@ -96,22 +97,30 @@ All URIs are relative to */api/v1beta*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ApiKeyApi* | [**create_api_key**](docs/ApiKeyApi.md#create_api_key) | **POST** /api_keys | Create an API key
-*ApiKeyApi* | [**get_api_key**](docs/ApiKeyApi.md#get_api_key) | **GET** /api_keys | Get an API key info
+*ApiKeyApi* | [**delete_api_key**](docs/ApiKeyApi.md#delete_api_key) | **DELETE** /api_keys/{api_key} | Delete an API Key
+*ApiKeyApi* | [**get_api_keys**](docs/ApiKeyApi.md#get_api_keys) | **GET** /api_keys | Get an API key info
 *CodeApi* | [**create_code_file**](docs/CodeApi.md#create_code_file) | **POST** /code | Create a file
 *CodeApi* | [**list_code_files**](docs/CodeApi.md#list_code_files) | **GET** /code | List code files
 *CodeApi* | [**list_code_samples**](docs/CodeApi.md#list_code_samples) | **GET** /code/samples | List code files
 *DatabaseApi* | [**get_database_schema**](docs/DatabaseApi.md#get_database_schema) | **GET** /database/schema | Get database schema
+*DatasetApi* | [**favorite_dataset**](docs/DatasetApi.md#favorite_dataset) | **POST** /datasets/favorites | Add dataset to user favirites list
 *DatasetApi* | [**get_dataset_metadata**](docs/DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
 *DatasetApi* | [**get_dataset_preview**](docs/DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
+*DatasetApi* | [**get_dataset_template_sql**](docs/DatasetApi.md#get_dataset_template_sql) | **GET** /datasets/templates/sql | Get dataset template sql statement
 *DatasetApi* | [**list_datasets**](docs/DatasetApi.md#list_datasets) | **GET** /datasets | List datasets
 *DatasetApi* | [**list_explorer_datasets**](docs/DatasetApi.md#list_explorer_datasets) | **GET** /datasets/explorer | List datasets for web explorer
 *DatasetApi* | [**list_explorer_datasets_details**](docs/DatasetApi.md#list_explorer_datasets_details) | **GET** /datasets/explorer/details | List datasets details for web explorer
+*DatasetApi* | [**list_favorite_datasets**](docs/DatasetApi.md#list_favorite_datasets) | **GET** /datasets/favorites | List user favorite datasets
 *FileApi* | [**create_file**](docs/FileApi.md#create_file) | **POST** /files | Create a file
 *FileApi* | [**get_file_content**](docs/FileApi.md#get_file_content) | **GET** /files/content | Get file content
 *FileApi* | [**get_file_metadata**](docs/FileApi.md#get_file_metadata) | **GET** /files/metadata | Get file metadata
 *FileApi* | [**get_file_preview**](docs/FileApi.md#get_file_preview) | **GET** /files/preview | Get file preview
 *FileApi* | [**get_samples**](docs/FileApi.md#get_samples) | **GET** /files/samples | Get sample files
 *FileApi* | [**list_files**](docs/FileApi.md#list_files) | **GET** /files | List files
+*IntegrationApi* | [**create_integration**](docs/IntegrationApi.md#create_integration) | **POST** /integrations/create | Create an integration
+*IntegrationApi* | [**delete_integration**](docs/IntegrationApi.md#delete_integration) | **DELETE** /integrations/{id} | Delete a specific integration by ID
+*IntegrationApi* | [**get_integration**](docs/IntegrationApi.md#get_integration) | **GET** /integrations/{id} | Get a specific integration by ID
+*IntegrationApi* | [**list_integrations**](docs/IntegrationApi.md#list_integrations) | **GET** /integrations | List integrations
 *JobApi* | [**list_jobs**](docs/JobApi.md#list_jobs) | **GET** /jobs | List user jobs
 *PipelineApi* | [**backfill_pipeline**](docs/PipelineApi.md#backfill_pipeline) | **POST** /pipeline/backfill | Backfill a pipeline
 *PipelineApi* | [**create_pipeline**](docs/PipelineApi.md#create_pipeline) | **POST** /pipelines | Create a pipeline
@@ -139,6 +148,7 @@ Class | Method | HTTP request | Description
 *SqlApi* | [**check_sql_job**](docs/SqlApi.md#check_sql_job) | **GET** /sql/jobs/{job_id}/status | Check the status of a SQL job
 *SqlApi* | [**execute_sql_query**](docs/SqlApi.md#execute_sql_query) | **POST** /sql | Execute a SQL query
 *SqlApi* | [**get_sql_cache**](docs/SqlApi.md#get_sql_cache) | **GET** /sql/edit | Get user SQL query cache
+*SqlApi* | [**get_sql_job_details**](docs/SqlApi.md#get_sql_job_details) | **GET** /sql/jobs/{job_id}/details | Check the status of a SQL job
 *SqlApi* | [**get_sql_job_output**](docs/SqlApi.md#get_sql_job_output) | **GET** /sql/jobs/{job_id}/output | Get the output of a SQL job
 *SqlApi* | [**get_sql_queries**](docs/SqlApi.md#get_sql_queries) | **GET** /sql/queries | Get user SQL queries
 *SqlApi* | [**submit_sql_job**](docs/SqlApi.md#submit_sql_job) | **POST** /sql/jobs | Submit a SQL job
@@ -151,11 +161,13 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [ApiKey](docs/ApiKey.md)
+ - [ApiKeyCreateRequest](docs/ApiKeyCreateRequest.md)
  - [BadUserRequest](docs/BadUserRequest.md)
  - [Dataset](docs/Dataset.md)
  - [DatasetCollection](docs/DatasetCollection.md)
  - [DatasetTable](docs/DatasetTable.md)
  - [DatasetTableColumn](docs/DatasetTableColumn.md)
+ - [DeleteOpResponse](docs/DeleteOpResponse.md)
  - [Error](docs/Error.md)
  - [ExplorerViewDataset](docs/ExplorerViewDataset.md)
  - [ExplorerViewDatasetCollection](docs/ExplorerViewDatasetCollection.md)
@@ -163,6 +175,12 @@ Class | Method | HTTP request | Description
  - [FileCollection](docs/FileCollection.md)
  - [FileCreateRequest](docs/FileCreateRequest.md)
  - [FileMetadata](docs/FileMetadata.md)
+ - [Integration](docs/Integration.md)
+ - [IntegrationConfigGCS](docs/IntegrationConfigGCS.md)
+ - [IntegrationConfigRDBMS](docs/IntegrationConfigRDBMS.md)
+ - [IntegrationConfigS3](docs/IntegrationConfigS3.md)
+ - [IntegrationCreateRequest](docs/IntegrationCreateRequest.md)
+ - [IntegrationCreateRequestConfig](docs/IntegrationCreateRequestConfig.md)
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
  - [JobsStat](docs/JobsStat.md)
@@ -184,6 +202,7 @@ Class | Method | HTTP request | Description
  - [SqlColumn](docs/SqlColumn.md)
  - [SqlExecuteResponse](docs/SqlExecuteResponse.md)
  - [SqlFieldSchema](docs/SqlFieldSchema.md)
+ - [SqlJobDetails](docs/SqlJobDetails.md)
  - [SqlJobStatistics](docs/SqlJobStatistics.md)
  - [SqlJobStatus](docs/SqlJobStatus.md)
  - [SqlQuery](docs/SqlQuery.md)

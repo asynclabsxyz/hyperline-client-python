@@ -16,11 +16,13 @@
 
 # import models into model package
 from hyperline_client.models.api_key import ApiKey
+from hyperline_client.models.api_key_create_request import ApiKeyCreateRequest
 from hyperline_client.models.bad_user_request import BadUserRequest
 from hyperline_client.models.dataset import Dataset
 from hyperline_client.models.dataset_collection import DatasetCollection
 from hyperline_client.models.dataset_table import DatasetTable
 from hyperline_client.models.dataset_table_column import DatasetTableColumn
+from hyperline_client.models.delete_op_response import DeleteOpResponse
 from hyperline_client.models.error import Error
 from hyperline_client.models.explorer_view_dataset import ExplorerViewDataset
 from hyperline_client.models.explorer_view_dataset_collection import ExplorerViewDatasetCollection
@@ -28,6 +30,12 @@ from hyperline_client.models.file import File
 from hyperline_client.models.file_collection import FileCollection
 from hyperline_client.models.file_create_request import FileCreateRequest
 from hyperline_client.models.file_metadata import FileMetadata
+from hyperline_client.models.integration import Integration
+from hyperline_client.models.integration_config_gcs import IntegrationConfigGCS
+from hyperline_client.models.integration_config_rdbms import IntegrationConfigRDBMS
+from hyperline_client.models.integration_config_s3 import IntegrationConfigS3
+from hyperline_client.models.integration_create_request import IntegrationCreateRequest
+from hyperline_client.models.integration_create_request_config import IntegrationCreateRequestConfig
 from hyperline_client.models.job import Job
 from hyperline_client.models.job_collection import JobCollection
 from hyperline_client.models.jobs_stat import JobsStat
@@ -49,6 +57,7 @@ from hyperline_client.models.spark_job_submit_request import SparkJobSubmitReque
 from hyperline_client.models.sql_column import SqlColumn
 from hyperline_client.models.sql_execute_response import SqlExecuteResponse
 from hyperline_client.models.sql_field_schema import SqlFieldSchema
+from hyperline_client.models.sql_job_details import SqlJobDetails
 from hyperline_client.models.sql_job_statistics import SqlJobStatistics
 from hyperline_client.models.sql_job_status import SqlJobStatus
 from hyperline_client.models.sql_query import SqlQuery

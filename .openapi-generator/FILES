@@ -5,6 +5,7 @@
 README.md
 docs/ApiKey.md
 docs/ApiKeyApi.md
+docs/ApiKeyCreateRequest.md
 docs/BadUserRequest.md
 docs/CodeApi.md
 docs/DatabaseApi.md
@@ -13,6 +14,7 @@ docs/DatasetApi.md
 docs/DatasetCollection.md
 docs/DatasetTable.md
 docs/DatasetTableColumn.md
+docs/DeleteOpResponse.md
 docs/Error.md
 docs/ExplorerViewDataset.md
 docs/ExplorerViewDatasetCollection.md
@@ -21,6 +23,13 @@ docs/FileApi.md
 docs/FileCollection.md
 docs/FileCreateRequest.md
 docs/FileMetadata.md
+docs/Integration.md
+docs/IntegrationApi.md
+docs/IntegrationConfigGCS.md
+docs/IntegrationConfigRDBMS.md
+docs/IntegrationConfigS3.md
+docs/IntegrationCreateRequest.md
+docs/IntegrationCreateRequestConfig.md
 docs/Job.md
 docs/JobApi.md
 docs/JobCollection.md
@@ -46,6 +55,7 @@ docs/SqlApi.md
 docs/SqlColumn.md
 docs/SqlExecuteResponse.md
 docs/SqlFieldSchema.md
+docs/SqlJobDetails.md
 docs/SqlJobStatistics.md
 docs/SqlJobStatus.md
 docs/SqlQuery.md
@@ -65,6 +75,7 @@ hyperline_client/api/code_api.py
 hyperline_client/api/database_api.py
 hyperline_client/api/dataset_api.py
 hyperline_client/api/file_api.py
+hyperline_client/api/integration_api.py
 hyperline_client/api/job_api.py
 hyperline_client/api/pipeline_api.py
 hyperline_client/api/spark_api.py
@@ -76,11 +87,13 @@ hyperline_client/configuration.py
 hyperline_client/exceptions.py
 hyperline_client/models/__init__.py
 hyperline_client/models/api_key.py
+hyperline_client/models/api_key_create_request.py
 hyperline_client/models/bad_user_request.py
 hyperline_client/models/dataset.py
 hyperline_client/models/dataset_collection.py
 hyperline_client/models/dataset_table.py
 hyperline_client/models/dataset_table_column.py
+hyperline_client/models/delete_op_response.py
 hyperline_client/models/error.py
 hyperline_client/models/explorer_view_dataset.py
 hyperline_client/models/explorer_view_dataset_collection.py
@@ -88,6 +101,12 @@ hyperline_client/models/file.py
 hyperline_client/models/file_collection.py
 hyperline_client/models/file_create_request.py
 hyperline_client/models/file_metadata.py
+hyperline_client/models/integration.py
+hyperline_client/models/integration_config_gcs.py
+hyperline_client/models/integration_config_rdbms.py
+hyperline_client/models/integration_config_s3.py
+hyperline_client/models/integration_create_request.py
+hyperline_client/models/integration_create_request_config.py
 hyperline_client/models/job.py
 hyperline_client/models/job_collection.py
 hyperline_client/models/jobs_stat.py
@@ -109,6 +128,7 @@ hyperline_client/models/spark_job_submit_request.py
 hyperline_client/models/sql_column.py
 hyperline_client/models/sql_execute_response.py
 hyperline_client/models/sql_field_schema.py
+hyperline_client/models/sql_job_details.py
 hyperline_client/models/sql_job_statistics.py
 hyperline_client/models/sql_job_status.py
 hyperline_client/models/sql_query.py
@@ -127,4 +147,14 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
+test/test_api_key_create_request.py
+test/test_delete_op_response.py
+test/test_integration.py
+test/test_integration_api.py
+test/test_integration_config_gcs.py
+test/test_integration_config_rdbms.py
+test/test_integration_config_s3.py
+test/test_integration_create_request.py
+test/test_integration_create_request_config.py
+test/test_sql_job_details.py
 tox.ini

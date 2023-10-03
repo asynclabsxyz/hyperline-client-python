@@ -22,14 +22,13 @@ import json
 from typing import Optional
 from pydantic import BaseModel, StrictStr
 
-class ApiKey(BaseModel):
+class IntegrationConfigGCS(BaseModel):
     """
-    An API key object.
+    IntegrationConfigGCS
     """
-    api_key: Optional[StrictStr] = None
-    api_secret_key: Optional[StrictStr] = None
-    name: Optional[StrictStr] = None
-    __properties = ["api_key", "api_secret_key", "name"]
+    bucket_name: Optional[StrictStr] = None
+    service_account_key_json: Optional[StrictStr] = None
+    __properties = ["bucket_name", "service_account_key_json"]
 
     class Config:
         """Pydantic configuration"""
@@ -45,8 +44,8 @@ class ApiKey(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> ApiKey:
-        """Create an instance of ApiKey from a JSON string"""
+    def from_json(cls, json_str: str) -> IntegrationConfigGCS:
+        """Create an instance of IntegrationConfigGCS from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -55,36 +54,20 @@ class ApiKey(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
-        # set to None if api_key (nullable) is None
-        # and __fields_set__ contains the field
-        if self.api_key is None and "api_key" in self.__fields_set__:
-            _dict['api_key'] = None
-
-        # set to None if api_secret_key (nullable) is None
-        # and __fields_set__ contains the field
-        if self.api_secret_key is None and "api_secret_key" in self.__fields_set__:
-            _dict['api_secret_key'] = None
-
-        # set to None if name (nullable) is None
-        # and __fields_set__ contains the field
-        if self.name is None and "name" in self.__fields_set__:
-            _dict['name'] = None
-
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> ApiKey:
-        """Create an instance of ApiKey from a dict"""
+    def from_dict(cls, obj: dict) -> IntegrationConfigGCS:
+        """Create an instance of IntegrationConfigGCS from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return ApiKey.parse_obj(obj)
+            return IntegrationConfigGCS.parse_obj(obj)
 
-        _obj = ApiKey.parse_obj({
-            "api_key": obj.get("api_key"),
-            "api_secret_key": obj.get("api_secret_key"),
-            "name": obj.get("name")
+        _obj = IntegrationConfigGCS.parse_obj({
+            "bucket_name": obj.get("bucket_name"),
+            "service_account_key_json": obj.get("service_account_key_json")
         })
         return _obj
 

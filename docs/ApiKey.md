@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **api_key** | **str** |  | [optional] 
 **api_secret_key** | **str** |  | [optional] 
+**name** | **str** |  | [optional] 
 
 ## Example
 
