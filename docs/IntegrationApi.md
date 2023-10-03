@@ -166,7 +166,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_integration**
-> Integration get_integration(id, validate=validate)
+> Integration get_integration(id)
 
 Get a specific integration by ID
 
@@ -202,11 +202,10 @@ with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.IntegrationApi(api_client)
     id = 'id_example' # str | 
-    validate = True # bool |  (optional)
 
     try:
         # Get a specific integration by ID
-        api_response = api_instance.get_integration(id, validate=validate)
+        api_response = api_instance.get_integration(id)
         print("The response of IntegrationApi->get_integration:\n")
         pprint(api_response)
     except Exception as e:
@@ -220,7 +219,6 @@ with hyperline_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**|  | 
- **validate** | **bool**|  | [optional] 
 
 ### Return type
 
@@ -245,7 +243,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_integrations**
-> List[Integration] list_integrations(validate=validate)
+> List[Integration] list_integrations()
 
 List integrations
 
@@ -282,11 +280,10 @@ configuration = hyperline_client.Configuration(
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.IntegrationApi(api_client)
-    validate = True # bool |  (optional)
 
     try:
         # List integrations
-        api_response = api_instance.list_integrations(validate=validate)
+        api_response = api_instance.list_integrations()
         print("The response of IntegrationApi->list_integrations:\n")
         pprint(api_response)
     except Exception as e:
@@ -296,10 +293,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **validate** | **bool**|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
