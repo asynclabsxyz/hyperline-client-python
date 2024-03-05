@@ -29,7 +29,8 @@ class IntegrationConfigS3(BaseModel):
     bucket_name: Optional[StrictStr] = None
     access_key_id: Optional[StrictStr] = None
     secret_key: Optional[StrictStr] = None
-    __properties = ["bucket_name", "access_key_id", "secret_key"]
+    region: Optional[StrictStr] = None
+    __properties = ["bucket_name", "access_key_id", "secret_key", "region"]
 
     class Config:
         """Pydantic configuration"""
@@ -69,7 +70,8 @@ class IntegrationConfigS3(BaseModel):
         _obj = IntegrationConfigS3.parse_obj({
             "bucket_name": obj.get("bucket_name"),
             "access_key_id": obj.get("access_key_id"),
-            "secret_key": obj.get("secret_key")
+            "secret_key": obj.get("secret_key"),
+            "region": obj.get("region")
         })
         return _obj
 

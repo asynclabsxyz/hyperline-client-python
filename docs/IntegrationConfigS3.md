@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **bucket_name** | **str** |  | [optional] 
 **access_key_id** | **str** |  | [optional] 
 **secret_key** | **str** |  | [optional] 
+**region** | **str** |  | [optional] 
 
 ## Example
 

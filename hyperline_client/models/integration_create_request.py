@@ -20,7 +20,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, Field, StrictStr, validator
 from hyperline_client.models.integration_create_request_config import IntegrationCreateRequestConfig
 
 class IntegrationCreateRequest(BaseModel):
@@ -31,6 +31,13 @@ class IntegrationCreateRequest(BaseModel):
     type: StrictStr = Field(...)
     config: Optional[IntegrationCreateRequestConfig] = None
     __properties = ["name", "type", "config"]
+
+    @validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver'):
+            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver')")
+        return value
 
     class Config:
         """Pydantic configuration"""

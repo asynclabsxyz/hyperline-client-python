@@ -20,23 +20,34 @@ import json
 
 from datetime import date
 from typing import List, Optional
-from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, conlist, constr, validator
 from hyperline_client.models.stage import Stage
 
 class Pipeline(BaseModel):
     """
     Pipeline
     """
-    pipeline_name: StrictStr = Field(..., description="The name of the pipeline.")
+    pipeline_name: Optional[constr(strict=True)] = Field(None, description="The name of the pipeline, equivalent to DAG_ID in Airflow.  Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). ")
+    raw_code: Optional[StrictStr] = Field(None, description="The raw python code for the DAG.")
     schedule: Optional[StrictStr] = Field(None, description="The schedule of the pipeline.")
-    stages: conlist(Stage) = Field(..., description="The list of the stages of the pipeline.")
+    stages: Optional[conlist(Stage)] = Field(None, description="The list of the stages of the pipeline.")
     max_active_runs: Optional[StrictInt] = Field(None, description="The maximum number of active runs for a DAG.")
     retries: Optional[StrictInt] = Field(None, description="The number of retries that should be performed before failing a task.")
     start_date: Optional[date] = Field(None, description="The date at which the pipeline's schedule starts.")
     catchup: Optional[StrictBool] = Field(None, description="Kickoff DAG runs for data intervals that have not been run since the last data interval.")
     write_test_mode: Optional[StrictBool] = Field(None, description="Write output data in a test database.")
     sample_reads: Optional[StrictBool] = Field(None, description="Read a sample of input data from datasource.")
-    __properties = ["pipeline_name", "schedule", "stages", "max_active_runs", "retries", "start_date", "catchup", "write_test_mode", "sample_reads"]
+    __properties = ["pipeline_name", "raw_code", "schedule", "stages", "max_active_runs", "retries", "start_date", "catchup", "write_test_mode", "sample_reads"]
+
+    @validator('pipeline_name')
+    def pipeline_name_validate_regular_expression(cls, value):
+        """Validates the regular expression"""
+        if value is None:
+            return value
+
+        if not re.match(r"^[a-zA-Z0-9\-._]+$", value):
+            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9\-._]+$/")
+        return value
 
     class Config:
         """Pydantic configuration"""
@@ -82,6 +93,7 @@ class Pipeline(BaseModel):
 
         _obj = Pipeline.parse_obj({
             "pipeline_name": obj.get("pipeline_name"),
+            "raw_code": obj.get("raw_code"),
             "schedule": obj.get("schedule"),
             "stages": [Stage.from_dict(_item) for _item in obj.get("stages")] if obj.get("stages") is not None else None,
             "max_active_runs": obj.get("max_active_runs"),

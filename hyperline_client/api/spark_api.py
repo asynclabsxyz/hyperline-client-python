@@ -171,8 +171,10 @@ class SparkApi(object):
 
         _response_types_map = {
             '200': "SparkJobStatus",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -312,8 +314,10 @@ class SparkApi(object):
 
         _response_types_map = {
             '200': "SparkJobStatus",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -453,8 +457,10 @@ class SparkApi(object):
 
         _response_types_map = {
             '200': "SparkJobOutput",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -587,6 +593,9 @@ class SparkApi(object):
         _response_types_map = {
             '200': "File",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -719,6 +728,9 @@ class SparkApi(object):
         _response_types_map = {
             '200': "SparkJobCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -851,6 +863,9 @@ class SparkApi(object):
         _response_types_map = {
             '200': "SavedJobCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1134,8 +1149,10 @@ class SparkApi(object):
 
         _response_types_map = {
             '200': "SparkJobStatus",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1283,6 +1300,9 @@ class SparkApi(object):
         _response_types_map = {
             '200': "SqlExecuteResponse",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

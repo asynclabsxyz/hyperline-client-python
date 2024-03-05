@@ -22,12 +22,12 @@ import re  # noqa: F401
 from typing import Any, List, Optional
 from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
 from hyperline_client.models.integration_config_gcs import IntegrationConfigGCS
-from hyperline_client.models.integration_config_rdbms import IntegrationConfigRDBMS
+from hyperline_client.models.integration_config_jdbc import IntegrationConfigJDBC
 from hyperline_client.models.integration_config_s3 import IntegrationConfigS3
 from typing import Union, Any, List, TYPE_CHECKING
 from pydantic import StrictStr, Field
 
-INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS = ["IntegrationConfigGCS", "IntegrationConfigRDBMS", "IntegrationConfigS3"]
+INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS = ["IntegrationConfigGCS", "IntegrationConfigJDBC", "IntegrationConfigS3"]
 
 class IntegrationCreateRequestConfig(BaseModel):
     """
@@ -37,10 +37,10 @@ class IntegrationCreateRequestConfig(BaseModel):
     oneof_schema_1_validator: Optional[IntegrationConfigGCS] = None
     # data type: IntegrationConfigS3
     oneof_schema_2_validator: Optional[IntegrationConfigS3] = None
-    # data type: IntegrationConfigRDBMS
-    oneof_schema_3_validator: Optional[IntegrationConfigRDBMS] = None
+    # data type: IntegrationConfigJDBC
+    oneof_schema_3_validator: Optional[IntegrationConfigJDBC] = None
     if TYPE_CHECKING:
-        actual_instance: Union[IntegrationConfigGCS, IntegrationConfigRDBMS, IntegrationConfigS3]
+        actual_instance: Union[IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3]
     else:
         actual_instance: Any
     one_of_schemas: List[str] = Field(INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS, const=True)
@@ -73,17 +73,17 @@ class IntegrationCreateRequestConfig(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `IntegrationConfigS3`")
         else:
             match += 1
-        # validate data type: IntegrationConfigRDBMS
-        if not isinstance(v, IntegrationConfigRDBMS):
-            error_messages.append(f"Error! Input type `{type(v)}` is not `IntegrationConfigRDBMS`")
+        # validate data type: IntegrationConfigJDBC
+        if not isinstance(v, IntegrationConfigJDBC):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `IntegrationConfigJDBC`")
         else:
             match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigRDBMS, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigRDBMS, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -110,19 +110,19 @@ class IntegrationCreateRequestConfig(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
-        # deserialize data into IntegrationConfigRDBMS
+        # deserialize data into IntegrationConfigJDBC
         try:
-            instance.actual_instance = IntegrationConfigRDBMS.from_json(json_str)
+            instance.actual_instance = IntegrationConfigJDBC.from_json(json_str)
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigRDBMS, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigRDBMS, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
         else:
             return instance
 

@@ -6,8 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **name** | **str** |  | [optional] 
 **type** | **str** |  | [optional] 
+**subtype** | **str** |  | [optional] 
+**path** | **str** |  | [optional] 
 **children** | [**List[ExplorerViewDataset]**](ExplorerViewDataset.md) |  | [optional] 
 **attributes** | **Dict[str, str]** |  | [optional] 
+**in_preview** | **bool** |  | [optional] 
 
 ## Example
 

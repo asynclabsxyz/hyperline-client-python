@@ -5,12 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pipeline_name** | **str** |  | [optional] 
-**org_id** | **int** |  | [optional] 
-**author_email** | **str** |  | [optional] 
 **active** | **bool** |  | [optional] 
-**created_at** | **datetime** |  | [optional] 
-**last_updated_at** | **datetime** |  | [optional] 
-**last_executed_at** | **datetime** |  | [optional] 
+**owners** | **List[str]** |  | [optional] 
+**tags** | **List[str]** |  | [optional] 
+**schedule** | **str** |  | [optional] 
+**last_run** | **datetime** |  | [optional] 
+**next_run** | **datetime** |  | [optional] 
+**has_import_errors** | **bool** |  | [optional] 
+**file_location** | **str** |  | [optional] 
 
 ## Example
 

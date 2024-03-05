@@ -87,6 +87,8 @@ Name | Type | Description  | Notes
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
 **400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -161,12 +163,16 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | Success. |  -  |
+**200** | Success. |  -  |
+**500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **get_integration**
-> Integration get_integration(id)
+> Integration get_integration(id, should_validate=should_validate)
 
 Get a specific integration by ID
 
@@ -202,10 +208,11 @@ with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.IntegrationApi(api_client)
     id = 'id_example' # str | 
+    should_validate = True # bool |  (optional)
 
     try:
         # Get a specific integration by ID
-        api_response = api_instance.get_integration(id)
+        api_response = api_instance.get_integration(id, should_validate=should_validate)
         print("The response of IntegrationApi->get_integration:\n")
         pprint(api_response)
     except Exception as e:
@@ -219,6 +226,7 @@ with hyperline_client.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**|  | 
+ **should_validate** | **bool**|  | [optional] 
 
 ### Return type
 
@@ -239,11 +247,13 @@ Name | Type | Description  | Notes
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
 **400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **list_integrations**
-> List[Integration] list_integrations()
+> List[Integration] list_integrations(should_validate=should_validate)
 
 List integrations
 
@@ -280,10 +290,11 @@ configuration = hyperline_client.Configuration(
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = hyperline_client.IntegrationApi(api_client)
+    should_validate = True # bool |  (optional)
 
     try:
         # List integrations
-        api_response = api_instance.list_integrations()
+        api_response = api_instance.list_integrations(should_validate=should_validate)
         print("The response of IntegrationApi->list_integrations:\n")
         pprint(api_response)
     except Exception as e:
@@ -293,7 +304,10 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **should_validate** | **bool**|  | [optional] 
 
 ### Return type
 
@@ -313,6 +327,9 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

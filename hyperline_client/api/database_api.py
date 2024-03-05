@@ -155,6 +155,9 @@ class DatabaseApi(object):
         _response_types_map = {
             '200': "SqlSchema",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

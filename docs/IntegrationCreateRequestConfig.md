@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **service_account_key_json** | **str** |  | [optional] 
 **access_key_id** | **str** |  | [optional] 
 **secret_key** | **str** |  | [optional] 
+**region** | **str** |  | [optional] 
 **user** | **str** |  | [optional] 
 **password** | **str** |  | [optional] 
 **tcp_host** | **str** |  | [optional] 

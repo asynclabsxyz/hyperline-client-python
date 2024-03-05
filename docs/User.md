@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **secrets** | **str** | The user&#39;s secrets | [optional] 
 **status** | **str** | The user&#39;s status | [optional] 
 **org_id** | **int** | The user&#39;s org id | [optional] 
+**org_workspace_id** | **str** | The user&#39;s org workspace identifier | [optional] 
 **impersonated_user** | **str** | The user&#39;s impersonated user | [optional] 
 
 ## Example

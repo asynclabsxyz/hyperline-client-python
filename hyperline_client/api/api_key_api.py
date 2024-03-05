@@ -175,7 +175,9 @@ class ApiKeyApi(object):
         _response_types_map = {
             '200': "ApiKey",
             '500': "Error",
-            '400': "BadUserRequest",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -445,7 +447,9 @@ class ApiKeyApi(object):
         _response_types_map = {
             '200': "List[ApiKey]",
             '500': "Error",
-            '400': "BadUserRequest",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

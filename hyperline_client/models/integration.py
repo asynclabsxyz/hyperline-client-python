@@ -20,7 +20,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from pydantic import BaseModel, Field, StrictBool, StrictStr, validator
 
 class Integration(BaseModel):
     """
@@ -32,6 +32,13 @@ class Integration(BaseModel):
     type: StrictStr = Field(...)
     is_valid: Optional[StrictBool] = True
     __properties = ["id", "name", "details", "type", "is_valid"]
+
+    @validator('type')
+    def type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver'):
+            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver')")
+        return value
 
     class Config:
         """Pydantic configuration"""

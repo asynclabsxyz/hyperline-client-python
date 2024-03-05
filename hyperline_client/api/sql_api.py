@@ -168,8 +168,10 @@ class SqlApi(object):
 
         _response_types_map = {
             '200': "SqlJobStatus",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -316,8 +318,10 @@ class SqlApi(object):
 
         _response_types_map = {
             '200': "SqlExecuteResponse",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -450,6 +454,9 @@ class SqlApi(object):
         _response_types_map = {
             '200': "SqlQuery",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -597,8 +604,10 @@ class SqlApi(object):
 
         _response_types_map = {
             '200': "SqlJobDetails",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -738,8 +747,10 @@ class SqlApi(object):
 
         _response_types_map = {
             '200': "SqlExecuteResponse",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -872,6 +883,9 @@ class SqlApi(object):
         _response_types_map = {
             '200': "SqlQueryCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1018,8 +1032,10 @@ class SqlApi(object):
 
         _response_types_map = {
             '200': "SqlExecuteResponse",
-            '404': "Error",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1311,6 +1327,9 @@ class SqlApi(object):
         _response_types_map = {
             '200': "SqlQuery",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

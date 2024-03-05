@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**get_dataset_metadata**](DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
 [**get_dataset_preview**](DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
 [**get_dataset_template_sql**](DatasetApi.md#get_dataset_template_sql) | **GET** /datasets/templates/sql | Get dataset template sql statement
+[**list_audit_details**](DatasetApi.md#list_audit_details) | **GET** /datasets/audit/details | List dataset audit details
+[**list_audit_status**](DatasetApi.md#list_audit_status) | **GET** /datasets/audit/status | List dataset audit status
 [**list_datasets**](DatasetApi.md#list_datasets) | **GET** /datasets | List datasets
 [**list_explorer_datasets**](DatasetApi.md#list_explorer_datasets) | **GET** /datasets/explorer | List datasets for web explorer
 [**list_explorer_datasets_details**](DatasetApi.md#list_explorer_datasets_details) | **GET** /datasets/explorer/details | List datasets details for web explorer
@@ -19,7 +21,7 @@ Method | HTTP request | Description
 
 Add dataset to user favirites list
 
-Add dataset to user favirites list.
+Add dataset to user favorites list.
 
 ### Example
 
@@ -85,8 +87,10 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Success. |  -  |
-**400** | Client specified an invalid argument. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -166,6 +170,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -246,6 +253,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -323,8 +333,164 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
-**400** | Client specified an invalid argument. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_audit_details**
+> DatasetAuditDetailsResponse list_audit_details()
+
+List dataset audit details
+
+List Audit Details
+
+### Example
+
+* Bearer Authentication (bearerAuth):
+```python
+import time
+import os
+import hyperline_client
+from hyperline_client.models.dataset_audit_details_response import DatasetAuditDetailsResponse
+from hyperline_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to /api/v1beta
+# See configuration.py for a list of all supported configuration parameters.
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearerAuth
+configuration = hyperline_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with hyperline_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = hyperline_client.DatasetApi(api_client)
+
+    try:
+        # List dataset audit details
+        api_response = api_instance.list_audit_details()
+        print("The response of DatasetApi->list_audit_details:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DatasetApi->list_audit_details: %s\n" % e)
+```
+
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DatasetAuditDetailsResponse**](DatasetAuditDetailsResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success. |  -  |
+**500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **list_audit_status**
+> DatasetAuditStatusResponse list_audit_status()
+
+List dataset audit status
+
+List Audit Status
+
+### Example
+
+* Bearer Authentication (bearerAuth):
+```python
+import time
+import os
+import hyperline_client
+from hyperline_client.models.dataset_audit_status_response import DatasetAuditStatusResponse
+from hyperline_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to /api/v1beta
+# See configuration.py for a list of all supported configuration parameters.
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearerAuth
+configuration = hyperline_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with hyperline_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = hyperline_client.DatasetApi(api_client)
+
+    try:
+        # List dataset audit status
+        api_response = api_instance.list_audit_status()
+        print("The response of DatasetApi->list_audit_status:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling DatasetApi->list_audit_status: %s\n" % e)
+```
+
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**DatasetAuditStatusResponse**](DatasetAuditStatusResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success. |  -  |
+**500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -399,6 +565,9 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -473,6 +642,9 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -551,6 +723,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -625,6 +800,9 @@ This endpoint does not need any parameter.
 |-------------|-------------|------------------|
 **200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

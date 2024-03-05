@@ -20,9 +20,9 @@ import warnings
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
 
-from pydantic import StrictStr
+from pydantic import StrictBool, StrictStr
 
-from typing import List
+from typing import List, Optional
 
 from hyperline_client.models.delete_op_response import DeleteOpResponse
 from hyperline_client.models.integration import Integration
@@ -176,7 +176,9 @@ class IntegrationApi(object):
         _response_types_map = {
             '200': "Integration",
             '500': "Error",
-            '400': "BadUserRequest",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -313,7 +315,11 @@ class IntegrationApi(object):
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '204': "DeleteOpResponse",
+            '200': "DeleteOpResponse",
+            '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -334,17 +340,19 @@ class IntegrationApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_integration(self, id : StrictStr, **kwargs) -> Integration:  # noqa: E501
+    def get_integration(self, id : StrictStr, should_validate : Optional[StrictBool] = None, **kwargs) -> Integration:  # noqa: E501
         """Get a specific integration by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_integration(id, async_req=True)
+        >>> thread = api.get_integration(id, should_validate, async_req=True)
         >>> result = thread.get()
 
         :param id: (required)
         :type id: str
+        :param should_validate:
+        :type should_validate: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -359,20 +367,22 @@ class IntegrationApi(object):
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
             raise ValueError("Error! Please call the get_integration_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.get_integration_with_http_info(id, **kwargs)  # noqa: E501
+        return self.get_integration_with_http_info(id, should_validate, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_integration_with_http_info(self, id : StrictStr, **kwargs) -> ApiResponse:  # noqa: E501
+    def get_integration_with_http_info(self, id : StrictStr, should_validate : Optional[StrictBool] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """Get a specific integration by ID  # noqa: E501
 
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_integration_with_http_info(id, async_req=True)
+        >>> thread = api.get_integration_with_http_info(id, should_validate, async_req=True)
         >>> result = thread.get()
 
         :param id: (required)
         :type id: str
+        :param should_validate:
+        :type should_validate: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -401,7 +411,8 @@ class IntegrationApi(object):
         _params = locals()
 
         _all_params = [
-            'id'
+            'id',
+            'should_validate'
         ]
         _all_params.extend(
             [
@@ -435,6 +446,9 @@ class IntegrationApi(object):
 
         # process the query parameters
         _query_params = []
+        if _params.get('should_validate') is not None:  # noqa: E501
+            _query_params.append(('should_validate', _params['should_validate']))
+
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
         # process the form parameters
@@ -452,7 +466,9 @@ class IntegrationApi(object):
         _response_types_map = {
             '200': "Integration",
             '500': "Error",
-            '400': "BadUserRequest",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -473,16 +489,18 @@ class IntegrationApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_integrations(self, **kwargs) -> List[Integration]:  # noqa: E501
+    def list_integrations(self, should_validate : Optional[StrictBool] = None, **kwargs) -> List[Integration]:  # noqa: E501
         """List integrations  # noqa: E501
 
         List integrations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_integrations(async_req=True)
+        >>> thread = api.list_integrations(should_validate, async_req=True)
         >>> result = thread.get()
 
+        :param should_validate:
+        :type should_validate: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -497,19 +515,21 @@ class IntegrationApi(object):
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
             raise ValueError("Error! Please call the list_integrations_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.list_integrations_with_http_info(**kwargs)  # noqa: E501
+        return self.list_integrations_with_http_info(should_validate, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_integrations_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+    def list_integrations_with_http_info(self, should_validate : Optional[StrictBool] = None, **kwargs) -> ApiResponse:  # noqa: E501
         """List integrations  # noqa: E501
 
         List integrations.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.list_integrations_with_http_info(async_req=True)
+        >>> thread = api.list_integrations_with_http_info(should_validate, async_req=True)
         >>> result = thread.get()
 
+        :param should_validate:
+        :type should_validate: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -538,6 +558,7 @@ class IntegrationApi(object):
         _params = locals()
 
         _all_params = [
+            'should_validate'
         ]
         _all_params.extend(
             [
@@ -568,6 +589,9 @@ class IntegrationApi(object):
 
         # process the query parameters
         _query_params = []
+        if _params.get('should_validate') is not None:  # noqa: E501
+            _query_params.append(('should_validate', _params['should_validate']))
+
         # process the header parameters
         _header_params = dict(_params.get('_headers', {}))
         # process the form parameters
@@ -585,6 +609,9 @@ class IntegrationApi(object):
         _response_types_map = {
             '200': "List[Integration]",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

@@ -19,21 +19,23 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from typing import Optional
-from pydantic import BaseModel, StrictBool, StrictInt, StrictStr
+from typing import List, Optional
+from pydantic import BaseModel, StrictBool, StrictStr, conlist
 
 class PipelineMetadata(BaseModel):
     """
     PipelineMetadata
     """
     pipeline_name: Optional[StrictStr] = None
-    org_id: Optional[StrictInt] = None
-    author_email: Optional[StrictStr] = None
     active: Optional[StrictBool] = None
-    created_at: Optional[datetime] = None
-    last_updated_at: Optional[datetime] = None
-    last_executed_at: Optional[datetime] = None
-    __properties = ["pipeline_name", "org_id", "author_email", "active", "created_at", "last_updated_at", "last_executed_at"]
+    owners: Optional[conlist(StrictStr)] = None
+    tags: Optional[conlist(StrictStr)] = None
+    schedule: Optional[StrictStr] = None
+    last_run: Optional[datetime] = None
+    next_run: Optional[datetime] = None
+    has_import_errors: Optional[StrictBool] = None
+    file_location: Optional[StrictStr] = None
+    __properties = ["pipeline_name", "active", "owners", "tags", "schedule", "last_run", "next_run", "has_import_errors", "file_location"]
 
     class Config:
         """Pydantic configuration"""
@@ -72,12 +74,14 @@ class PipelineMetadata(BaseModel):
 
         _obj = PipelineMetadata.parse_obj({
             "pipeline_name": obj.get("pipeline_name"),
-            "org_id": obj.get("org_id"),
-            "author_email": obj.get("author_email"),
             "active": obj.get("active"),
-            "created_at": obj.get("created_at"),
-            "last_updated_at": obj.get("last_updated_at"),
-            "last_executed_at": obj.get("last_executed_at")
+            "owners": obj.get("owners"),
+            "tags": obj.get("tags"),
+            "schedule": obj.get("schedule"),
+            "last_run": obj.get("last_run"),
+            "next_run": obj.get("next_run"),
+            "has_import_errors": obj.get("has_import_errors"),
+            "file_location": obj.get("file_location")
         })
         return _obj
 

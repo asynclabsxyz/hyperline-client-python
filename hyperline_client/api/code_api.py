@@ -177,6 +177,9 @@ class CodeApi(object):
         _response_types_map = {
             '200': "File",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -317,6 +320,9 @@ class CodeApi(object):
         _response_types_map = {
             '200': "FileCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -465,6 +471,9 @@ class CodeApi(object):
         _response_types_map = {
             '200': "SamplesCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

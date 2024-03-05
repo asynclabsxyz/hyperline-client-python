@@ -20,7 +20,7 @@ import json
 
 
 from typing import Dict, List, Optional
-from pydantic import BaseModel, StrictStr, conlist
+from pydantic import BaseModel, StrictBool, StrictStr, conlist
 
 class ExplorerViewDataset(BaseModel):
     """
@@ -28,9 +28,12 @@ class ExplorerViewDataset(BaseModel):
     """
     name: Optional[StrictStr] = None
     type: Optional[StrictStr] = None
+    subtype: Optional[StrictStr] = None
+    path: Optional[StrictStr] = None
     children: Optional[conlist(ExplorerViewDataset)] = None
     attributes: Optional[Dict[str, StrictStr]] = None
-    __properties = ["name", "type", "children", "attributes"]
+    in_preview: Optional[StrictBool] = None
+    __properties = ["name", "type", "subtype", "path", "children", "attributes", "in_preview"]
 
     class Config:
         """Pydantic configuration"""
@@ -77,8 +80,11 @@ class ExplorerViewDataset(BaseModel):
         _obj = ExplorerViewDataset.parse_obj({
             "name": obj.get("name"),
             "type": obj.get("type"),
+            "subtype": obj.get("subtype"),
+            "path": obj.get("path"),
             "children": [ExplorerViewDataset.from_dict(_item) for _item in obj.get("children")] if obj.get("children") is not None else None,
-            "attributes": obj.get("attributes")
+            "attributes": obj.get("attributes"),
+            "in_preview": obj.get("in_preview")
         })
         return _obj
 

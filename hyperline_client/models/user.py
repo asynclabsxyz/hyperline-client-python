@@ -34,8 +34,9 @@ class User(BaseModel):
     secrets: Optional[StrictStr] = Field(None, description="The user's secrets")
     status: Optional[StrictStr] = Field(None, description="The user's status")
     org_id: Optional[StrictInt] = Field(None, description="The user's org id")
+    org_workspace_id: Optional[StrictStr] = Field(None, description="The user's org workspace identifier")
     impersonated_user: Optional[constr(strict=True, max_length=64)] = Field(None, description="The user's impersonated user")
-    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "impersonated_user"]
+    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "impersonated_user"]
 
     @validator('role')
     def role_validate_enum(cls, value):
@@ -99,6 +100,7 @@ class User(BaseModel):
             "secrets": obj.get("secrets"),
             "status": obj.get("status"),
             "org_id": obj.get("org_id"),
+            "org_workspace_id": obj.get("org_workspace_id"),
             "impersonated_user": obj.get("impersonated_user")
         })
         return _obj

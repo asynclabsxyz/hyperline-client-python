@@ -20,11 +20,12 @@ import warnings
 from pydantic import validate_arguments, ValidationError
 from typing_extensions import Annotated
 
-from pydantic import Field, StrictInt, StrictStr
+from pydantic import Field, StrictInt, StrictStr, constr, validator
 
 from hyperline_client.models.file import File
 from hyperline_client.models.pipeline import Pipeline
 from hyperline_client.models.pipeline_backfill_request import PipelineBackfillRequest
+from hyperline_client.models.pipeline_import_error_collection import PipelineImportErrorCollection
 from hyperline_client.models.pipeline_metadata_collection import PipelineMetadataCollection
 from hyperline_client.models.pipeline_run import PipelineRun
 from hyperline_client.models.pipeline_run_collection import PipelineRunCollection
@@ -198,7 +199,7 @@ class PipelineApi(object):
     def create_pipeline(self, pipeline : Pipeline, **kwargs) -> None:  # noqa: E501
         """Create a pipeline  # noqa: E501
 
-        Create a pipeline.  # noqa: E501
+        Create a pipeline  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -227,7 +228,7 @@ class PipelineApi(object):
     def create_pipeline_with_http_info(self, pipeline : Pipeline, **kwargs) -> ApiResponse:  # noqa: E501
         """Create a pipeline  # noqa: E501
 
-        Create a pipeline.  # noqa: E501
+        Create a pipeline  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -339,7 +340,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def delete_pipeline(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> None:  # noqa: E501
+    def delete_pipeline(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> None:  # noqa: E501
         """Delete a pipeline  # noqa: E501
 
         Delete a pipeline.  # noqa: E501
@@ -349,7 +350,7 @@ class PipelineApi(object):
         >>> thread = api.delete_pipeline(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -368,7 +369,7 @@ class PipelineApi(object):
         return self.delete_pipeline_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def delete_pipeline_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def delete_pipeline_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete a pipeline  # noqa: E501
 
         Delete a pipeline.  # noqa: E501
@@ -378,7 +379,7 @@ class PipelineApi(object):
         >>> thread = api.delete_pipeline_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -476,7 +477,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def deploy_pipeline(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> None:  # noqa: E501
+    def deploy_pipeline(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> None:  # noqa: E501
         """Deploy a pipeline  # noqa: E501
 
         Deploy a pipeline.  # noqa: E501
@@ -486,7 +487,7 @@ class PipelineApi(object):
         >>> thread = api.deploy_pipeline(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -505,7 +506,7 @@ class PipelineApi(object):
         return self.deploy_pipeline_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def deploy_pipeline_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def deploy_pipeline_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """Deploy a pipeline  # noqa: E501
 
         Deploy a pipeline.  # noqa: E501
@@ -515,7 +516,7 @@ class PipelineApi(object):
         >>> thread = api.deploy_pipeline_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -613,151 +614,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def edit_pipeline(self, pipeline : Pipeline, **kwargs) -> None:  # noqa: E501
-        """Edit a pipeline  # noqa: E501
-
-        Edit a pipeline.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.edit_pipeline(pipeline, async_req=True)
-        >>> result = thread.get()
-
-        :param pipeline: (required)
-        :type pipeline: Pipeline
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: None
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the edit_pipeline_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.edit_pipeline_with_http_info(pipeline, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def edit_pipeline_with_http_info(self, pipeline : Pipeline, **kwargs) -> ApiResponse:  # noqa: E501
-        """Edit a pipeline  # noqa: E501
-
-        Edit a pipeline.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.edit_pipeline_with_http_info(pipeline, async_req=True)
-        >>> result = thread.get()
-
-        :param pipeline: (required)
-        :type pipeline: Pipeline
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: None
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'pipeline'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method edit_pipeline" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        if _params['pipeline'] is not None:
-            _body_params = _params['pipeline']
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {}
-
-        return self.api_client.call_api(
-            '/pipeline/edit', 'POST',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def get_pipeline(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> Pipeline:  # noqa: E501
+    def get_pipeline(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> Pipeline:  # noqa: E501
         """Get a pipeline  # noqa: E501
 
         Get information a pipeline.  # noqa: E501
@@ -767,7 +624,7 @@ class PipelineApi(object):
         >>> thread = api.get_pipeline(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -786,7 +643,7 @@ class PipelineApi(object):
         return self.get_pipeline_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_pipeline_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_pipeline_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get a pipeline  # noqa: E501
 
         Get information a pipeline.  # noqa: E501
@@ -796,7 +653,7 @@ class PipelineApi(object):
         >>> thread = api.get_pipeline_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -877,6 +734,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "Pipeline",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -897,7 +757,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_pipeline_run(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> PipelineRun:  # noqa: E501
+    def get_pipeline_run(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> PipelineRun:  # noqa: E501
         """Get information of a pipeline run  # noqa: E501
 
         Get information of a pipeline run.  # noqa: E501
@@ -907,7 +767,7 @@ class PipelineApi(object):
         >>> thread = api.get_pipeline_run(pipeline_name, run_id, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -928,7 +788,7 @@ class PipelineApi(object):
         return self.get_pipeline_run_with_http_info(pipeline_name, run_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_pipeline_run_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_pipeline_run_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get information of a pipeline run  # noqa: E501
 
         Get information of a pipeline run.  # noqa: E501
@@ -938,7 +798,7 @@ class PipelineApi(object):
         >>> thread = api.get_pipeline_run_with_http_info(pipeline_name, run_id, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -1025,6 +885,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "PipelineRun",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1045,7 +908,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_stage_instances(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> StageInstanceCollection:  # noqa: E501
+    def get_stage_instances(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> StageInstanceCollection:  # noqa: E501
         """Get stage instances of a pipeline  # noqa: E501
 
         Get stage instances of a pipeline.  # noqa: E501
@@ -1055,7 +918,7 @@ class PipelineApi(object):
         >>> thread = api.get_stage_instances(pipeline_name, run_id, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -1076,7 +939,7 @@ class PipelineApi(object):
         return self.get_stage_instances_with_http_info(pipeline_name, run_id, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_stage_instances_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_stage_instances_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get stage instances of a pipeline  # noqa: E501
 
         Get stage instances of a pipeline.  # noqa: E501
@@ -1086,7 +949,7 @@ class PipelineApi(object):
         >>> thread = api.get_stage_instances_with_http_info(pipeline_name, run_id, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -1173,6 +1036,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "StageInstanceCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1193,7 +1059,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_stage_log(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], stage_name : Annotated[StrictStr, Field(..., description="The name of a pipeline stage.")], try_number : Annotated[StrictInt, Field(..., description="The try number of the logs of a pipeline stage instance.")], **kwargs) -> File:  # noqa: E501
+    def get_stage_log(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], stage_name : Annotated[StrictStr, Field(..., description="The name of a pipeline stage.")], try_number : Annotated[StrictInt, Field(..., description="The try number of the logs of a pipeline stage instance.")], **kwargs) -> File:  # noqa: E501
         """Get the logs of a pipeline stage instance  # noqa: E501
 
         Get the logs of a pipeline stage instance.  # noqa: E501
@@ -1203,7 +1069,7 @@ class PipelineApi(object):
         >>> thread = api.get_stage_log(pipeline_name, run_id, stage_name, try_number, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -1228,7 +1094,7 @@ class PipelineApi(object):
         return self.get_stage_log_with_http_info(pipeline_name, run_id, stage_name, try_number, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_stage_log_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], stage_name : Annotated[StrictStr, Field(..., description="The name of a pipeline stage.")], try_number : Annotated[StrictInt, Field(..., description="The try number of the logs of a pipeline stage instance.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def get_stage_log_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], run_id : Annotated[StrictStr, Field(..., description="The ID of a pipeline run.")], stage_name : Annotated[StrictStr, Field(..., description="The name of a pipeline stage.")], try_number : Annotated[StrictInt, Field(..., description="The try number of the logs of a pipeline stage instance.")], **kwargs) -> ApiResponse:  # noqa: E501
         """Get the logs of a pipeline stage instance  # noqa: E501
 
         Get the logs of a pipeline stage instance.  # noqa: E501
@@ -1238,7 +1104,7 @@ class PipelineApi(object):
         >>> thread = api.get_stage_log_with_http_info(pipeline_name, run_id, stage_name, try_number, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param run_id: The ID of a pipeline run. (required)
         :type run_id: str
@@ -1337,6 +1203,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "File",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1357,7 +1226,139 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def list_pipeline_runs(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> PipelineRunCollection:  # noqa: E501
+    def list_pipeline_import_errors(self, **kwargs) -> PipelineImportErrorCollection:  # noqa: E501
+        """List pipeline import errors  # noqa: E501
+
+        List all pipeline import errors in DAG files.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.list_pipeline_import_errors(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PipelineImportErrorCollection
+        """
+        kwargs['_return_http_data_only'] = True
+        if '_preload_content' in kwargs:
+            raise ValueError("Error! Please call the list_pipeline_import_errors_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
+        return self.list_pipeline_import_errors_with_http_info(**kwargs)  # noqa: E501
+
+    @validate_arguments
+    def list_pipeline_import_errors_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
+        """List pipeline import errors  # noqa: E501
+
+        List all pipeline import errors in DAG files.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.list_pipeline_import_errors_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the ApiResponse.data will
+                                 be set to none and raw_data will store the 
+                                 HTTP response body without reading/decoding.
+                                 Default is True.
+        :type _preload_content: bool, optional
+        :param _return_http_data_only: response data instead of ApiResponse
+                                       object with status code, headers, etc
+        :type _return_http_data_only: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PipelineImportErrorCollection, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        _params = locals()
+
+        _all_params = [
+        ]
+        _all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth',
+                '_content_type',
+                '_headers'
+            ]
+        )
+
+        # validate the arguments
+        for _key, _val in _params['kwargs'].items():
+            if _key not in _all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method list_pipeline_import_errors" % _key
+                )
+            _params[_key] = _val
+        del _params['kwargs']
+
+        _collection_formats = {}
+
+        # process the path parameters
+        _path_params = {}
+
+        # process the query parameters
+        _query_params = []
+        # process the header parameters
+        _header_params = dict(_params.get('_headers', {}))
+        # process the form parameters
+        _form_params = []
+        _files = {}
+        # process the body parameter
+        _body_params = None
+        # set the HTTP header `Accept`
+        _header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # authentication setting
+        _auth_settings = ['bearerAuth']  # noqa: E501
+
+        _response_types_map = {
+            '200': "PipelineImportErrorCollection",
+            '500': "Error",
+        }
+
+        return self.api_client.call_api(
+            '/pipeline/import_errors', 'GET',
+            _path_params,
+            _query_params,
+            _header_params,
+            body=_body_params,
+            post_params=_form_params,
+            files=_files,
+            response_types_map=_response_types_map,
+            auth_settings=_auth_settings,
+            async_req=_params.get('async_req'),
+            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=_params.get('_preload_content', True),
+            _request_timeout=_params.get('_request_timeout'),
+            collection_formats=_collection_formats,
+            _request_auth=_params.get('_request_auth'))
+
+    @validate_arguments
+    def list_pipeline_runs(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> PipelineRunCollection:  # noqa: E501
         """List runs of a pipeline  # noqa: E501
 
         List runs of a pipeline.  # noqa: E501
@@ -1367,7 +1368,7 @@ class PipelineApi(object):
         >>> thread = api.list_pipeline_runs(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1386,7 +1387,7 @@ class PipelineApi(object):
         return self.list_pipeline_runs_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def list_pipeline_runs_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def list_pipeline_runs_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """List runs of a pipeline  # noqa: E501
 
         List runs of a pipeline.  # noqa: E501
@@ -1396,7 +1397,7 @@ class PipelineApi(object):
         >>> thread = api.list_pipeline_runs_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1477,6 +1478,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "PipelineRunCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1609,6 +1613,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "PipelineMetadataCollection",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(
@@ -1629,7 +1636,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def pause_pipeline(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> None:  # noqa: E501
+    def pause_pipeline(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> None:  # noqa: E501
         """Pause a pipeline  # noqa: E501
 
         Pause a pipeline.  # noqa: E501
@@ -1639,7 +1646,7 @@ class PipelineApi(object):
         >>> thread = api.pause_pipeline(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1658,7 +1665,7 @@ class PipelineApi(object):
         return self.pause_pipeline_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def pause_pipeline_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def pause_pipeline_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """Pause a pipeline  # noqa: E501
 
         Pause a pipeline.  # noqa: E501
@@ -1668,7 +1675,7 @@ class PipelineApi(object):
         >>> thread = api.pause_pipeline_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1766,7 +1773,7 @@ class PipelineApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def trigger_pipeline(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> PipelineRun:  # noqa: E501
+    def trigger_pipeline(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> PipelineRun:  # noqa: E501
         """Delete a pipeline  # noqa: E501
 
         Trigger a pipeline.  # noqa: E501
@@ -1776,7 +1783,7 @@ class PipelineApi(object):
         >>> thread = api.trigger_pipeline(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1795,7 +1802,7 @@ class PipelineApi(object):
         return self.trigger_pipeline_with_http_info(pipeline_name, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def trigger_pipeline_with_http_info(self, pipeline_name : Annotated[StrictStr, Field(..., description="The pipeline name.")], **kwargs) -> ApiResponse:  # noqa: E501
+    def trigger_pipeline_with_http_info(self, pipeline_name : Annotated[constr(strict=True), Field(..., description="The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).")], **kwargs) -> ApiResponse:  # noqa: E501
         """Delete a pipeline  # noqa: E501
 
         Trigger a pipeline.  # noqa: E501
@@ -1805,7 +1812,7 @@ class PipelineApi(object):
         >>> thread = api.trigger_pipeline_with_http_info(pipeline_name, async_req=True)
         >>> result = thread.get()
 
-        :param pipeline_name: The pipeline name. (required)
+        :param pipeline_name: The pipeline name. Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). (required)
         :type pipeline_name: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -1886,6 +1893,9 @@ class PipelineApi(object):
         _response_types_map = {
             '200': "PipelineRun",
             '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
         }
 
         return self.api_client.call_api(

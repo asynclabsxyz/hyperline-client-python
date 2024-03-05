@@ -107,11 +107,14 @@ Class | Method | HTTP request | Description
 *DatasetApi* | [**get_dataset_metadata**](docs/DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
 *DatasetApi* | [**get_dataset_preview**](docs/DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
 *DatasetApi* | [**get_dataset_template_sql**](docs/DatasetApi.md#get_dataset_template_sql) | **GET** /datasets/templates/sql | Get dataset template sql statement
+*DatasetApi* | [**list_audit_details**](docs/DatasetApi.md#list_audit_details) | **GET** /datasets/audit/details | List dataset audit details
+*DatasetApi* | [**list_audit_status**](docs/DatasetApi.md#list_audit_status) | **GET** /datasets/audit/status | List dataset audit status
 *DatasetApi* | [**list_datasets**](docs/DatasetApi.md#list_datasets) | **GET** /datasets | List datasets
 *DatasetApi* | [**list_explorer_datasets**](docs/DatasetApi.md#list_explorer_datasets) | **GET** /datasets/explorer | List datasets for web explorer
 *DatasetApi* | [**list_explorer_datasets_details**](docs/DatasetApi.md#list_explorer_datasets_details) | **GET** /datasets/explorer/details | List datasets details for web explorer
 *DatasetApi* | [**list_favorite_datasets**](docs/DatasetApi.md#list_favorite_datasets) | **GET** /datasets/favorites | List user favorite datasets
 *FileApi* | [**create_file**](docs/FileApi.md#create_file) | **POST** /files | Create a file
+*FileApi* | [**delete_file**](docs/FileApi.md#delete_file) | **POST** /files/delete | Delete a file
 *FileApi* | [**get_file_content**](docs/FileApi.md#get_file_content) | **GET** /files/content | Get file content
 *FileApi* | [**get_file_metadata**](docs/FileApi.md#get_file_metadata) | **GET** /files/metadata | Get file metadata
 *FileApi* | [**get_file_preview**](docs/FileApi.md#get_file_preview) | **GET** /files/preview | Get file preview
@@ -126,11 +129,11 @@ Class | Method | HTTP request | Description
 *PipelineApi* | [**create_pipeline**](docs/PipelineApi.md#create_pipeline) | **POST** /pipelines | Create a pipeline
 *PipelineApi* | [**delete_pipeline**](docs/PipelineApi.md#delete_pipeline) | **POST** /pipelines/{pipeline_name}/delete | Delete a pipeline
 *PipelineApi* | [**deploy_pipeline**](docs/PipelineApi.md#deploy_pipeline) | **POST** /pipelines/{pipeline_name}/deploy | Deploy a pipeline
-*PipelineApi* | [**edit_pipeline**](docs/PipelineApi.md#edit_pipeline) | **POST** /pipeline/edit | Edit a pipeline
 *PipelineApi* | [**get_pipeline**](docs/PipelineApi.md#get_pipeline) | **GET** /pipelines/{pipeline_name} | Get a pipeline
 *PipelineApi* | [**get_pipeline_run**](docs/PipelineApi.md#get_pipeline_run) | **GET** /pipelines/{pipeline_name}/runs/{run_id} | Get information of a pipeline run
 *PipelineApi* | [**get_stage_instances**](docs/PipelineApi.md#get_stage_instances) | **GET** /pipelines/{pipeline_name}/runs/{run_id}/stages | Get stage instances of a pipeline
 *PipelineApi* | [**get_stage_log**](docs/PipelineApi.md#get_stage_log) | **GET** /pipelines/{pipeline_name}/runs/{run_id}/stages/{stage_name}/logs/{try_number} | Get the logs of a pipeline stage instance
+*PipelineApi* | [**list_pipeline_import_errors**](docs/PipelineApi.md#list_pipeline_import_errors) | **GET** /pipeline/import_errors | List pipeline import errors
 *PipelineApi* | [**list_pipeline_runs**](docs/PipelineApi.md#list_pipeline_runs) | **GET** /pipelines/{pipeline_name}/runs | List runs of a pipeline
 *PipelineApi* | [**list_pipelines**](docs/PipelineApi.md#list_pipelines) | **GET** /pipelines | List pipelines
 *PipelineApi* | [**pause_pipeline**](docs/PipelineApi.md#pause_pipeline) | **POST** /pipelines/{pipeline_name}/pause | Pause a pipeline
@@ -154,6 +157,7 @@ Class | Method | HTTP request | Description
 *SqlApi* | [**submit_sql_job**](docs/SqlApi.md#submit_sql_job) | **POST** /sql/jobs | Submit a SQL job
 *SqlApi* | [**update_sql_cache**](docs/SqlApi.md#update_sql_cache) | **POST** /sql/edit | Update user SQL query cache
 *SqlApi* | [**update_sql_query**](docs/SqlApi.md#update_sql_query) | **POST** /sql/queries | Update user SQL query cache
+*UsageApi* | [**get_usage**](docs/UsageApi.md#get_usage) | **GET** /usage | Get Usage
 *UserApi* | [**create_user**](docs/UserApi.md#create_user) | **POST** /user | Create a user
 *UserApi* | [**get_user**](docs/UserApi.md#get_user) | **GET** /user | Get user info
 
@@ -164,6 +168,12 @@ Class | Method | HTTP request | Description
  - [ApiKeyCreateRequest](docs/ApiKeyCreateRequest.md)
  - [BadUserRequest](docs/BadUserRequest.md)
  - [Dataset](docs/Dataset.md)
+ - [DatasetAuditDetails](docs/DatasetAuditDetails.md)
+ - [DatasetAuditDetailsItem](docs/DatasetAuditDetailsItem.md)
+ - [DatasetAuditDetailsResponse](docs/DatasetAuditDetailsResponse.md)
+ - [DatasetAuditStatus](docs/DatasetAuditStatus.md)
+ - [DatasetAuditStatusItem](docs/DatasetAuditStatusItem.md)
+ - [DatasetAuditStatusResponse](docs/DatasetAuditStatusResponse.md)
  - [DatasetCollection](docs/DatasetCollection.md)
  - [DatasetTable](docs/DatasetTable.md)
  - [DatasetTableColumn](docs/DatasetTableColumn.md)
@@ -177,15 +187,18 @@ Class | Method | HTTP request | Description
  - [FileMetadata](docs/FileMetadata.md)
  - [Integration](docs/Integration.md)
  - [IntegrationConfigGCS](docs/IntegrationConfigGCS.md)
- - [IntegrationConfigRDBMS](docs/IntegrationConfigRDBMS.md)
+ - [IntegrationConfigJDBC](docs/IntegrationConfigJDBC.md)
  - [IntegrationConfigS3](docs/IntegrationConfigS3.md)
  - [IntegrationCreateRequest](docs/IntegrationCreateRequest.md)
  - [IntegrationCreateRequestConfig](docs/IntegrationCreateRequestConfig.md)
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
  - [JobsStat](docs/JobsStat.md)
+ - [OrgUsage](docs/OrgUsage.md)
  - [Pipeline](docs/Pipeline.md)
  - [PipelineBackfillRequest](docs/PipelineBackfillRequest.md)
+ - [PipelineImportError](docs/PipelineImportError.md)
+ - [PipelineImportErrorCollection](docs/PipelineImportErrorCollection.md)
  - [PipelineMetadata](docs/PipelineMetadata.md)
  - [PipelineMetadataCollection](docs/PipelineMetadataCollection.md)
  - [PipelineRun](docs/PipelineRun.md)
