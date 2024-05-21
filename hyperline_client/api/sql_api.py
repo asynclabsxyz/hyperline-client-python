@@ -24,9 +24,7 @@ from pydantic import Field, StrictStr
 
 from hyperline_client.models.sql_execute_response import SqlExecuteResponse
 from hyperline_client.models.sql_job_details import SqlJobDetails
-from hyperline_client.models.sql_job_status import SqlJobStatus
 from hyperline_client.models.sql_query import SqlQuery
-from hyperline_client.models.sql_query_collection import SqlQueryCollection
 
 from hyperline_client.api_client import ApiClient
 from hyperline_client.api_response import ApiResponse
@@ -47,149 +45,6 @@ class SqlApi(object):
         if api_client is None:
             api_client = ApiClient.get_default()
         self.api_client = api_client
-
-    @validate_arguments
-    def check_sql_job(self, job_id : Annotated[StrictStr, Field(..., description="The Job ID.")], **kwargs) -> SqlJobStatus:  # noqa: E501
-        """Check the status of a SQL job  # noqa: E501
-
-        Check the status of a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.check_sql_job(job_id, async_req=True)
-        >>> result = thread.get()
-
-        :param job_id: The Job ID. (required)
-        :type job_id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: SqlJobStatus
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the check_sql_job_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.check_sql_job_with_http_info(job_id, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def check_sql_job_with_http_info(self, job_id : Annotated[StrictStr, Field(..., description="The Job ID.")], **kwargs) -> ApiResponse:  # noqa: E501
-        """Check the status of a SQL job  # noqa: E501
-
-        Check the status of a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.check_sql_job_with_http_info(job_id, async_req=True)
-        >>> result = thread.get()
-
-        :param job_id: The Job ID. (required)
-        :type job_id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(SqlJobStatus, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'job_id'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method check_sql_job" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-        if _params['job_id']:
-            _path_params['job_id'] = _params['job_id']
-
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {
-            '200': "SqlJobStatus",
-            '500': "Error",
-            '400': "Error",
-            '401': "Error",
-            '403': "Error",
-        }
-
-        return self.api_client.call_api(
-            '/sql/jobs/{job_id}/status', 'GET',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
     def execute_sql_query(self, sql_query : SqlQuery, **kwargs) -> SqlExecuteResponse:  # noqa: E501
@@ -342,16 +197,18 @@ class SqlApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def get_sql_cache(self, **kwargs) -> SqlQuery:  # noqa: E501
-        """Get user SQL query cache  # noqa: E501
+    def execute_sql_query_async(self, sql_query : SqlQuery, **kwargs) -> SqlExecuteResponse:  # noqa: E501
+        """Executes a SQL query async  # noqa: E501
 
-        Get user SQL query cache.  # noqa: E501
+        Executes a SQL query asynchronously. Client doesn't have to wait for the entire response.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_sql_cache(async_req=True)
+        >>> thread = api.execute_sql_query_async(sql_query, async_req=True)
         >>> result = thread.get()
 
+        :param sql_query: (required)
+        :type sql_query: SqlQuery
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _request_timeout: timeout setting for this request. If one
@@ -361,24 +218,26 @@ class SqlApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: SqlQuery
+        :rtype: SqlExecuteResponse
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the get_sql_cache_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.get_sql_cache_with_http_info(**kwargs)  # noqa: E501
+            raise ValueError("Error! Please call the execute_sql_query_async_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
+        return self.execute_sql_query_async_with_http_info(sql_query, **kwargs)  # noqa: E501
 
     @validate_arguments
-    def get_sql_cache_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """Get user SQL query cache  # noqa: E501
+    def execute_sql_query_async_with_http_info(self, sql_query : SqlQuery, **kwargs) -> ApiResponse:  # noqa: E501
+        """Executes a SQL query async  # noqa: E501
 
-        Get user SQL query cache.  # noqa: E501
+        Executes a SQL query asynchronously. Client doesn't have to wait for the entire response.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.get_sql_cache_with_http_info(async_req=True)
+        >>> thread = api.execute_sql_query_async_with_http_info(sql_query, async_req=True)
         >>> result = thread.get()
 
+        :param sql_query: (required)
+        :type sql_query: SqlQuery
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the ApiResponse.data will
@@ -401,12 +260,13 @@ class SqlApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(SqlQuery, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(SqlExecuteResponse, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
 
         _all_params = [
+            'sql_query'
         ]
         _all_params.extend(
             [
@@ -425,7 +285,7 @@ class SqlApi(object):
             if _key not in _all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method get_sql_cache" % _key
+                    " to method execute_sql_query_async" % _key
                 )
             _params[_key] = _val
         del _params['kwargs']
@@ -444,15 +304,25 @@ class SqlApi(object):
         _files = {}
         # process the body parameter
         _body_params = None
+        if _params['sql_query'] is not None:
+            _body_params = _params['sql_query']
+
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
+
+        # set the HTTP header `Content-Type`
+        _content_types_list = _params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json']))
+        if _content_types_list:
+                _header_params['Content-Type'] = _content_types_list
 
         # authentication setting
         _auth_settings = ['bearerAuth']  # noqa: E501
 
         _response_types_map = {
-            '200': "SqlQuery",
+            '200': "SqlExecuteResponse",
             '500': "Error",
             '400': "Error",
             '401': "Error",
@@ -460,7 +330,7 @@ class SqlApi(object):
         }
 
         return self.api_client.call_api(
-            '/sql/edit', 'GET',
+            '/sql/execute', 'POST',
             _path_params,
             _query_params,
             _header_params,
@@ -612,728 +482,6 @@ class SqlApi(object):
 
         return self.api_client.call_api(
             '/sql/jobs/{job_id}/details', 'GET',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def get_sql_job_output(self, job_id : Annotated[StrictStr, Field(..., description="The Job ID.")], **kwargs) -> SqlExecuteResponse:  # noqa: E501
-        """Get the output of a SQL job  # noqa: E501
-
-        Get the output of a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_sql_job_output(job_id, async_req=True)
-        >>> result = thread.get()
-
-        :param job_id: The Job ID. (required)
-        :type job_id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: SqlExecuteResponse
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the get_sql_job_output_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.get_sql_job_output_with_http_info(job_id, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def get_sql_job_output_with_http_info(self, job_id : Annotated[StrictStr, Field(..., description="The Job ID.")], **kwargs) -> ApiResponse:  # noqa: E501
-        """Get the output of a SQL job  # noqa: E501
-
-        Get the output of a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_sql_job_output_with_http_info(job_id, async_req=True)
-        >>> result = thread.get()
-
-        :param job_id: The Job ID. (required)
-        :type job_id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(SqlExecuteResponse, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'job_id'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sql_job_output" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-        if _params['job_id']:
-            _path_params['job_id'] = _params['job_id']
-
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {
-            '200': "SqlExecuteResponse",
-            '500': "Error",
-            '400': "Error",
-            '401': "Error",
-            '403': "Error",
-        }
-
-        return self.api_client.call_api(
-            '/sql/jobs/{job_id}/output', 'GET',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def get_sql_queries(self, **kwargs) -> SqlQueryCollection:  # noqa: E501
-        """Get user SQL queries  # noqa: E501
-
-        Get user SQL queries from DB.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_sql_queries(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: SqlQueryCollection
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the get_sql_queries_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.get_sql_queries_with_http_info(**kwargs)  # noqa: E501
-
-    @validate_arguments
-    def get_sql_queries_with_http_info(self, **kwargs) -> ApiResponse:  # noqa: E501
-        """Get user SQL queries  # noqa: E501
-
-        Get user SQL queries from DB.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_sql_queries_with_http_info(async_req=True)
-        >>> result = thread.get()
-
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(SqlQueryCollection, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        _params = locals()
-
-        _all_params = [
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_sql_queries" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {
-            '200': "SqlQueryCollection",
-            '500': "Error",
-            '400': "Error",
-            '401': "Error",
-            '403': "Error",
-        }
-
-        return self.api_client.call_api(
-            '/sql/queries', 'GET',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def submit_sql_job(self, sql_query : SqlQuery, **kwargs) -> SqlExecuteResponse:  # noqa: E501
-        """Submit a SQL job  # noqa: E501
-
-        Submit a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.submit_sql_job(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: SqlExecuteResponse
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the submit_sql_job_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.submit_sql_job_with_http_info(sql_query, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def submit_sql_job_with_http_info(self, sql_query : SqlQuery, **kwargs) -> ApiResponse:  # noqa: E501
-        """Submit a SQL job  # noqa: E501
-
-        Submit a SQL job.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.submit_sql_job_with_http_info(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(SqlExecuteResponse, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'sql_query'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method submit_sql_job" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        if _params['sql_query'] is not None:
-            _body_params = _params['sql_query']
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {
-            '200': "SqlExecuteResponse",
-            '500': "Error",
-            '400': "Error",
-            '401': "Error",
-            '403': "Error",
-        }
-
-        return self.api_client.call_api(
-            '/sql/jobs', 'POST',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def update_sql_cache(self, sql_query : SqlQuery, **kwargs) -> None:  # noqa: E501
-        """Update user SQL query cache  # noqa: E501
-
-        Update user SQL query cache.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.update_sql_cache(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: None
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the update_sql_cache_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.update_sql_cache_with_http_info(sql_query, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def update_sql_cache_with_http_info(self, sql_query : SqlQuery, **kwargs) -> ApiResponse:  # noqa: E501
-        """Update user SQL query cache  # noqa: E501
-
-        Update user SQL query cache.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.update_sql_cache_with_http_info(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: None
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'sql_query'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_sql_cache" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        if _params['sql_query'] is not None:
-            _body_params = _params['sql_query']
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {}
-
-        return self.api_client.call_api(
-            '/sql/edit', 'POST',
-            _path_params,
-            _query_params,
-            _header_params,
-            body=_body_params,
-            post_params=_form_params,
-            files=_files,
-            response_types_map=_response_types_map,
-            auth_settings=_auth_settings,
-            async_req=_params.get('async_req'),
-            _return_http_data_only=_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=_params.get('_preload_content', True),
-            _request_timeout=_params.get('_request_timeout'),
-            collection_formats=_collection_formats,
-            _request_auth=_params.get('_request_auth'))
-
-    @validate_arguments
-    def update_sql_query(self, sql_query : SqlQuery, **kwargs) -> SqlQuery:  # noqa: E501
-        """Update user SQL query cache  # noqa: E501
-
-        Update user SQL query cache.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.update_sql_query(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: SqlQuery
-        """
-        kwargs['_return_http_data_only'] = True
-        if '_preload_content' in kwargs:
-            raise ValueError("Error! Please call the update_sql_query_with_http_info method with `_preload_content` instead and obtain raw data from ApiResponse.raw_data")
-        return self.update_sql_query_with_http_info(sql_query, **kwargs)  # noqa: E501
-
-    @validate_arguments
-    def update_sql_query_with_http_info(self, sql_query : SqlQuery, **kwargs) -> ApiResponse:  # noqa: E501
-        """Update user SQL query cache  # noqa: E501
-
-        Update user SQL query cache.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.update_sql_query_with_http_info(sql_query, async_req=True)
-        >>> result = thread.get()
-
-        :param sql_query: (required)
-        :type sql_query: SqlQuery
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the ApiResponse.data will
-                                 be set to none and raw_data will store the 
-                                 HTTP response body without reading/decoding.
-                                 Default is True.
-        :type _preload_content: bool, optional
-        :param _return_http_data_only: response data instead of ApiResponse
-                                       object with status code, headers, etc
-        :type _return_http_data_only: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(SqlQuery, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        _params = locals()
-
-        _all_params = [
-            'sql_query'
-        ]
-        _all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        # validate the arguments
-        for _key, _val in _params['kwargs'].items():
-            if _key not in _all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method update_sql_query" % _key
-                )
-            _params[_key] = _val
-        del _params['kwargs']
-
-        _collection_formats = {}
-
-        # process the path parameters
-        _path_params = {}
-
-        # process the query parameters
-        _query_params = []
-        # process the header parameters
-        _header_params = dict(_params.get('_headers', {}))
-        # process the form parameters
-        _form_params = []
-        _files = {}
-        # process the body parameter
-        _body_params = None
-        if _params['sql_query'] is not None:
-            _body_params = _params['sql_query']
-
-        # set the HTTP header `Accept`
-        _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # set the HTTP header `Content-Type`
-        _content_types_list = _params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json']))
-        if _content_types_list:
-                _header_params['Content-Type'] = _content_types_list
-
-        # authentication setting
-        _auth_settings = ['bearerAuth']  # noqa: E501
-
-        _response_types_map = {
-            '200': "SqlQuery",
-            '500': "Error",
-            '400': "Error",
-            '401': "Error",
-            '403': "Error",
-        }
-
-        return self.api_client.call_api(
-            '/sql/queries', 'POST',
             _path_params,
             _query_params,
             _header_params,

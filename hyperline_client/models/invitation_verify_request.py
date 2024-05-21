@@ -20,25 +20,15 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, constr, validator
+from pydantic import BaseModel, Field, StrictStr
 
-class Pipeline(BaseModel):
+class InvitationVerifyRequest(BaseModel):
     """
-    Pipeline
+    InvitationVerifyRequest
     """
-    pipeline_name: Optional[constr(strict=True)] = Field(None, description="The name of the pipeline, equivalent to DAG_ID in Airflow.  Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). ")
-    raw_code: Optional[StrictStr] = Field(None, description="The raw python code for the DAG.")
-    __properties = ["pipeline_name", "raw_code"]
-
-    @validator('pipeline_name')
-    def pipeline_name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^[a-zA-Z0-9\-._]+$", value):
-            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9\-._]+$/")
-        return value
+    code: Optional[StrictStr] = None
+    email: StrictStr = Field(...)
+    __properties = ["code", "email"]
 
     class Config:
         """Pydantic configuration"""
@@ -54,8 +44,8 @@ class Pipeline(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Pipeline:
-        """Create an instance of Pipeline from a JSON string"""
+    def from_json(cls, json_str: str) -> InvitationVerifyRequest:
+        """Create an instance of InvitationVerifyRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -67,17 +57,17 @@ class Pipeline(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> Pipeline:
-        """Create an instance of Pipeline from a dict"""
+    def from_dict(cls, obj: dict) -> InvitationVerifyRequest:
+        """Create an instance of InvitationVerifyRequest from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return Pipeline.parse_obj(obj)
+            return InvitationVerifyRequest.parse_obj(obj)
 
-        _obj = Pipeline.parse_obj({
-            "pipeline_name": obj.get("pipeline_name"),
-            "raw_code": obj.get("raw_code")
+        _obj = InvitationVerifyRequest.parse_obj({
+            "code": obj.get("code"),
+            "email": obj.get("email")
         })
         return _obj
 

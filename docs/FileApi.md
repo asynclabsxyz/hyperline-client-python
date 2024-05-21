@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_file**](FileApi.md#create_file) | **POST** /files | Create a file
 [**delete_file**](FileApi.md#delete_file) | **POST** /files/delete | Delete a file
+[**download_file**](FileApi.md#download_file) | **GET** /files/download | Downloads a file
 [**get_file_content**](FileApi.md#get_file_content) | **GET** /files/content | Get file content
 [**get_file_metadata**](FileApi.md#get_file_metadata) | **GET** /files/metadata | Get file metadata
 [**get_file_preview**](FileApi.md#get_file_preview) | **GET** /files/preview | Get file preview
@@ -166,6 +167,87 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Success. |  -  |
+**500** | Unknown server error. |  -  |
+**400** | Client specified an invalid argument. |  -  |
+**401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
+**403** | Client does not have sufficient permission. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **download_file**
+> File download_file(path)
+
+Downloads a file
+
+Downloads a file.
+
+### Example
+
+* Bearer Authentication (bearerAuth):
+```python
+import time
+import os
+import hyperline_client
+from hyperline_client.models.file import File
+from hyperline_client.rest import ApiException
+from pprint import pprint
+
+# Defining the host is optional and defaults to /api/v1beta
+# See configuration.py for a list of all supported configuration parameters.
+configuration = hyperline_client.Configuration(
+    host = "/api/v1beta"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure Bearer authorization: bearerAuth
+configuration = hyperline_client.Configuration(
+    access_token = os.environ["BEARER_TOKEN"]
+)
+
+# Enter a context with an instance of the API client
+with hyperline_client.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = hyperline_client.FileApi(api_client)
+    path = 'path_example' # str | The path of the file/dataset.
+
+    try:
+        # Downloads a file
+        api_response = api_instance.download_file(path)
+        print("The response of FileApi->download_file:\n")
+        pprint(api_response)
+    except Exception as e:
+        print("Exception when calling FileApi->download_file: %s\n" % e)
+```
+
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **path** | **str**| The path of the file/dataset. | 
+
+### Return type
+
+[**File**](File.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success. |  -  |
 **500** | Unknown server error. |  -  |
 **400** | Client specified an invalid argument. |  -  |
 **401** | Request not authenticated due to missing, invalid, authentication info. |  -  |

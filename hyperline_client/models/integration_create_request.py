@@ -35,8 +35,8 @@ class IntegrationCreateRequest(BaseModel):
     @validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver'):
-            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver')")
+        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver', 'snowflake'):
+            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver', 'snowflake')")
         return value
 
     class Config:

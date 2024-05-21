@@ -41,8 +41,8 @@ class Sample(BaseModel):
         if value is None:
             return value
 
-        if value not in ('pyspark', 'python', 'sql', 'trino', 'bigquery-sql', 'pipeline'):
-            raise ValueError("must be one of enum values ('pyspark', 'python', 'sql', 'trino', 'bigquery-sql', 'pipeline')")
+        if value not in ('pyspark', 'python', 'sql', 'trino', 'pipeline'):
+            raise ValueError("must be one of enum values ('pyspark', 'python', 'sql', 'trino', 'pipeline')")
         return value
 
     class Config:

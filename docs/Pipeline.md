@@ -6,14 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **pipeline_name** | **str** | The name of the pipeline, equivalent to DAG_ID in Airflow.  Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII).  | [optional] 
 **raw_code** | **str** | The raw python code for the DAG. | [optional] 
-**schedule** | **str** | The schedule of the pipeline. | [optional] 
-**stages** | [**List[Stage]**](Stage.md) | The list of the stages of the pipeline. | [optional] 
-**max_active_runs** | **int** | The maximum number of active runs for a DAG. | [optional] 
-**retries** | **int** | The number of retries that should be performed before failing a task. | [optional] 
-**start_date** | **date** | The date at which the pipeline&#39;s schedule starts. | [optional] 
-**catchup** | **bool** | Kickoff DAG runs for data intervals that have not been run since the last data interval. | [optional] 
-**write_test_mode** | **bool** | Write output data in a test database. | [optional] 
-**sample_reads** | **bool** | Read a sample of input data from datasource. | [optional] 
 
 ## Example
 

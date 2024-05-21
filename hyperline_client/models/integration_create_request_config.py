@@ -24,10 +24,11 @@ from pydantic import BaseModel, Field, StrictStr, ValidationError, validator
 from hyperline_client.models.integration_config_gcs import IntegrationConfigGCS
 from hyperline_client.models.integration_config_jdbc import IntegrationConfigJDBC
 from hyperline_client.models.integration_config_s3 import IntegrationConfigS3
+from hyperline_client.models.integration_config_snowflake import IntegrationConfigSnowflake
 from typing import Union, Any, List, TYPE_CHECKING
 from pydantic import StrictStr, Field
 
-INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS = ["IntegrationConfigGCS", "IntegrationConfigJDBC", "IntegrationConfigS3"]
+INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS = ["IntegrationConfigGCS", "IntegrationConfigJDBC", "IntegrationConfigS3", "IntegrationConfigSnowflake"]
 
 class IntegrationCreateRequestConfig(BaseModel):
     """
@@ -39,8 +40,10 @@ class IntegrationCreateRequestConfig(BaseModel):
     oneof_schema_2_validator: Optional[IntegrationConfigS3] = None
     # data type: IntegrationConfigJDBC
     oneof_schema_3_validator: Optional[IntegrationConfigJDBC] = None
+    # data type: IntegrationConfigSnowflake
+    oneof_schema_4_validator: Optional[IntegrationConfigSnowflake] = None
     if TYPE_CHECKING:
-        actual_instance: Union[IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3]
+        actual_instance: Union[IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3, IntegrationConfigSnowflake]
     else:
         actual_instance: Any
     one_of_schemas: List[str] = Field(INTEGRATIONCREATEREQUESTCONFIG_ONE_OF_SCHEMAS, const=True)
@@ -78,12 +81,17 @@ class IntegrationCreateRequestConfig(BaseModel):
             error_messages.append(f"Error! Input type `{type(v)}` is not `IntegrationConfigJDBC`")
         else:
             match += 1
+        # validate data type: IntegrationConfigSnowflake
+        if not isinstance(v, IntegrationConfigSnowflake):
+            error_messages.append(f"Error! Input type `{type(v)}` is not `IntegrationConfigSnowflake`")
+        else:
+            match += 1
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3, IntegrationConfigSnowflake. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when setting `actual_instance` in IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3, IntegrationConfigSnowflake. Details: " + ", ".join(error_messages))
         else:
             return v
 
@@ -116,13 +124,19 @@ class IntegrationCreateRequestConfig(BaseModel):
             match += 1
         except (ValidationError, ValueError) as e:
             error_messages.append(str(e))
+        # deserialize data into IntegrationConfigSnowflake
+        try:
+            instance.actual_instance = IntegrationConfigSnowflake.from_json(json_str)
+            match += 1
+        except (ValidationError, ValueError) as e:
+            error_messages.append(str(e))
 
         if match > 1:
             # more than 1 match
-            raise ValueError("Multiple matches found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("Multiple matches found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3, IntegrationConfigSnowflake. Details: " + ", ".join(error_messages))
         elif match == 0:
             # no match
-            raise ValueError("No match found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3. Details: " + ", ".join(error_messages))
+            raise ValueError("No match found when deserializing the JSON string into IntegrationCreateRequestConfig with oneOf schemas: IntegrationConfigGCS, IntegrationConfigJDBC, IntegrationConfigS3, IntegrationConfigSnowflake. Details: " + ", ".join(error_messages))
         else:
             return instance
 

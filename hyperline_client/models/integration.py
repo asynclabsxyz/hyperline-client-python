@@ -26,18 +26,18 @@ class Integration(BaseModel):
     """
     An integration object.
     """
-    id: StrictStr = Field(...)
+    reference_name: StrictStr = Field(...)
     name: StrictStr = Field(...)
     details: Optional[StrictStr] = None
     type: StrictStr = Field(...)
     is_valid: Optional[StrictBool] = True
-    __properties = ["id", "name", "details", "type", "is_valid"]
+    __properties = ["reference_name", "name", "details", "type", "is_valid"]
 
     @validator('type')
     def type_validate_enum(cls, value):
         """Validates the enum"""
-        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver'):
-            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver')")
+        if value not in ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver', 'snowflake'):
+            raise ValueError("must be one of enum values ('gcs', 's3', 'mysql', 'postgresql', 'clickhouse', 'mongodb', 'redshift', 'sqlserver', 'snowflake')")
         return value
 
     class Config:
@@ -62,7 +62,7 @@ class Integration(BaseModel):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "id",
+                            "reference_name",
                           },
                           exclude_none=True)
         return _dict
@@ -77,7 +77,7 @@ class Integration(BaseModel):
             return Integration.parse_obj(obj)
 
         _obj = Integration.parse_obj({
-            "id": obj.get("id"),
+            "reference_name": obj.get("reference_name"),
             "name": obj.get("name"),
             "details": obj.get("details"),
             "type": obj.get("type"),

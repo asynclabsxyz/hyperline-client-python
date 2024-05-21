@@ -20,7 +20,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictBool, StrictStr
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr
 
 class File(BaseModel):
     """
@@ -33,7 +33,9 @@ class File(BaseModel):
     is_directory: Optional[StrictBool] = False
     is_readonly: Optional[StrictBool] = False
     file_type: Optional[StrictStr] = None
-    __properties = ["name", "content", "relative_path", "path", "is_directory", "is_readonly", "file_type"]
+    signed_url: Optional[StrictStr] = None
+    size: Optional[StrictInt] = None
+    __properties = ["name", "content", "relative_path", "path", "is_directory", "is_readonly", "file_type", "signed_url", "size"]
 
     class Config:
         """Pydantic configuration"""
@@ -77,7 +79,9 @@ class File(BaseModel):
             "path": obj.get("path"),
             "is_directory": obj.get("is_directory") if obj.get("is_directory") is not None else False,
             "is_readonly": obj.get("is_readonly") if obj.get("is_readonly") is not None else False,
-            "file_type": obj.get("file_type")
+            "file_type": obj.get("file_type"),
+            "signed_url": obj.get("signed_url"),
+            "size": obj.get("size")
         })
         return _obj
 

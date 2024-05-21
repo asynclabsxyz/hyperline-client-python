@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **total_rows** | **int** |  | [optional] 
 **output_bytes** | **int** |  | [optional] 
 **output_rows** | **int** |  | [optional] 
+**truncated_rows** | **bool** |  | [optional] 
 
 ## Example
 

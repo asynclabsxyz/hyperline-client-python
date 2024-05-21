@@ -20,17 +20,18 @@ import json
 
 
 from typing import List, Optional
-from pydantic import BaseModel, StrictInt, StrictStr, conlist
+from pydantic import BaseModel, Field, StrictInt, StrictStr, conlist
 
 class SqlQuery(BaseModel):
     """
     A Sql Query object.
     """
+    next_execution_token: Optional[StrictStr] = Field(None, description="Continue execution of a query. When present, other fields are ignored.")
     name: Optional[StrictStr] = None
     types: Optional[conlist(StrictStr)] = None
     statement: Optional[StrictStr] = None
     id: Optional[StrictInt] = None
-    __properties = ["name", "types", "statement", "id"]
+    __properties = ["next_execution_token", "name", "types", "statement", "id"]
 
     class Config:
         """Pydantic configuration"""
@@ -68,6 +69,7 @@ class SqlQuery(BaseModel):
             return SqlQuery.parse_obj(obj)
 
         _obj = SqlQuery.parse_obj({
+            "next_execution_token": obj.get("next_execution_token"),
             "name": obj.get("name"),
             "types": obj.get("types"),
             "statement": obj.get("statement"),

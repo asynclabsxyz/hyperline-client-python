@@ -21,6 +21,7 @@ import json
 from datetime import date
 from typing import Optional
 from pydantic import BaseModel, Field, StrictInt
+from hyperline_client.models.itemized_cost import ItemizedCost
 
 class OrgUsage(BaseModel):
     """
@@ -29,10 +30,8 @@ class OrgUsage(BaseModel):
     trial_end_date: Optional[date] = Field(None, description="The date when the trial period ends.")
     trial_limit_in_cents: Optional[StrictInt] = Field(None, description="Dollar limit for trial period in cents.")
     total_usage_in_cents: Optional[StrictInt] = Field(None, description="Dollar amount used in cents.")
-    bytes_scanned: Optional[StrictInt] = Field(None, description="Bytes scanned when querying data.")
-    compute_units_per_ms: Optional[StrictInt] = Field(None, description="Data Compute Unit (DCU) used per millisecond.")
-    bytes_stored: Optional[StrictInt] = Field(None, description="Bytes stored.")
-    __properties = ["trial_end_date", "trial_limit_in_cents", "total_usage_in_cents", "bytes_scanned", "compute_units_per_ms", "bytes_stored"]
+    itemized_cost: Optional[ItemizedCost] = None
+    __properties = ["trial_end_date", "trial_limit_in_cents", "total_usage_in_cents", "itemized_cost"]
 
     class Config:
         """Pydantic configuration"""
@@ -58,6 +57,9 @@ class OrgUsage(BaseModel):
                           exclude={
                           },
                           exclude_none=True)
+        # override the default output from pydantic by calling `to_dict()` of itemized_cost
+        if self.itemized_cost:
+            _dict['itemized_cost'] = self.itemized_cost.to_dict()
         return _dict
 
     @classmethod
@@ -73,9 +75,7 @@ class OrgUsage(BaseModel):
             "trial_end_date": obj.get("trial_end_date"),
             "trial_limit_in_cents": obj.get("trial_limit_in_cents"),
             "total_usage_in_cents": obj.get("total_usage_in_cents"),
-            "bytes_scanned": obj.get("bytes_scanned"),
-            "compute_units_per_ms": obj.get("compute_units_per_ms"),
-            "bytes_stored": obj.get("bytes_stored")
+            "itemized_cost": ItemizedCost.from_dict(obj.get("itemized_cost")) if obj.get("itemized_cost") is not None else None
         })
         return _obj
 

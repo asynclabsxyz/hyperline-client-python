@@ -20,7 +20,7 @@ import json
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, StrictInt, StrictStr
+from pydantic import BaseModel, StrictBool, StrictInt, StrictStr
 
 class SqlJobStatistics(BaseModel):
     """
@@ -38,7 +38,8 @@ class SqlJobStatistics(BaseModel):
     total_rows: Optional[StrictInt] = None
     output_bytes: Optional[StrictInt] = None
     output_rows: Optional[StrictInt] = None
-    __properties = ["start_time", "end_time", "duration", "total_bytes_processed", "error_code", "error_type", "failure_type", "failure_message", "execution_time_millis", "total_rows", "output_bytes", "output_rows"]
+    truncated_rows: Optional[StrictBool] = None
+    __properties = ["start_time", "end_time", "duration", "total_bytes_processed", "error_code", "error_type", "failure_type", "failure_message", "execution_time_millis", "total_rows", "output_bytes", "output_rows", "truncated_rows"]
 
     class Config:
         """Pydantic configuration"""
@@ -107,7 +108,8 @@ class SqlJobStatistics(BaseModel):
             "execution_time_millis": obj.get("execution_time_millis"),
             "total_rows": obj.get("total_rows"),
             "output_bytes": obj.get("output_bytes"),
-            "output_rows": obj.get("output_rows")
+            "output_rows": obj.get("output_rows"),
+            "truncated_rows": obj.get("truncated_rows")
         })
         return _obj
 

@@ -7,9 +7,7 @@ Name | Type | Description | Notes
 **trial_end_date** | **date** | The date when the trial period ends. | [optional] 
 **trial_limit_in_cents** | **int** | Dollar limit for trial period in cents. | [optional] 
 **total_usage_in_cents** | **int** | Dollar amount used in cents. | [optional] 
-**bytes_scanned** | **int** | Bytes scanned when querying data. | [optional] 
-**compute_units_per_ms** | **int** | Data Compute Unit (DCU) used per millisecond. | [optional] 
-**bytes_stored** | **int** | Bytes stored. | [optional] 
+**itemized_cost** | [**ItemizedCost**](ItemizedCost.md) |  | [optional] 
 
 ## Example
 

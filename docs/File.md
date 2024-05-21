@@ -12,6 +12,8 @@ Name | Type | Description | Notes
 **is_directory** | **bool** |  | [optional] [default to False]
 **is_readonly** | **bool** |  | [optional] [default to False]
 **file_type** | **str** |  | [optional] 
+**signed_url** | **str** |  | [optional] 
+**size** | **int** |  | [optional] 
 
 ## Example
 

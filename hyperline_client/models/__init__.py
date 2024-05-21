@@ -40,8 +40,12 @@ from hyperline_client.models.integration import Integration
 from hyperline_client.models.integration_config_gcs import IntegrationConfigGCS
 from hyperline_client.models.integration_config_jdbc import IntegrationConfigJDBC
 from hyperline_client.models.integration_config_s3 import IntegrationConfigS3
+from hyperline_client.models.integration_config_snowflake import IntegrationConfigSnowflake
 from hyperline_client.models.integration_create_request import IntegrationCreateRequest
 from hyperline_client.models.integration_create_request_config import IntegrationCreateRequestConfig
+from hyperline_client.models.invitation_verify_request import InvitationVerifyRequest
+from hyperline_client.models.invitation_verify_response import InvitationVerifyResponse
+from hyperline_client.models.itemized_cost import ItemizedCost
 from hyperline_client.models.job import Job
 from hyperline_client.models.job_collection import JobCollection
 from hyperline_client.models.jobs_stat import JobsStat
@@ -61,6 +65,7 @@ from hyperline_client.models.saved_job_collection import SavedJobCollection
 from hyperline_client.models.spark_job import SparkJob
 from hyperline_client.models.spark_job_collection import SparkJobCollection
 from hyperline_client.models.spark_job_output import SparkJobOutput
+from hyperline_client.models.spark_job_save_request import SparkJobSaveRequest
 from hyperline_client.models.spark_job_status import SparkJobStatus
 from hyperline_client.models.spark_job_submit_request import SparkJobSubmitRequest
 from hyperline_client.models.sql_column import SqlColumn
@@ -73,7 +78,6 @@ from hyperline_client.models.sql_query import SqlQuery
 from hyperline_client.models.sql_query_collection import SqlQueryCollection
 from hyperline_client.models.sql_schema import SqlSchema
 from hyperline_client.models.sql_table import SqlTable
-from hyperline_client.models.stage import Stage
 from hyperline_client.models.stage_instance import StageInstance
 from hyperline_client.models.stage_instance_collection import StageInstanceCollection
 from hyperline_client.models.user import User

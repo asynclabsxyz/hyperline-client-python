@@ -20,25 +20,20 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr, constr, validator
+from pydantic import BaseModel, StrictStr
 
-class Pipeline(BaseModel):
+class IntegrationConfigSnowflake(BaseModel):
     """
-    Pipeline
+    IntegrationConfigSnowflake
     """
-    pipeline_name: Optional[constr(strict=True)] = Field(None, description="The name of the pipeline, equivalent to DAG_ID in Airflow.  Must consist exclusively of alphanumeric characters, dashes, dots and underscores (all ASCII). ")
-    raw_code: Optional[StrictStr] = Field(None, description="The raw python code for the DAG.")
-    __properties = ["pipeline_name", "raw_code"]
-
-    @validator('pipeline_name')
-    def pipeline_name_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if not re.match(r"^[a-zA-Z0-9\-._]+$", value):
-            raise ValueError(r"must validate the regular expression /^[a-zA-Z0-9\-._]+$/")
-        return value
+    account_identifier: Optional[StrictStr] = None
+    user: Optional[StrictStr] = None
+    password: Optional[StrictStr] = None
+    account: Optional[StrictStr] = None
+    database: Optional[StrictStr] = None
+    role: Optional[StrictStr] = None
+    warehouse: Optional[StrictStr] = None
+    __properties = ["account_identifier", "user", "password", "account", "database", "role", "warehouse"]
 
     class Config:
         """Pydantic configuration"""
@@ -54,8 +49,8 @@ class Pipeline(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> Pipeline:
-        """Create an instance of Pipeline from a JSON string"""
+    def from_json(cls, json_str: str) -> IntegrationConfigSnowflake:
+        """Create an instance of IntegrationConfigSnowflake from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
@@ -67,17 +62,22 @@ class Pipeline(BaseModel):
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> Pipeline:
-        """Create an instance of Pipeline from a dict"""
+    def from_dict(cls, obj: dict) -> IntegrationConfigSnowflake:
+        """Create an instance of IntegrationConfigSnowflake from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return Pipeline.parse_obj(obj)
+            return IntegrationConfigSnowflake.parse_obj(obj)
 
-        _obj = Pipeline.parse_obj({
-            "pipeline_name": obj.get("pipeline_name"),
-            "raw_code": obj.get("raw_code")
+        _obj = IntegrationConfigSnowflake.parse_obj({
+            "account_identifier": obj.get("account_identifier"),
+            "user": obj.get("user"),
+            "password": obj.get("password"),
+            "account": obj.get("account"),
+            "database": obj.get("database"),
+            "role": obj.get("role"),
+            "warehouse": obj.get("warehouse")
         })
         return _obj
 

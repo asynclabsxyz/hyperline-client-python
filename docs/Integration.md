@@ -5,7 +5,7 @@ An integration object.
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **str** |  | [readonly] 
+**reference_name** | **str** |  | [readonly] 
 **name** | **str** |  | 
 **details** | **str** |  | [optional] 
 **type** | **str** |  | 

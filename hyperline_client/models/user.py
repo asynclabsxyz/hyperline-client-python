@@ -20,7 +20,7 @@ import json
 
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field, StrictInt, StrictStr, constr, validator
+from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, constr, validator
 
 class User(BaseModel):
     """
@@ -35,8 +35,14 @@ class User(BaseModel):
     status: Optional[StrictStr] = Field(None, description="The user's status")
     org_id: Optional[StrictInt] = Field(None, description="The user's org id")
     org_workspace_id: Optional[StrictStr] = Field(None, description="The user's org workspace identifier")
+    org_joined: Optional[datetime] = Field(None, description="The datetime the user's org joined")
     impersonated_user: Optional[constr(strict=True, max_length=64)] = Field(None, description="The user's impersonated user")
-    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "impersonated_user"]
+    airflow_enabled: Optional[StrictBool] = Field(None, description="Airflow enabled for user's org")
+    jupyter_enabled: Optional[StrictBool] = Field(None, description="Jupyter enabled for user's org")
+    airflow_updated_at: Optional[datetime] = Field(None, description="The datetime the `airflow_enabled` was last updated")
+    jupyter_updated_at: Optional[datetime] = Field(None, description="The datetime the `jupyter_enabled` was last updated")
+    in_trial: Optional[StrictBool] = Field(None, description="Whether user's org is in trial")
+    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "org_joined", "impersonated_user", "airflow_enabled", "jupyter_enabled", "airflow_updated_at", "jupyter_updated_at", "in_trial"]
 
     @validator('role')
     def role_validate_enum(cls, value):
@@ -78,8 +84,19 @@ class User(BaseModel):
         _dict = self.dict(by_alias=True,
                           exclude={
                             "joined",
+                            "org_joined",
                           },
                           exclude_none=True)
+        # set to None if airflow_updated_at (nullable) is None
+        # and __fields_set__ contains the field
+        if self.airflow_updated_at is None and "airflow_updated_at" in self.__fields_set__:
+            _dict['airflow_updated_at'] = None
+
+        # set to None if jupyter_updated_at (nullable) is None
+        # and __fields_set__ contains the field
+        if self.jupyter_updated_at is None and "jupyter_updated_at" in self.__fields_set__:
+            _dict['jupyter_updated_at'] = None
+
         return _dict
 
     @classmethod
@@ -101,7 +118,13 @@ class User(BaseModel):
             "status": obj.get("status"),
             "org_id": obj.get("org_id"),
             "org_workspace_id": obj.get("org_workspace_id"),
-            "impersonated_user": obj.get("impersonated_user")
+            "org_joined": obj.get("org_joined"),
+            "impersonated_user": obj.get("impersonated_user"),
+            "airflow_enabled": obj.get("airflow_enabled"),
+            "jupyter_enabled": obj.get("jupyter_enabled"),
+            "airflow_updated_at": obj.get("airflow_updated_at"),
+            "jupyter_updated_at": obj.get("jupyter_updated_at"),
+            "in_trial": obj.get("in_trial")
         })
         return _obj
 

@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**next_execution_token** | **str** |  | [optional] 
 **job_id** | **str** |  | [optional] 
 **job_type** | **str** |  | [optional] 
 **query** | **str** |  | [optional] 

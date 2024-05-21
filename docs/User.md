@@ -14,7 +14,13 @@ Name | Type | Description | Notes
 **status** | **str** | The user&#39;s status | [optional] 
 **org_id** | **int** | The user&#39;s org id | [optional] 
 **org_workspace_id** | **str** | The user&#39;s org workspace identifier | [optional] 
+**org_joined** | **datetime** | The datetime the user&#39;s org joined | [optional] [readonly] 
 **impersonated_user** | **str** | The user&#39;s impersonated user | [optional] 
+**airflow_enabled** | **bool** | Airflow enabled for user&#39;s org | [optional] 
+**jupyter_enabled** | **bool** | Jupyter enabled for user&#39;s org | [optional] 
+**airflow_updated_at** | **datetime** | The datetime the &#x60;airflow_enabled&#x60; was last updated | [optional] 
+**jupyter_updated_at** | **datetime** | The datetime the &#x60;jupyter_enabled&#x60; was last updated | [optional] 
+**in_trial** | **bool** | Whether user&#39;s org is in trial | [optional] 
 
 ## Example
 

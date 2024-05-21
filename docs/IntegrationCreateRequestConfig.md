@@ -14,6 +14,10 @@ Name | Type | Description | Notes
 **tcp_host** | **str** |  | [optional] 
 **port** | **float** |  | [optional] 
 **database** | **str** |  | [optional] 
+**account_identifier** | **str** |  | [optional] 
+**account** | **str** |  | [optional] 
+**role** | **str** |  | [optional] 
+**warehouse** | **str** |  | [optional] 
 
 ## Example
 

@@ -5,6 +5,7 @@ A Sql Query object.
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**next_execution_token** | **str** | Continue execution of a query. When present, other fields are ignored. | [optional] 
 **name** | **str** |  | [optional] 
 **types** | **List[str]** |  | [optional] 
 **statement** | **str** |  | [optional] 

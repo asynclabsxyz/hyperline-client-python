@@ -28,13 +28,14 @@ class SqlExecuteResponse(BaseModel):
     """
     SqlExecuteResponse
     """
+    next_execution_token: Optional[StrictStr] = None
     job_id: Optional[StrictStr] = None
     job_type: Optional[StrictStr] = None
     query: Optional[StrictStr] = None
     var_schema: Optional[conlist(SqlFieldSchema)] = Field(None, alias="schema")
     rows: Optional[conlist(Any)] = None
     statistics: Optional[SqlJobStatistics] = None
-    __properties = ["job_id", "job_type", "query", "schema", "rows", "statistics"]
+    __properties = ["next_execution_token", "job_id", "job_type", "query", "schema", "rows", "statistics"]
 
     class Config:
         """Pydantic configuration"""
@@ -82,6 +83,7 @@ class SqlExecuteResponse(BaseModel):
             return SqlExecuteResponse.parse_obj(obj)
 
         _obj = SqlExecuteResponse.parse_obj({
+            "next_execution_token": obj.get("next_execution_token"),
             "job_id": obj.get("job_id"),
             "job_type": obj.get("job_type"),
             "query": obj.get("query"),

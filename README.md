@@ -77,16 +77,13 @@ configuration = hyperline_client.Configuration(
 # Enter a context with an instance of the API client
 with hyperline_client.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = hyperline_client.ApiKeyApi(api_client)
-    api_key_create_request = hyperline_client.ApiKeyCreateRequest() # ApiKeyCreateRequest | 
+    api_instance = hyperline_client.AdminApi(api_client)
 
     try:
-        # Create an API key
-        api_response = api_instance.create_api_key(api_key_create_request)
-        print("The response of ApiKeyApi->create_api_key:\n")
-        pprint(api_response)
+        # Enable airflow
+        api_instance.enable_airflow()
     except ApiException as e:
-        print("Exception when calling ApiKeyApi->create_api_key: %s\n" % e)
+        print("Exception when calling AdminApi->enable_airflow: %s\n" % e)
 
 ```
 
@@ -96,6 +93,8 @@ All URIs are relative to */api/v1beta*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*AdminApi* | [**enable_airflow**](docs/AdminApi.md#enable_airflow) | **PUT** /admin/enable_airflow | Enable airflow
+*AdminApi* | [**enable_jupyter**](docs/AdminApi.md#enable_jupyter) | **PUT** /admin/enable_jupyter | Enable jupyter
 *ApiKeyApi* | [**create_api_key**](docs/ApiKeyApi.md#create_api_key) | **POST** /api_keys | Create an API key
 *ApiKeyApi* | [**delete_api_key**](docs/ApiKeyApi.md#delete_api_key) | **DELETE** /api_keys/{api_key} | Delete an API Key
 *ApiKeyApi* | [**get_api_keys**](docs/ApiKeyApi.md#get_api_keys) | **GET** /api_keys | Get an API key info
@@ -106,6 +105,7 @@ Class | Method | HTTP request | Description
 *DatasetApi* | [**favorite_dataset**](docs/DatasetApi.md#favorite_dataset) | **POST** /datasets/favorites | Add dataset to user favirites list
 *DatasetApi* | [**get_dataset_metadata**](docs/DatasetApi.md#get_dataset_metadata) | **GET** /datasets/metadata | Get dataset metadata
 *DatasetApi* | [**get_dataset_preview**](docs/DatasetApi.md#get_dataset_preview) | **GET** /datasets/preview | Get dataset preview
+*DatasetApi* | [**get_dataset_template_export**](docs/DatasetApi.md#get_dataset_template_export) | **GET** /datasets/templates/export | Get dataset template for exporting tables
 *DatasetApi* | [**get_dataset_template_sql**](docs/DatasetApi.md#get_dataset_template_sql) | **GET** /datasets/templates/sql | Get dataset template sql statement
 *DatasetApi* | [**list_audit_details**](docs/DatasetApi.md#list_audit_details) | **GET** /datasets/audit/details | List dataset audit details
 *DatasetApi* | [**list_audit_status**](docs/DatasetApi.md#list_audit_status) | **GET** /datasets/audit/status | List dataset audit status
@@ -113,8 +113,11 @@ Class | Method | HTTP request | Description
 *DatasetApi* | [**list_explorer_datasets**](docs/DatasetApi.md#list_explorer_datasets) | **GET** /datasets/explorer | List datasets for web explorer
 *DatasetApi* | [**list_explorer_datasets_details**](docs/DatasetApi.md#list_explorer_datasets_details) | **GET** /datasets/explorer/details | List datasets details for web explorer
 *DatasetApi* | [**list_favorite_datasets**](docs/DatasetApi.md#list_favorite_datasets) | **GET** /datasets/favorites | List user favorite datasets
+*DatasetApi* | [**populate_dataset_preview**](docs/DatasetApi.md#populate_dataset_preview) | **POST** /datasets/populate/preview | Populates the catalog table preview
+*DatasetApi* | [**populate_dataset_schema**](docs/DatasetApi.md#populate_dataset_schema) | **POST** /datasets/populate/schema | Populates the catalog table schema information
 *FileApi* | [**create_file**](docs/FileApi.md#create_file) | **POST** /files | Create a file
 *FileApi* | [**delete_file**](docs/FileApi.md#delete_file) | **POST** /files/delete | Delete a file
+*FileApi* | [**download_file**](docs/FileApi.md#download_file) | **GET** /files/download | Downloads a file
 *FileApi* | [**get_file_content**](docs/FileApi.md#get_file_content) | **GET** /files/content | Get file content
 *FileApi* | [**get_file_metadata**](docs/FileApi.md#get_file_metadata) | **GET** /files/metadata | Get file metadata
 *FileApi* | [**get_file_preview**](docs/FileApi.md#get_file_preview) | **GET** /files/preview | Get file preview
@@ -124,6 +127,7 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**delete_integration**](docs/IntegrationApi.md#delete_integration) | **DELETE** /integrations/{id} | Delete a specific integration by ID
 *IntegrationApi* | [**get_integration**](docs/IntegrationApi.md#get_integration) | **GET** /integrations/{id} | Get a specific integration by ID
 *IntegrationApi* | [**list_integrations**](docs/IntegrationApi.md#list_integrations) | **GET** /integrations | List integrations
+*InvitationApi* | [**verify_invitation**](docs/InvitationApi.md#verify_invitation) | **POST** /invitation/verify | Verifies an invitation and onboards.
 *JobApi* | [**list_jobs**](docs/JobApi.md#list_jobs) | **GET** /jobs | List user jobs
 *PipelineApi* | [**backfill_pipeline**](docs/PipelineApi.md#backfill_pipeline) | **POST** /pipeline/backfill | Backfill a pipeline
 *PipelineApi* | [**create_pipeline**](docs/PipelineApi.md#create_pipeline) | **POST** /pipelines | Create a pipeline
@@ -141,22 +145,13 @@ Class | Method | HTTP request | Description
 *SparkApi* | [**spark_cancel_job**](docs/SparkApi.md#spark_cancel_job) | **POST** /spark/{job_id}/cancel | Cancel a Spark job
 *SparkApi* | [**spark_check_job**](docs/SparkApi.md#spark_check_job) | **GET** /spark/{job_id} | Check a Spark job status
 *SparkApi* | [**spark_get_job_output**](docs/SparkApi.md#spark_get_job_output) | **GET** /spark/{job_id}/output | Get Spark job output
-*SparkApi* | [**spark_get_sql**](docs/SparkApi.md#spark_get_sql) | **GET** /sparksql/edit | Get user Spark SQL query cache
 *SparkApi* | [**spark_list_jobs**](docs/SparkApi.md#spark_list_jobs) | **GET** /spark | List Spark jobs
 *SparkApi* | [**spark_list_saved_jobs**](docs/SparkApi.md#spark_list_saved_jobs) | **GET** /spark/jobs/saved | List saved spark jobs
 *SparkApi* | [**spark_save_job**](docs/SparkApi.md#spark_save_job) | **POST** /spark/{job_id}/save | Save a spark job for pipeline
 *SparkApi* | [**spark_submit_job**](docs/SparkApi.md#spark_submit_job) | **POST** /spark | Submit a Spark job
-*SparkApi* | [**spark_submit_sql**](docs/SparkApi.md#spark_submit_sql) | **POST** /sparksql | Submit a Spark SQL job
-*SparkApi* | [**spark_update_sql**](docs/SparkApi.md#spark_update_sql) | **POST** /sparksql/edit | Update user Spark SQL query cache
-*SqlApi* | [**check_sql_job**](docs/SqlApi.md#check_sql_job) | **GET** /sql/jobs/{job_id}/status | Check the status of a SQL job
 *SqlApi* | [**execute_sql_query**](docs/SqlApi.md#execute_sql_query) | **POST** /sql | Execute a SQL query
-*SqlApi* | [**get_sql_cache**](docs/SqlApi.md#get_sql_cache) | **GET** /sql/edit | Get user SQL query cache
+*SqlApi* | [**execute_sql_query_async**](docs/SqlApi.md#execute_sql_query_async) | **POST** /sql/execute | Executes a SQL query async
 *SqlApi* | [**get_sql_job_details**](docs/SqlApi.md#get_sql_job_details) | **GET** /sql/jobs/{job_id}/details | Check the status of a SQL job
-*SqlApi* | [**get_sql_job_output**](docs/SqlApi.md#get_sql_job_output) | **GET** /sql/jobs/{job_id}/output | Get the output of a SQL job
-*SqlApi* | [**get_sql_queries**](docs/SqlApi.md#get_sql_queries) | **GET** /sql/queries | Get user SQL queries
-*SqlApi* | [**submit_sql_job**](docs/SqlApi.md#submit_sql_job) | **POST** /sql/jobs | Submit a SQL job
-*SqlApi* | [**update_sql_cache**](docs/SqlApi.md#update_sql_cache) | **POST** /sql/edit | Update user SQL query cache
-*SqlApi* | [**update_sql_query**](docs/SqlApi.md#update_sql_query) | **POST** /sql/queries | Update user SQL query cache
 *UsageApi* | [**get_usage**](docs/UsageApi.md#get_usage) | **GET** /usage | Get Usage
 *UserApi* | [**create_user**](docs/UserApi.md#create_user) | **POST** /user | Create a user
 *UserApi* | [**get_user**](docs/UserApi.md#get_user) | **GET** /user | Get user info
@@ -189,8 +184,12 @@ Class | Method | HTTP request | Description
  - [IntegrationConfigGCS](docs/IntegrationConfigGCS.md)
  - [IntegrationConfigJDBC](docs/IntegrationConfigJDBC.md)
  - [IntegrationConfigS3](docs/IntegrationConfigS3.md)
+ - [IntegrationConfigSnowflake](docs/IntegrationConfigSnowflake.md)
  - [IntegrationCreateRequest](docs/IntegrationCreateRequest.md)
  - [IntegrationCreateRequestConfig](docs/IntegrationCreateRequestConfig.md)
+ - [InvitationVerifyRequest](docs/InvitationVerifyRequest.md)
+ - [InvitationVerifyResponse](docs/InvitationVerifyResponse.md)
+ - [ItemizedCost](docs/ItemizedCost.md)
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
  - [JobsStat](docs/JobsStat.md)
@@ -210,6 +209,7 @@ Class | Method | HTTP request | Description
  - [SparkJob](docs/SparkJob.md)
  - [SparkJobCollection](docs/SparkJobCollection.md)
  - [SparkJobOutput](docs/SparkJobOutput.md)
+ - [SparkJobSaveRequest](docs/SparkJobSaveRequest.md)
  - [SparkJobStatus](docs/SparkJobStatus.md)
  - [SparkJobSubmitRequest](docs/SparkJobSubmitRequest.md)
  - [SqlColumn](docs/SqlColumn.md)
@@ -222,7 +222,6 @@ Class | Method | HTTP request | Description
  - [SqlQueryCollection](docs/SqlQueryCollection.md)
  - [SqlSchema](docs/SqlSchema.md)
  - [SqlTable](docs/SqlTable.md)
- - [Stage](docs/Stage.md)
  - [StageInstance](docs/StageInstance.md)
  - [StageInstanceCollection](docs/StageInstanceCollection.md)
  - [User](docs/User.md)

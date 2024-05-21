@@ -43,8 +43,8 @@ class Job(BaseModel):
         if value is None:
             return value
 
-        if value not in ('pyspark', 'sql', 'trino', 'bigquery-sql', 'pipeline'):
-            raise ValueError("must be one of enum values ('pyspark', 'sql', 'trino', 'bigquery-sql', 'pipeline')")
+        if value not in ('pyspark', 'sql', 'trino', 'pipeline'):
+            raise ValueError("must be one of enum values ('pyspark', 'sql', 'trino', 'pipeline')")
         return value
 
     class Config:
