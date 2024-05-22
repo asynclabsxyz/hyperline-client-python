@@ -1604,7 +1604,7 @@ class DatasetApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def populate_dataset_preview(self, catalog : Annotated[Optional[StrictStr], Field(description="The catalog for the dataset.")] = None, **kwargs) -> None:  # noqa: E501
+    def populate_dataset_preview(self, catalog : Annotated[Optional[StrictStr], Field(description="The catalog for the dataset.")] = None, **kwargs) -> str:  # noqa: E501
         """Populates the catalog table preview  # noqa: E501
 
         Populates the catalog table preview.  # noqa: E501
@@ -1625,7 +1625,7 @@ class DatasetApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: None
+        :rtype: str
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1667,7 +1667,7 @@ class DatasetApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: None
+        :rtype: tuple(str, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1716,12 +1716,18 @@ class DatasetApi(object):
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain', 'application/json'])  # noqa: E501
 
         # authentication setting
         _auth_settings = ['bearerAuth']  # noqa: E501
 
-        _response_types_map = {}
+        _response_types_map = {
+            '201': "str",
+            '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+        }
 
         return self.api_client.call_api(
             '/datasets/populate/preview', 'POST',
@@ -1741,7 +1747,7 @@ class DatasetApi(object):
             _request_auth=_params.get('_request_auth'))
 
     @validate_arguments
-    def populate_dataset_schema(self, catalog : Annotated[Optional[StrictStr], Field(description="The catalog for the dataset.")] = None, **kwargs) -> None:  # noqa: E501
+    def populate_dataset_schema(self, catalog : Annotated[Optional[StrictStr], Field(description="The catalog for the dataset.")] = None, **kwargs) -> str:  # noqa: E501
         """Populates the catalog table schema information  # noqa: E501
 
         Populates the catalog table schema information.  # noqa: E501
@@ -1762,7 +1768,7 @@ class DatasetApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: None
+        :rtype: str
         """
         kwargs['_return_http_data_only'] = True
         if '_preload_content' in kwargs:
@@ -1804,7 +1810,7 @@ class DatasetApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: None
+        :rtype: tuple(str, status_code(int), headers(HTTPHeaderDict))
         """
 
         _params = locals()
@@ -1853,12 +1859,18 @@ class DatasetApi(object):
         _body_params = None
         # set the HTTP header `Accept`
         _header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
+            ['text/plain', 'application/json'])  # noqa: E501
 
         # authentication setting
         _auth_settings = ['bearerAuth']  # noqa: E501
 
-        _response_types_map = {}
+        _response_types_map = {
+            '201': "str",
+            '500': "Error",
+            '400': "Error",
+            '401': "Error",
+            '403': "Error",
+        }
 
         return self.api_client.call_api(
             '/datasets/populate/schema', 'POST',

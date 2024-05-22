@@ -179,11 +179,4 @@ setup.cfg
 setup.py
 test-requirements.txt
 test/__init__.py
-test/test_admin_api.py
-test/test_integration_config_snowflake.py
-test/test_invitation_api.py
-test/test_invitation_verify_request.py
-test/test_invitation_verify_response.py
-test/test_itemized_cost.py
-test/test_spark_job_save_request.py
 tox.ini

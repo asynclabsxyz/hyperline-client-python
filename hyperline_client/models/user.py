@@ -42,7 +42,8 @@ class User(BaseModel):
     airflow_updated_at: Optional[datetime] = Field(None, description="The datetime the `airflow_enabled` was last updated")
     jupyter_updated_at: Optional[datetime] = Field(None, description="The datetime the `jupyter_enabled` was last updated")
     in_trial: Optional[StrictBool] = Field(None, description="Whether user's org is in trial")
-    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "org_joined", "impersonated_user", "airflow_enabled", "jupyter_enabled", "airflow_updated_at", "jupyter_updated_at", "in_trial"]
+    is_provisioning: Optional[StrictBool] = Field(None, description="Whether user's org is provisioning")
+    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "org_joined", "impersonated_user", "airflow_enabled", "jupyter_enabled", "airflow_updated_at", "jupyter_updated_at", "in_trial", "is_provisioning"]
 
     @validator('role')
     def role_validate_enum(cls, value):
@@ -124,7 +125,8 @@ class User(BaseModel):
             "jupyter_enabled": obj.get("jupyter_enabled"),
             "airflow_updated_at": obj.get("airflow_updated_at"),
             "jupyter_updated_at": obj.get("jupyter_updated_at"),
-            "in_trial": obj.get("in_trial")
+            "in_trial": obj.get("in_trial"),
+            "is_provisioning": obj.get("is_provisioning")
         })
         return _obj
 

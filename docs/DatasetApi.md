@@ -893,7 +893,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **populate_dataset_preview**
-> populate_dataset_preview(catalog=catalog)
+> str populate_dataset_preview(catalog=catalog)
 
 Populates the catalog table preview
 
@@ -933,7 +933,9 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
     try:
         # Populates the catalog table preview
-        api_instance.populate_dataset_preview(catalog=catalog)
+        api_response = api_instance.populate_dataset_preview(catalog=catalog)
+        print("The response of DatasetApi->populate_dataset_preview:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling DatasetApi->populate_dataset_preview: %s\n" % e)
 ```
@@ -948,7 +950,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
@@ -957,12 +959,12 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success. |  -  |
+**201** | Success. |  -  |
 **500** | Unknown server error. |  -  |
 **400** | Client specified an invalid argument. |  -  |
 **401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
@@ -971,7 +973,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **populate_dataset_schema**
-> populate_dataset_schema(catalog=catalog)
+> str populate_dataset_schema(catalog=catalog)
 
 Populates the catalog table schema information
 
@@ -1011,7 +1013,9 @@ with hyperline_client.ApiClient(configuration) as api_client:
 
     try:
         # Populates the catalog table schema information
-        api_instance.populate_dataset_schema(catalog=catalog)
+        api_response = api_instance.populate_dataset_schema(catalog=catalog)
+        print("The response of DatasetApi->populate_dataset_schema:\n")
+        pprint(api_response)
     except Exception as e:
         print("Exception when calling DatasetApi->populate_dataset_schema: %s\n" % e)
 ```
@@ -1026,7 +1030,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**str**
 
 ### Authorization
 
@@ -1035,12 +1039,12 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: text/plain, application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Success. |  -  |
+**201** | Success. |  -  |
 **500** | Unknown server error. |  -  |
 **400** | Client specified an invalid argument. |  -  |
 **401** | Request not authenticated due to missing, invalid, authentication info. |  -  |
