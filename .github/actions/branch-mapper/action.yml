@@ -1,0 +1,71 @@
+name: "Branch Mapper"
+description: "Map branch names to environment codes"
+inputs:
+  branch:
+    description: "Branch name to map (optional, if not specified, github.ref_name is used for branches and github.base_ref for pull requests)"
+  envVarName:
+    description: "Environment variable name to set (optional)"
+  assertMapping:
+    description: "Fail the workflow if mapping not found (default true)"
+    default: "true"
+outputs:
+  environment:
+    description: "Mapped environment code"
+    value: ${{ steps.map-branch.outputs.environment }}
+  success:
+    description: "Indicates whether the mapping was successful"
+    value: ${{ steps.map-branch.outputs.success }}
+runs:
+  using: "composite"
+  steps:
+    - id: map-branch
+      run: |
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          branch="${{ inputs.branch || github.base_ref }}"
+        else
+          branch="${{ inputs.branch || github.ref_name }}"
+        fi
+        envVarName="${{ inputs.envVarName }}"
+        assertMapping="${{ inputs.assertMapping }}"
+        success="true"        
+        case "$branch" in
+          main)
+            environment="dev"
+            project="mvp-infra"
+            projectid="419142360977"
+            ;;
+          stage)
+            environment="stage"
+            ;;
+          production)
+            environment="prod"
+            project="stable-hydra-400302"
+            projectid="161701264914"
+            ;;
+          *)
+            environment=""
+            success="false"
+            project="mvp-infra"
+            projectid="419142360977"
+            ;;
+        esac
+
+        region="us-west1"
+        gcpwip="projects/$projectid/locations/global/workloadIdentityPools/gh-pool/providers/gh-provider"
+        gcpsa="github-actions-service-account@$project.iam.gserviceaccount.com"
+
+        echo "REGION=$region" >> $GITHUB_ENV
+        echo "PROJECT=$project" >> $GITHUB_ENV
+        echo "GCP_WIP=$gcpwip" >> $GITHUB_ENV
+        echo "GCP_SA=$gcpsa" >> $GITHUB_ENV
+        echo "Mapped $branch to $environment"
+        echo "environment=$environment" >> $GITHUB_OUTPUT
+        echo "success=$success" >> $GITHUB_OUTPUT
+        if [ -n "$envVarName" ] && [ "$success" = "true" ]; then
+          echo "$envVarName=$environment" >> $GITHUB_ENV
+        fi
+        if [ "$success" != "true" ] && [ "$assertMapping" = "true" ]; then
+          echo "::error ::Mapping not found, stopping workflow."
+          exit 1
+        fi
+      shell: bash

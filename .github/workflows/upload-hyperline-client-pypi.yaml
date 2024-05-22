@@ -1,0 +1,74 @@
+name: Register hyperline-client pypi package to GCP Artifact Registry
+
+on:
+  push:
+    paths:
+      - 'hyperline_client/**'
+      - '.github/workflows/upload-hyperline-client-pypi.yaml'
+  pull_request:
+    branches:
+      - 'main'
+      - 'production'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+env:
+  REGISTRY_HOSTNAME: us-west1-python.pkg.dev
+  REPOSITORY: hyperline-python
+  PROJECT: # value is set by branch-mapper
+  GCP_WIP: # value is set by branch-mapper
+  GCP_SA: # value is set by branch-mapper  
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: "read"
+      id-token: "write"
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - id: map-branch
+        uses: ./.github/actions/branch-mapper
+        with:
+          assertMapping: false
+          envVarName: ENV_NAME
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install build twine
+        
+      - name: Configure keyring for pypi packages upload to Artifact Registry
+        run: |
+          pip install keyring
+          pip install keyrings.google-artifactregistry-auth
+      
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v1"
+        with:
+          workload_identity_provider: "${{ env.GCP_WIP }}"
+          service_account: "${{ env.GCP_SA }}"
+
+      - name: Build Python package
+        run: |
+          python3 -m build
+
+      - name: Create .pypirc file
+        run: |
+          echo "[distutils]
+          index-servers =
+              ${{ env.REPOSITORY }}
+
+          [${{ env.REPOSITORY }}]
+          repository: https://${{ env.REGISTRY_HOSTNAME }}/${{ env.PROJECT }}/${{ env.REPOSITORY }}/
+          " > ~/.pypirc
+
+      - name: Upload package
+        if: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production' }}
+        run: |
+          python3 -m twine upload --verbose -r ${{ env.REPOSITORY }} dist/*
