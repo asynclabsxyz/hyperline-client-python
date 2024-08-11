@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hyperline_client"
-version = "0.0.2"
+version = "0.0.3"
 description = "Hyperline API"
 authors = ["Async Labs <dev@asynclabs.xyz>"]
 license = "NoLicense"
