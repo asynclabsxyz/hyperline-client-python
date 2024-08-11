@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **path** | **str** |  | [optional] 
 **contents** | **str** |  | [optional] 
 **base64_contents** | **str** |  | [optional] 
+**is_pipeline_dag_file** | **bool** |  | [optional] [default to False]
 
 ## Example
 

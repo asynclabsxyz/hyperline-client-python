@@ -8,11 +8,11 @@ from hyperline_client.api.database_api import DatabaseApi
 from hyperline_client.api.dataset_api import DatasetApi
 from hyperline_client.api.file_api import FileApi
 from hyperline_client.api.integration_api import IntegrationApi
-from hyperline_client.api.invitation_api import InvitationApi
 from hyperline_client.api.job_api import JobApi
 from hyperline_client.api.pipeline_api import PipelineApi
 from hyperline_client.api.spark_api import SparkApi
 from hyperline_client.api.sql_api import SqlApi
+from hyperline_client.api.system_api import SystemApi
 from hyperline_client.api.usage_api import UsageApi
 from hyperline_client.api.user_api import UserApi
 

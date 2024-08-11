@@ -21,6 +21,7 @@ import json
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, Field, StrictBool, StrictInt, StrictStr, constr, validator
+from hyperline_client.models.user_onboarding_steps import UserOnboardingSteps
 
 class User(BaseModel):
     """
@@ -43,7 +44,9 @@ class User(BaseModel):
     jupyter_updated_at: Optional[datetime] = Field(None, description="The datetime the `jupyter_enabled` was last updated")
     in_trial: Optional[StrictBool] = Field(None, description="Whether user's org is in trial")
     is_provisioning: Optional[StrictBool] = Field(None, description="Whether user's org is provisioning")
-    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "org_joined", "impersonated_user", "airflow_enabled", "jupyter_enabled", "airflow_updated_at", "jupyter_updated_at", "in_trial", "is_provisioning"]
+    has_toured: Optional[StrictBool] = Field(None, description="Whether user has seen the guided tour")
+    onboarding_steps: Optional[UserOnboardingSteps] = None
+    __properties = ["email", "name", "organization", "joined", "role", "secrets", "status", "org_id", "org_workspace_id", "org_joined", "impersonated_user", "airflow_enabled", "jupyter_enabled", "airflow_updated_at", "jupyter_updated_at", "in_trial", "is_provisioning", "has_toured", "onboarding_steps"]
 
     @validator('role')
     def role_validate_enum(cls, value):
@@ -88,6 +91,9 @@ class User(BaseModel):
                             "org_joined",
                           },
                           exclude_none=True)
+        # override the default output from pydantic by calling `to_dict()` of onboarding_steps
+        if self.onboarding_steps:
+            _dict['onboarding_steps'] = self.onboarding_steps.to_dict()
         # set to None if airflow_updated_at (nullable) is None
         # and __fields_set__ contains the field
         if self.airflow_updated_at is None and "airflow_updated_at" in self.__fields_set__:
@@ -126,7 +132,9 @@ class User(BaseModel):
             "airflow_updated_at": obj.get("airflow_updated_at"),
             "jupyter_updated_at": obj.get("jupyter_updated_at"),
             "in_trial": obj.get("in_trial"),
-            "is_provisioning": obj.get("is_provisioning")
+            "is_provisioning": obj.get("is_provisioning"),
+            "has_toured": obj.get("has_toured"),
+            "onboarding_steps": UserOnboardingSteps.from_dict(obj.get("onboarding_steps")) if obj.get("onboarding_steps") is not None else None
         })
         return _obj
 

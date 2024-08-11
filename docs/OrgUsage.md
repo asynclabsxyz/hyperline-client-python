@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**org_id** | **int** | ID of the org. | [optional] 
 **trial_end_date** | **date** | The date when the trial period ends. | [optional] 
 **trial_limit_in_cents** | **int** | Dollar limit for trial period in cents. | [optional] 
 **total_usage_in_cents** | **int** | Dollar amount used in cents. | [optional] 

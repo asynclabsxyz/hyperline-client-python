@@ -20,7 +20,7 @@ import json
 
 
 from typing import Optional
-from pydantic import BaseModel, Field, StrictStr
+from pydantic import BaseModel, Field, StrictBool, StrictStr
 
 class FileCreateRequest(BaseModel):
     """
@@ -30,7 +30,8 @@ class FileCreateRequest(BaseModel):
     path: Optional[StrictStr] = None
     contents: Optional[StrictStr] = None
     base64_contents: Optional[StrictStr] = None
-    __properties = ["file_name", "path", "contents", "base64_contents"]
+    is_pipeline_dag_file: Optional[StrictBool] = False
+    __properties = ["file_name", "path", "contents", "base64_contents", "is_pipeline_dag_file"]
 
     class Config:
         """Pydantic configuration"""
@@ -71,7 +72,8 @@ class FileCreateRequest(BaseModel):
             "file_name": obj.get("file_name"),
             "path": obj.get("path"),
             "contents": obj.get("contents"),
-            "base64_contents": obj.get("base64_contents")
+            "base64_contents": obj.get("base64_contents"),
+            "is_pipeline_dag_file": obj.get("is_pipeline_dag_file") if obj.get("is_pipeline_dag_file") is not None else False
         })
         return _obj
 

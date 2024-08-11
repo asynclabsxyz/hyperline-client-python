@@ -6,6 +6,7 @@ Response object for invitation verification
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **success** | **bool** |  | [optional] [readonly] 
+**failure_reason** | **str** |  | [optional] [readonly] 
 
 ## Example
 

@@ -19,16 +19,22 @@ import re  # noqa: F401
 import json
 
 
-from typing import Optional
-from pydantic import BaseModel, StrictBool, StrictStr
 
-class InvitationVerifyResponse(BaseModel):
+from pydantic import BaseModel, Field, StrictStr, validator
+
+class MarkOnboardingStepRequest(BaseModel):
     """
-    Response object for invitation verification
+    MarkOnboardingStepRequest
     """
-    success: Optional[StrictBool] = None
-    failure_reason: Optional[StrictStr] = None
-    __properties = ["success", "failure_reason"]
+    step: StrictStr = Field(...)
+    __properties = ["step"]
+
+    @validator('step')
+    def step_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in ('sql', 'spark', 'notebook'):
+            raise ValueError("must be one of enum values ('sql', 'spark', 'notebook')")
+        return value
 
     class Config:
         """Pydantic configuration"""
@@ -44,32 +50,29 @@ class InvitationVerifyResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a JSON string"""
+    def from_json(cls, json_str: str) -> MarkOnboardingStepRequest:
+        """Create an instance of MarkOnboardingStepRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "success",
-                            "failure_reason",
                           },
                           exclude_none=True)
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a dict"""
+    def from_dict(cls, obj: dict) -> MarkOnboardingStepRequest:
+        """Create an instance of MarkOnboardingStepRequest from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return InvitationVerifyResponse.parse_obj(obj)
+            return MarkOnboardingStepRequest.parse_obj(obj)
 
-        _obj = InvitationVerifyResponse.parse_obj({
-            "success": obj.get("success"),
-            "failure_reason": obj.get("failure_reason")
+        _obj = MarkOnboardingStepRequest.parse_obj({
+            "step": obj.get("step")
         })
         return _obj
 

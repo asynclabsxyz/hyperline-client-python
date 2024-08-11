@@ -18,17 +18,19 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import BaseModel, Field, StrictBool
 
-class InvitationVerifyResponse(BaseModel):
+class UserOnboardingSteps(BaseModel):
     """
-    Response object for invitation verification
+    User's onboarding steps
     """
-    success: Optional[StrictBool] = None
-    failure_reason: Optional[StrictStr] = None
-    __properties = ["success", "failure_reason"]
+    sql_step: Optional[StrictBool] = None
+    spark_step: Optional[StrictBool] = None
+    notebook_step: Optional[StrictBool] = None
+    updated_at: Optional[datetime] = Field(None, description="The datetime the onboarding steps were last updated")
+    __properties = ["sql_step", "spark_step", "notebook_step", "updated_at"]
 
     class Config:
         """Pydantic configuration"""
@@ -44,32 +46,37 @@ class InvitationVerifyResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a JSON string"""
+    def from_json(cls, json_str: str) -> UserOnboardingSteps:
+        """Create an instance of UserOnboardingSteps from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "success",
-                            "failure_reason",
                           },
                           exclude_none=True)
+        # set to None if updated_at (nullable) is None
+        # and __fields_set__ contains the field
+        if self.updated_at is None and "updated_at" in self.__fields_set__:
+            _dict['updated_at'] = None
+
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a dict"""
+    def from_dict(cls, obj: dict) -> UserOnboardingSteps:
+        """Create an instance of UserOnboardingSteps from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return InvitationVerifyResponse.parse_obj(obj)
+            return UserOnboardingSteps.parse_obj(obj)
 
-        _obj = InvitationVerifyResponse.parse_obj({
-            "success": obj.get("success"),
-            "failure_reason": obj.get("failure_reason")
+        _obj = UserOnboardingSteps.parse_obj({
+            "sql_step": obj.get("sql_step"),
+            "spark_step": obj.get("spark_step"),
+            "notebook_step": obj.get("notebook_step"),
+            "updated_at": obj.get("updated_at")
         })
         return _obj
 

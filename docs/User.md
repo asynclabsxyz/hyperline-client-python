@@ -22,6 +22,8 @@ Name | Type | Description | Notes
 **jupyter_updated_at** | **datetime** | The datetime the &#x60;jupyter_enabled&#x60; was last updated | [optional] 
 **in_trial** | **bool** | Whether user&#39;s org is in trial | [optional] 
 **is_provisioning** | **bool** | Whether user&#39;s org is provisioning | [optional] 
+**has_toured** | **bool** | Whether user has seen the guided tour | [optional] 
+**onboarding_steps** | [**UserOnboardingSteps**](UserOnboardingSteps.md) |  | [optional] 
 
 ## Example
 

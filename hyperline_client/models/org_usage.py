@@ -27,11 +27,12 @@ class OrgUsage(BaseModel):
     """
     OrgUsage
     """
+    org_id: Optional[StrictInt] = Field(None, description="ID of the org.")
     trial_end_date: Optional[date] = Field(None, description="The date when the trial period ends.")
     trial_limit_in_cents: Optional[StrictInt] = Field(None, description="Dollar limit for trial period in cents.")
     total_usage_in_cents: Optional[StrictInt] = Field(None, description="Dollar amount used in cents.")
     itemized_cost: Optional[ItemizedCost] = None
-    __properties = ["trial_end_date", "trial_limit_in_cents", "total_usage_in_cents", "itemized_cost"]
+    __properties = ["org_id", "trial_end_date", "trial_limit_in_cents", "total_usage_in_cents", "itemized_cost"]
 
     class Config:
         """Pydantic configuration"""
@@ -72,6 +73,7 @@ class OrgUsage(BaseModel):
             return OrgUsage.parse_obj(obj)
 
         _obj = OrgUsage.parse_obj({
+            "org_id": obj.get("org_id"),
             "trial_end_date": obj.get("trial_end_date"),
             "trial_limit_in_cents": obj.get("trial_limit_in_cents"),
             "total_usage_in_cents": obj.get("total_usage_in_cents"),

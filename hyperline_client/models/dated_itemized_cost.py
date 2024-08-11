@@ -18,17 +18,18 @@ import pprint
 import re  # noqa: F401
 import json
 
-
+from datetime import date
 from typing import Optional
-from pydantic import BaseModel, StrictBool, StrictStr
+from pydantic import BaseModel, Field
+from hyperline_client.models.itemized_cost import ItemizedCost
 
-class InvitationVerifyResponse(BaseModel):
+class DatedItemizedCost(BaseModel):
     """
-    Response object for invitation verification
+    All in unit of cents.
     """
-    success: Optional[StrictBool] = None
-    failure_reason: Optional[StrictStr] = None
-    __properties = ["success", "failure_reason"]
+    cost: Optional[ItemizedCost] = None
+    var_date: Optional[date] = Field(None, alias="date", description="The date of the itemized cost.")
+    __properties = ["cost", "date"]
 
     class Config:
         """Pydantic configuration"""
@@ -44,32 +45,33 @@ class InvitationVerifyResponse(BaseModel):
         return json.dumps(self.to_dict())
 
     @classmethod
-    def from_json(cls, json_str: str) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a JSON string"""
+    def from_json(cls, json_str: str) -> DatedItemizedCost:
+        """Create an instance of DatedItemizedCost from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self):
         """Returns the dictionary representation of the model using alias"""
         _dict = self.dict(by_alias=True,
                           exclude={
-                            "success",
-                            "failure_reason",
                           },
                           exclude_none=True)
+        # override the default output from pydantic by calling `to_dict()` of cost
+        if self.cost:
+            _dict['cost'] = self.cost.to_dict()
         return _dict
 
     @classmethod
-    def from_dict(cls, obj: dict) -> InvitationVerifyResponse:
-        """Create an instance of InvitationVerifyResponse from a dict"""
+    def from_dict(cls, obj: dict) -> DatedItemizedCost:
+        """Create an instance of DatedItemizedCost from a dict"""
         if obj is None:
             return None
 
         if not isinstance(obj, dict):
-            return InvitationVerifyResponse.parse_obj(obj)
+            return DatedItemizedCost.parse_obj(obj)
 
-        _obj = InvitationVerifyResponse.parse_obj({
-            "success": obj.get("success"),
-            "failure_reason": obj.get("failure_reason")
+        _obj = DatedItemizedCost.parse_obj({
+            "cost": ItemizedCost.from_dict(obj.get("cost")) if obj.get("cost") is not None else None,
+            "var_date": obj.get("date")
         })
         return _obj
 

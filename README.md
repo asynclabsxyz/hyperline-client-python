@@ -127,7 +127,6 @@ Class | Method | HTTP request | Description
 *IntegrationApi* | [**delete_integration**](docs/IntegrationApi.md#delete_integration) | **DELETE** /integrations/{id} | Delete a specific integration by ID
 *IntegrationApi* | [**get_integration**](docs/IntegrationApi.md#get_integration) | **GET** /integrations/{id} | Get a specific integration by ID
 *IntegrationApi* | [**list_integrations**](docs/IntegrationApi.md#list_integrations) | **GET** /integrations | List integrations
-*InvitationApi* | [**verify_invitation**](docs/InvitationApi.md#verify_invitation) | **POST** /invitation/verify | Verifies an invitation and onboards.
 *JobApi* | [**list_jobs**](docs/JobApi.md#list_jobs) | **GET** /jobs | List user jobs
 *PipelineApi* | [**backfill_pipeline**](docs/PipelineApi.md#backfill_pipeline) | **POST** /pipeline/backfill | Backfill a pipeline
 *PipelineApi* | [**create_pipeline**](docs/PipelineApi.md#create_pipeline) | **POST** /pipelines | Create a pipeline
@@ -152,9 +151,18 @@ Class | Method | HTTP request | Description
 *SqlApi* | [**execute_sql_query**](docs/SqlApi.md#execute_sql_query) | **POST** /sql | Execute a SQL query
 *SqlApi* | [**execute_sql_query_async**](docs/SqlApi.md#execute_sql_query_async) | **POST** /sql/execute | Executes a SQL query async
 *SqlApi* | [**get_sql_job_details**](docs/SqlApi.md#get_sql_job_details) | **GET** /sql/jobs/{job_id}/details | Check the status of a SQL job
+*SystemApi* | [**gcm_signup**](docs/SystemApi.md#gcm_signup) | **POST** /system/gcm/signup | For users coming from Google Marketplace to signup to Hyperline.
+*SystemApi* | [**get_all_usages**](docs/SystemApi.md#get_all_usages) | **GET** /system/usage | Get Usage
+*SystemApi* | [**get_system_usage_details**](docs/SystemApi.md#get_system_usage_details) | **GET** /system/usage/details/{id} | Get Organization Usage Details
+*SystemApi* | [**system_auth**](docs/SystemApi.md#system_auth) | **GET** /system/auth | For Auth0 to verify user is authorized in backend.
+*SystemApi* | [**verify_invitation**](docs/SystemApi.md#verify_invitation) | **POST** /invitation/verify | Verifies an invitation and onboards.
 *UsageApi* | [**get_usage**](docs/UsageApi.md#get_usage) | **GET** /usage | Get Usage
+*UsageApi* | [**get_usage_details**](docs/UsageApi.md#get_usage_details) | **GET** /usage/details | Get Organization Usage Details
 *UserApi* | [**create_user**](docs/UserApi.md#create_user) | **POST** /user | Create a user
 *UserApi* | [**get_user**](docs/UserApi.md#get_user) | **GET** /user | Get user info
+*UserApi* | [**log_session**](docs/UserApi.md#log_session) | **POST** /user/log_session | Logs that the user has started a new session.
+*UserApi* | [**mark_onboarding_step_complete**](docs/UserApi.md#mark_onboarding_step_complete) | **POST** /user/onboarding | Marks an onboarding step complete for a user
+*UserApi* | [**mark_tour_finished**](docs/UserApi.md#mark_tour_finished) | **POST** /user/tour | Marks onboard tour for a user
 
 
 ## Documentation For Models
@@ -172,6 +180,7 @@ Class | Method | HTTP request | Description
  - [DatasetCollection](docs/DatasetCollection.md)
  - [DatasetTable](docs/DatasetTable.md)
  - [DatasetTableColumn](docs/DatasetTableColumn.md)
+ - [DatedItemizedCost](docs/DatedItemizedCost.md)
  - [DeleteOpResponse](docs/DeleteOpResponse.md)
  - [Error](docs/Error.md)
  - [ExplorerViewDataset](docs/ExplorerViewDataset.md)
@@ -180,6 +189,8 @@ Class | Method | HTTP request | Description
  - [FileCollection](docs/FileCollection.md)
  - [FileCreateRequest](docs/FileCreateRequest.md)
  - [FileMetadata](docs/FileMetadata.md)
+ - [GcmSignupRequest](docs/GcmSignupRequest.md)
+ - [GetAllUsagesResponse](docs/GetAllUsagesResponse.md)
  - [Integration](docs/Integration.md)
  - [IntegrationConfigGCS](docs/IntegrationConfigGCS.md)
  - [IntegrationConfigJDBC](docs/IntegrationConfigJDBC.md)
@@ -193,7 +204,10 @@ Class | Method | HTTP request | Description
  - [Job](docs/Job.md)
  - [JobCollection](docs/JobCollection.md)
  - [JobsStat](docs/JobsStat.md)
+ - [LogUserSessionRequest](docs/LogUserSessionRequest.md)
+ - [MarkOnboardingStepRequest](docs/MarkOnboardingStepRequest.md)
  - [OrgUsage](docs/OrgUsage.md)
+ - [OrgUsageDetails](docs/OrgUsageDetails.md)
  - [Pipeline](docs/Pipeline.md)
  - [PipelineBackfillRequest](docs/PipelineBackfillRequest.md)
  - [PipelineImportError](docs/PipelineImportError.md)
@@ -224,7 +238,9 @@ Class | Method | HTTP request | Description
  - [SqlTable](docs/SqlTable.md)
  - [StageInstance](docs/StageInstance.md)
  - [StageInstanceCollection](docs/StageInstanceCollection.md)
+ - [SystemAuthResponse](docs/SystemAuthResponse.md)
  - [User](docs/User.md)
+ - [UserOnboardingSteps](docs/UserOnboardingSteps.md)
 
 
 <a id="documentation-for-authorization"></a>
